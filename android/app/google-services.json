@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "804738161039",
+    "project_id": "radi-right",
+    "storage_bucket": "radi-right.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804738161039:android:b4fcd3d96dbdb8078593fa",
+        "android_client_info": {
+          "package_name": "com.zg0ul.radi_right.radi_right"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD6Tnr5VBXJ9a8RQ8Q980py7c0lOE3B2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

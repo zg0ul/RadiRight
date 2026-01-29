@@ -1,0 +1,614 @@
+{
+  "panels": [
+    {
+      "id": "msk",
+      "name": "Musculoskeletal",
+      "nameAr": "العضلات والهيكل العظمي",
+      "description": "ACR Appropriateness Criteria for musculoskeletal imaging",
+      "descriptionAr": "معايير ملاءمة ACR لتصوير العضلات والهيكل العظمي",
+      "iconName": "skeleton",
+      "isEnabled": true,
+      "topicCount": 28
+    }
+  ],
+  "topics": [
+    {
+      "id": "acute_shoulder_pain",
+      "panelId": "msk",
+      "name": "Acute Shoulder Pain",
+      "nameAr": "ألم حاد في الكتف",
+      "description": "Imaging for acute shoulder pain without trauma",
+      "descriptionAr": "التصوير لألم الكتف الحاد بدون إصابة",
+      "rootNodeId": "asp_q1",
+      "isEnabled": true
+    },
+    {
+      "id": "acute_knee_trauma",
+      "panelId": "msk",
+      "name": "Acute Trauma to the Knee",
+      "nameAr": "إصابة حادة في الركبة",
+      "description": "Imaging for acute knee trauma",
+      "descriptionAr": "التصوير لإصابة الركبة الحادة",
+      "rootNodeId": "akt_q1",
+      "isEnabled": true
+    },
+    {
+      "id": "chronic_hip_pain",
+      "panelId": "msk",
+      "name": "Chronic Hip Pain",
+      "nameAr": "ألم مزمن في الورك",
+      "description": "Imaging for chronic hip pain in adults",
+      "descriptionAr": "التصوير لألم الورك المزمن عند البالغين",
+      "rootNodeId": "chp_q1",
+      "isEnabled": true
+    }
+  ],
+  "nodes": {
+    "asp_q1": {
+      "id": "asp_q1",
+      "topicId": "acute_shoulder_pain",
+      "type": "question",
+      "questionText": "What is the clinical presentation?",
+      "questionTextAr": "ما هو العرض السريري؟",
+      "options": [
+        {
+          "id": "asp_q1_a1",
+          "text": "Suspected rotator cuff tear",
+          "textAr": "اشتباه تمزق الكفة المدورة",
+          "nextNodeId": "asp_q2_rotator"
+        },
+        {
+          "id": "asp_q1_a2",
+          "text": "Suspected calcific tendinitis",
+          "textAr": "اشتباه التهاب الأوتار التكلسي",
+          "nextNodeId": "asp_r_calcific"
+        },
+        {
+          "id": "asp_q1_a3",
+          "text": "Suspected infection or tumor",
+          "textAr": "اشتباه عدوى أو ورم",
+          "nextNodeId": "asp_r_infection"
+        }
+      ]
+    },
+    "asp_q2_rotator": {
+      "id": "asp_q2_rotator",
+      "topicId": "acute_shoulder_pain",
+      "type": "question",
+      "questionText": "Is there a history of prior surgery?",
+      "questionTextAr": "هل هناك تاريخ جراحة سابقة؟",
+      "options": [
+        {
+          "id": "asp_q2_a1",
+          "text": "No prior surgery",
+          "textAr": "لا توجد جراحة سابقة",
+          "nextNodeId": "asp_r_rotator_no_surgery"
+        },
+        {
+          "id": "asp_q2_a2",
+          "text": "Prior rotator cuff repair",
+          "textAr": "إصلاح سابق للكفة المدورة",
+          "nextNodeId": "asp_r_rotator_post_surgery"
+        }
+      ]
+    },
+    "asp_r_rotator_no_surgery": {
+      "id": "asp_r_rotator_no_surgery",
+      "topicId": "acute_shoulder_pain",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected rotator cuff tear without prior surgery",
+      "summaryAr": "توصيات التصوير لاشتباه تمزق الكفة المدورة بدون جراحة سابقة",
+      "recommendations": [
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI shoulder without IV contrast",
+          "procedureAr": "رنين مغناطيسي للكتف بدون صبغة وريدية",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 9,
+          "comments": "Best for soft tissue evaluation",
+          "commentsAr": "الأفضل لتقييم الأنسجة الرخوة"
+        },
+        {
+          "modality": "US",
+          "modalityAr": "الموجات فوق الصوتية",
+          "procedure": "US shoulder",
+          "procedureAr": "موجات فوق صوتية للكتف",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 8,
+          "comments": "Operator dependent, good for dynamic evaluation",
+          "commentsAr": "يعتمد على المشغل، جيد للتقييم الديناميكي"
+        },
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs shoulder",
+          "procedureAr": "صور أشعة سينية للكتف",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "low",
+          "score": 5,
+          "comments": "May show indirect signs",
+          "commentsAr": "قد تظهر علامات غير مباشرة"
+        },
+        {
+          "modality": "CT",
+          "modalityAr": "الأشعة المقطعية",
+          "procedure": "CT shoulder without contrast",
+          "procedureAr": "أشعة مقطعية للكتف بدون صبغة",
+          "appropriateness": "usuallyNotAppropriate",
+          "radiation": "medium",
+          "score": 2
+        }
+      ]
+    },
+    "asp_r_rotator_post_surgery": {
+      "id": "asp_r_rotator_post_surgery",
+      "topicId": "acute_shoulder_pain",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected rotator cuff re-tear after prior repair",
+      "summaryAr": "توصيات التصوير لاشتباه إعادة تمزق الكفة المدورة بعد الإصلاح السابق",
+      "recommendations": [
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI shoulder without and with IV contrast",
+          "procedureAr": "رنين مغناطيسي للكتف بدون وبصبغة وريدية",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 9,
+          "comments": "Contrast helps differentiate scar from re-tear",
+          "commentsAr": "الصبغة تساعد في التفريق بين الندبة وإعادة التمزق"
+        },
+        {
+          "modality": "MR Arthrography",
+          "modalityAr": "تصوير المفصل بالرنين المغناطيسي",
+          "procedure": "MR arthrography shoulder",
+          "procedureAr": "تصوير مفصل الكتف بالرنين المغناطيسي",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 8
+        },
+        {
+          "modality": "US",
+          "modalityAr": "الموجات فوق الصوتية",
+          "procedure": "US shoulder",
+          "procedureAr": "موجات فوق صوتية للكتف",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "none",
+          "score": 6
+        }
+      ]
+    },
+    "asp_r_calcific": {
+      "id": "asp_r_calcific",
+      "topicId": "acute_shoulder_pain",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected calcific tendinitis",
+      "summaryAr": "توصيات التصوير لاشتباه التهاب الأوتار التكلسي",
+      "recommendations": [
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs shoulder",
+          "procedureAr": "صور أشعة سينية للكتف",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "low",
+          "score": 9,
+          "comments": "First-line imaging for calcifications",
+          "commentsAr": "التصوير الأول للتكلسات"
+        },
+        {
+          "modality": "US",
+          "modalityAr": "الموجات فوق الصوتية",
+          "procedure": "US shoulder",
+          "procedureAr": "موجات فوق صوتية للكتف",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 8,
+          "comments": "Can guide aspiration/lavage",
+          "commentsAr": "يمكن توجيه الشفط/الغسل"
+        },
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI shoulder without IV contrast",
+          "procedureAr": "رنين مغناطيسي للكتف بدون صبغة وريدية",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "none",
+          "score": 5
+        }
+      ]
+    },
+    "asp_r_infection": {
+      "id": "asp_r_infection",
+      "topicId": "acute_shoulder_pain",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected infection or tumor",
+      "summaryAr": "توصيات التصوير لاشتباه عدوى أو ورم",
+      "recommendations": [
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI shoulder without and with IV contrast",
+          "procedureAr": "رنين مغناطيسي للكتف بدون وبصبغة وريدية",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 9,
+          "comments": "Best for soft tissue and bone marrow evaluation",
+          "commentsAr": "الأفضل لتقييم الأنسجة الرخوة ونخاع العظم"
+        },
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs shoulder",
+          "procedureAr": "صور أشعة سينية للكتف",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "low",
+          "score": 8,
+          "comments": "Initial evaluation",
+          "commentsAr": "التقييم الأولي"
+        },
+        {
+          "modality": "CT",
+          "modalityAr": "الأشعة المقطعية",
+          "procedure": "CT shoulder with IV contrast",
+          "procedureAr": "أشعة مقطعية للكتف بصبغة وريدية",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "medium",
+          "score": 6,
+          "comments": "If MRI contraindicated",
+          "commentsAr": "إذا كان الرنين المغناطيسي ممنوعًا"
+        }
+      ]
+    },
+    "akt_q1": {
+      "id": "akt_q1",
+      "topicId": "acute_knee_trauma",
+      "type": "question",
+      "questionText": "Are Ottawa Knee Rules positive?",
+      "questionTextAr": "هل قواعد أوتاوا للركبة إيجابية؟",
+      "hint": "Ottawa Knee Rules: Age ≥55, tenderness at patella, tenderness at fibular head, inability to flex 90°, inability to bear weight 4 steps",
+      "hintAr": "قواعد أوتاوا للركبة: العمر ≥55، ألم عند الرضفة، ألم عند رأس الشظية، عدم القدرة على ثني 90 درجة، عدم القدرة على تحمل الوزن 4 خطوات",
+      "options": [
+        {
+          "id": "akt_q1_a1",
+          "text": "Yes, Ottawa Rules positive",
+          "textAr": "نعم، قواعد أوتاوا إيجابية",
+          "nextNodeId": "akt_q2_positive"
+        },
+        {
+          "id": "akt_q1_a2",
+          "text": "No, Ottawa Rules negative",
+          "textAr": "لا، قواعد أوتاوا سلبية",
+          "nextNodeId": "akt_r_negative"
+        }
+      ]
+    },
+    "akt_q2_positive": {
+      "id": "akt_q2_positive",
+      "topicId": "acute_knee_trauma",
+      "type": "question",
+      "questionText": "Is there suspicion of ligament or meniscal injury?",
+      "questionTextAr": "هل هناك اشتباه في إصابة الأربطة أو الغضروف المفصلي؟",
+      "options": [
+        {
+          "id": "akt_q2_a1",
+          "text": "Primarily bony injury suspected",
+          "textAr": "اشتباه إصابة عظمية بشكل رئيسي",
+          "nextNodeId": "akt_r_bony"
+        },
+        {
+          "id": "akt_q2_a2",
+          "text": "Ligament/meniscal injury suspected",
+          "textAr": "اشتباه إصابة الأربطة/الغضروف المفصلي",
+          "nextNodeId": "akt_r_soft_tissue"
+        }
+      ]
+    },
+    "akt_r_negative": {
+      "id": "akt_r_negative",
+      "topicId": "acute_knee_trauma",
+      "type": "result",
+      "summary": "Ottawa Rules negative - low probability of fracture",
+      "summaryAr": "قواعد أوتاوا سلبية - احتمال منخفض للكسر",
+      "recommendations": [
+        {
+          "modality": "Clinical",
+          "modalityAr": "سريري",
+          "procedure": "Clinical observation",
+          "procedureAr": "المراقبة السريرية",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 9,
+          "comments": "Imaging not indicated initially",
+          "commentsAr": "التصوير غير مطلوب في البداية"
+        },
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs knee",
+          "procedureAr": "صور أشعة سينية للركبة",
+          "appropriateness": "usuallyNotAppropriate",
+          "radiation": "low",
+          "score": 2,
+          "comments": "Not indicated if Ottawa Rules negative",
+          "commentsAr": "غير مطلوب إذا كانت قواعد أوتاوا سلبية"
+        }
+      ]
+    },
+    "akt_r_bony": {
+      "id": "akt_r_bony",
+      "topicId": "acute_knee_trauma",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected bony injury",
+      "summaryAr": "توصيات التصوير لاشتباه إصابة عظمية",
+      "recommendations": [
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs knee",
+          "procedureAr": "صور أشعة سينية للركبة",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "low",
+          "score": 9,
+          "comments": "First-line for fracture detection",
+          "commentsAr": "الخط الأول لكشف الكسور"
+        },
+        {
+          "modality": "CT",
+          "modalityAr": "الأشعة المقطعية",
+          "procedure": "CT knee without contrast",
+          "procedureAr": "أشعة مقطعية للركبة بدون صبغة",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "low",
+          "score": 6,
+          "comments": "For complex fractures or surgical planning",
+          "commentsAr": "للكسور المعقدة أو التخطيط الجراحي"
+        },
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI knee without contrast",
+          "procedureAr": "رنين مغناطيسي للركبة بدون صبغة",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "none",
+          "score": 5,
+          "comments": "If occult fracture suspected",
+          "commentsAr": "إذا اشتبه بكسر خفي"
+        }
+      ]
+    },
+    "akt_r_soft_tissue": {
+      "id": "akt_r_soft_tissue",
+      "topicId": "acute_knee_trauma",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected ligament/meniscal injury",
+      "summaryAr": "توصيات التصوير لاشتباه إصابة الأربطة/الغضروف المفصلي",
+      "recommendations": [
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI knee without contrast",
+          "procedureAr": "رنين مغناطيسي للركبة بدون صبغة",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 9,
+          "comments": "Best for soft tissue evaluation",
+          "commentsAr": "الأفضل لتقييم الأنسجة الرخوة"
+        },
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs knee",
+          "procedureAr": "صور أشعة سينية للركبة",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "low",
+          "score": 8,
+          "comments": "To rule out fracture",
+          "commentsAr": "لاستبعاد الكسر"
+        },
+        {
+          "modality": "US",
+          "modalityAr": "الموجات فوق الصوتية",
+          "procedure": "US knee",
+          "procedureAr": "موجات فوق صوتية للركبة",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "none",
+          "score": 5,
+          "comments": "Limited for intra-articular structures",
+          "commentsAr": "محدود للهياكل داخل المفصل"
+        }
+      ]
+    },
+    "chp_q1": {
+      "id": "chp_q1",
+      "topicId": "chronic_hip_pain",
+      "type": "question",
+      "questionText": "What is the suspected etiology?",
+      "questionTextAr": "ما هو السبب المشتبه به؟",
+      "options": [
+        {
+          "id": "chp_q1_a1",
+          "text": "Osteoarthritis",
+          "textAr": "التهاب مفصلي عظمي",
+          "nextNodeId": "chp_r_oa"
+        },
+        {
+          "id": "chp_q1_a2",
+          "text": "Femoroacetabular impingement (FAI)",
+          "textAr": "اصطدام الفخذ الحُقّي",
+          "nextNodeId": "chp_r_fai"
+        },
+        {
+          "id": "chp_q1_a3",
+          "text": "Avascular necrosis (AVN)",
+          "textAr": "نخر لاوعائي",
+          "nextNodeId": "chp_r_avn"
+        },
+        {
+          "id": "chp_q1_a4",
+          "text": "Labral tear",
+          "textAr": "تمزق الشفا",
+          "nextNodeId": "chp_r_labral"
+        }
+      ]
+    },
+    "chp_r_oa": {
+      "id": "chp_r_oa",
+      "topicId": "chronic_hip_pain",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected osteoarthritis",
+      "summaryAr": "توصيات التصوير لاشتباه التهاب مفصلي عظمي",
+      "recommendations": [
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs pelvis AP and lateral hip",
+          "procedureAr": "صور أشعة سينية للحوض أمامي خلفي وجانبي للورك",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "low",
+          "score": 9,
+          "comments": "First-line imaging",
+          "commentsAr": "التصوير الأول"
+        },
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI hip without contrast",
+          "procedureAr": "رنين مغناطيسي للورك بدون صبغة",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "none",
+          "score": 5,
+          "comments": "If radiographs inconclusive",
+          "commentsAr": "إذا كانت الأشعة السينية غير حاسمة"
+        }
+      ]
+    },
+    "chp_r_fai": {
+      "id": "chp_r_fai",
+      "topicId": "chronic_hip_pain",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected FAI",
+      "summaryAr": "توصيات التصوير لاشتباه اصطدام الفخذ الحُقّي",
+      "recommendations": [
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs pelvis AP and Dunn lateral",
+          "procedureAr": "صور أشعة سينية للحوض أمامي خلفي وجانبي دان",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "low",
+          "score": 9
+        },
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI hip without contrast",
+          "procedureAr": "رنين مغناطيسي للورك بدون صبغة",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 8,
+          "comments": "For labral and cartilage evaluation",
+          "commentsAr": "لتقييم الشفا والغضروف"
+        },
+        {
+          "modality": "MR Arthrography",
+          "modalityAr": "تصوير المفصل بالرنين المغناطيسي",
+          "procedure": "MR arthrography hip",
+          "procedureAr": "تصوير مفصل الورك بالرنين المغناطيسي",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 8,
+          "comments": "Superior for labral tears",
+          "commentsAr": "أفضل لتمزقات الشفا"
+        }
+      ]
+    },
+    "chp_r_avn": {
+      "id": "chp_r_avn",
+      "topicId": "chronic_hip_pain",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected avascular necrosis",
+      "summaryAr": "توصيات التصوير لاشتباه النخر اللاوعائي",
+      "recommendations": [
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI hip without contrast",
+          "procedureAr": "رنين مغناطيسي للورك بدون صبغة",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 9,
+          "comments": "Most sensitive for early AVN",
+          "commentsAr": "الأكثر حساسية للنخر اللاوعائي المبكر"
+        },
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs pelvis AP and frog-leg lateral",
+          "procedureAr": "صور أشعة سينية للحوض أمامي خلفي ووضعية الضفدع الجانبية",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "low",
+          "score": 8,
+          "comments": "May be normal in early disease",
+          "commentsAr": "قد تكون طبيعية في المرض المبكر"
+        },
+        {
+          "modality": "CT",
+          "modalityAr": "الأشعة المقطعية",
+          "procedure": "CT hip without contrast",
+          "procedureAr": "أشعة مقطعية للورك بدون صبغة",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "medium",
+          "score": 5,
+          "comments": "For subchondral fracture detection",
+          "commentsAr": "لكشف الكسر تحت الغضروفي"
+        }
+      ]
+    },
+    "chp_r_labral": {
+      "id": "chp_r_labral",
+      "topicId": "chronic_hip_pain",
+      "type": "result",
+      "summary": "Imaging recommendations for suspected labral tear",
+      "summaryAr": "توصيات التصوير لاشتباه تمزق الشفا",
+      "recommendations": [
+        {
+          "modality": "MR Arthrography",
+          "modalityAr": "تصوير المفصل بالرنين المغناطيسي",
+          "procedure": "MR arthrography hip",
+          "procedureAr": "تصوير مفصل الورك بالرنين المغناطيسي",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 9,
+          "comments": "Gold standard for labral tears",
+          "commentsAr": "المعيار الذهبي لتمزقات الشفا"
+        },
+        {
+          "modality": "MRI",
+          "modalityAr": "الرنين المغناطيسي",
+          "procedure": "MRI hip without contrast",
+          "procedureAr": "رنين مغناطيسي للورك بدون صبغة",
+          "appropriateness": "usuallyAppropriate",
+          "radiation": "none",
+          "score": 7,
+          "comments": "Acceptable if arthrography not available",
+          "commentsAr": "مقبول إذا لم يتوفر تصوير المفصل"
+        },
+        {
+          "modality": "X-ray",
+          "modalityAr": "الأشعة السينية",
+          "procedure": "Radiographs pelvis AP and lateral hip",
+          "procedureAr": "صور أشعة سينية للحوض أمامي خلفي وجانبي للورك",
+          "appropriateness": "mayBeAppropriate",
+          "radiation": "low",
+          "score": 5,
+          "comments": "To assess for FAI morphology",
+          "commentsAr": "لتقييم شكل اصطدام الفخذ الحُقّي"
+        }
+      ]
+    }
+  }
+}
