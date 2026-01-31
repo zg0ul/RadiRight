@@ -60,7 +60,7 @@ final isTrialActiveProvider = AutoDisposeProvider<bool>.internal(
 // ignore: unused_element
 typedef IsTrialActiveRef = AutoDisposeProviderRef<bool>;
 String _$subscriptionNotifierHash() =>
-    r'e73418e95366ee1473b747b86a9cff819468e2a6';
+    r'f1ec8330804d1a23b5ae2f947e1c2aacb96f6e27';
 
 /// See also [SubscriptionNotifier].
 @ProviderFor(SubscriptionNotifier)

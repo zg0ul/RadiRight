@@ -9,11 +9,18 @@ import '../../domain/services/decision_engine.dart';
 import '../providers/assessment_provider.dart';
 import '../widgets/answer_option_tile.dart';
 
-class QuestionScreen extends ConsumerWidget {
+class QuestionScreen extends ConsumerStatefulWidget {
   const QuestionScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<QuestionScreen> createState() => _QuestionScreenState();
+}
+
+class _QuestionScreenState extends ConsumerState<QuestionScreen> {
+  bool _analyzingOverlayShown = false;
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final locale = ref.watch(localeNotifierProvider).languageCode;
     final engineState = ref.watch(decisionEngineProvider);
@@ -37,12 +44,47 @@ class QuestionScreen extends ConsumerWidget {
       );
     }
 
-    // Check if assessment is complete
+    // Assessment complete: show "Analyzing Your Responses..." then navigate to result
     if (engineState.isComplete) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.go(AppRoutes.result);
-      });
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      if (!_analyzingOverlayShown) {
+        final router = GoRouter.of(context);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          setState(() => _analyzingOverlayShown = true);
+          Future.delayed(const Duration(milliseconds: 1500), () {
+            router.go(AppRoutes.result);
+          });
+        });
+      }
+      return Scaffold(
+        body: Center(
+          child: Card(
+            margin: const EdgeInsets.all(24),
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircularProgressIndicator(),
+                  const SizedBox(height: 20),
+                  Text(
+                    l10n.analyzingResponses,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.analyzingResponsesSubtitle,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
     }
 
     final currentNode = engineState.currentNode;

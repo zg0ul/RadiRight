@@ -3,6 +3,9 @@ import '../models/answer_option.dart';
 import '../models/assessment_result.dart';
 import '../models/decision_node.dart';
 import '../models/imaging_recommendation.dart';
+import '../models/navigation_rule.dart';
+import '../models/patient_profile.dart';
+import '../models/red_flag_info.dart';
 
 part 'decision_engine.g.dart';
 
@@ -13,6 +16,10 @@ class DecisionEngineState {
   final List<DecisionNode> nodeHistory;
   final List<AnswerRecord> answerHistory;
   final bool isComplete;
+  final Map<String, dynamic> assessmentContext;
+  final List<RedFlagInfo> redFlags;
+  final Map<String, int> modalityScores;
+  final PatientProfile? patientProfile;
 
   const DecisionEngineState({
     required this.topicId,
@@ -21,6 +28,10 @@ class DecisionEngineState {
     this.nodeHistory = const [],
     this.answerHistory = const [],
     this.isComplete = false,
+    this.assessmentContext = const {},
+    this.redFlags = const [],
+    this.modalityScores = const {},
+    this.patientProfile,
   });
 
   DecisionEngineState copyWith({
@@ -30,6 +41,10 @@ class DecisionEngineState {
     List<DecisionNode>? nodeHistory,
     List<AnswerRecord>? answerHistory,
     bool? isComplete,
+    Map<String, dynamic>? assessmentContext,
+    List<RedFlagInfo>? redFlags,
+    Map<String, int>? modalityScores,
+    PatientProfile? patientProfile,
   }) {
     return DecisionEngineState(
       topicId: topicId ?? this.topicId,
@@ -38,6 +53,10 @@ class DecisionEngineState {
       nodeHistory: nodeHistory ?? this.nodeHistory,
       answerHistory: answerHistory ?? this.answerHistory,
       isComplete: isComplete ?? this.isComplete,
+      assessmentContext: assessmentContext ?? this.assessmentContext,
+      redFlags: redFlags ?? this.redFlags,
+      modalityScores: modalityScores ?? this.modalityScores,
+      patientProfile: patientProfile ?? this.patientProfile,
     );
   }
 
@@ -65,7 +84,7 @@ class DecisionEngineState {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class DecisionEngine extends _$DecisionEngine {
   Map<String, DecisionNode> _nodeCache = {};
 
@@ -79,12 +98,16 @@ class DecisionEngine extends _$DecisionEngine {
     required String topicName,
     required DecisionNode rootNode,
     required Map<String, DecisionNode> allNodes,
+    PatientProfile? patientProfile,
   }) {
     _nodeCache = allNodes;
+    final initialContext = patientProfile?.toContextMap() ?? <String, dynamic>{};
     state = DecisionEngineState(
       topicId: topicId,
       topicName: topicName,
       currentNode: rootNode,
+      assessmentContext: Map<String, dynamic>.from(initialContext),
+      patientProfile: patientProfile,
     );
   }
 
@@ -103,9 +126,29 @@ class DecisionEngine extends _$DecisionEngine {
       selectedOptionText: selectedOption.text,
     );
 
-    final nextNode = _nodeCache[selectedOption.nextNodeId];
+    // Merge contextData into assessmentContext
+    Map<String, dynamic> newContext = Map<String, dynamic>.from(currentState.assessmentContext);
+    if (selectedOption.contextData != null) {
+      newContext.addAll(selectedOption.contextData!);
+    }
+
+    // Append red flag if present
+    List<RedFlagInfo> newRedFlags = List<RedFlagInfo>.from(currentState.redFlags);
+    if (selectedOption.redFlag != null) {
+      newRedFlags.add(selectedOption.redFlag!);
+    }
+
+    // Update modality scores if present
+    Map<String, int> newScores = Map<String, int>.from(currentState.modalityScores);
+    if (selectedOption.scoreImpact != null) {
+      newScores[selectedOption.scoreImpact!.modalityKey] = selectedOption.scoreImpact!.score;
+    }
+
+    // Resolve next node id: use NavigationRule if present, else nextNodeId
+    final nextNodeId = _resolveNextNodeId(selectedOption, newContext);
+    final nextNode = _nodeCache[nextNodeId];
     if (nextNode == null) {
-      throw Exception('Node not found: ${selectedOption.nextNodeId}');
+      throw Exception('Node not found: $nextNodeId');
     }
 
     final isResult = nextNode is ResultNode;
@@ -115,7 +158,58 @@ class DecisionEngine extends _$DecisionEngine {
       nodeHistory: [...currentState.nodeHistory, currentNode],
       answerHistory: [...currentState.answerHistory, answerRecord],
       isComplete: isResult,
+      assessmentContext: newContext,
+      redFlags: newRedFlags,
+      modalityScores: newScores,
     );
+  }
+
+  String _resolveNextNodeId(AnswerOption option, Map<String, dynamic> context) {
+    final rule = option.navigationRule;
+    if (rule == null) return option.nextNodeId;
+    return switch (rule) {
+      DirectNavigation(:final nextNodeId) => nextNodeId,
+      ConditionalNavigation(:final conditions, :final defaultNodeId) =>
+        _evaluateConditional(conditions, context) ?? defaultNodeId,
+      ComputedNavigation(:final computationKey, :final parameters) =>
+        _evaluateComputed(computationKey, parameters, context) ?? option.nextNodeId,
+    };
+  }
+
+  String? _evaluateConditional(List<NavigationCondition> conditions, Map<String, dynamic> context) {
+    for (final c in conditions) {
+      final contextValue = context[c.contextKey];
+      if (_evaluateCondition(contextValue, c.operator, c.value)) {
+        return c.targetNodeId;
+      }
+    }
+    return null;
+  }
+
+  bool _evaluateCondition(dynamic contextValue, ComparisonOperator op, dynamic value) {
+    switch (op) {
+      case ComparisonOperator.equals:
+        return contextValue == value;
+      case ComparisonOperator.notEquals:
+        return contextValue != value;
+      case ComparisonOperator.greaterThan:
+        return (contextValue is num && value is num) && contextValue.toDouble() > value.toDouble();
+      case ComparisonOperator.lessThan:
+        return (contextValue is num && value is num) && contextValue.toDouble() < value.toDouble();
+      case ComparisonOperator.greaterOrEqual:
+        return (contextValue is num && value is num) && contextValue.toDouble() >= value.toDouble();
+      case ComparisonOperator.lessOrEqual:
+        return (contextValue is num && value is num) && contextValue.toDouble() <= value.toDouble();
+      case ComparisonOperator.contains:
+        return value is List && value.contains(contextValue);
+      case ComparisonOperator.anyOf:
+        return contextValue is List && (value as List).any((v) => contextValue.contains(v));
+    }
+  }
+
+  String? _evaluateComputed(String computationKey, Map<String, dynamic>? parameters, Map<String, dynamic> context) {
+    // Placeholder: no computed strategies yet; caller falls back to nextNodeId
+    return null;
   }
 
   void goBack() {

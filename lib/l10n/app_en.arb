@@ -1,11 +1,9 @@
 {
   "@@locale": "en",
-
   "appName": "RadiRight",
   "@appName": {
     "description": "The name of the application"
   },
-
   "login": "Login",
   "register": "Register",
   "email": "Email",
@@ -23,22 +21,64 @@
   "confirm": "Confirm",
   "yes": "Yes",
   "no": "No",
-
   "home": "Home",
   "history": "History",
   "settings": "Settings",
   "profile": "Profile",
-
   "startAssessment": "Start Assessment",
-  "selectPanel": "Select Panel",
+  "selectPanel": "Select Clinical Panel",
+  "selectPanelSubtitle": "Choose the clinical specialty relevant to your patient's case.",
   "selectTopic": "Select Topic",
+  "patientDemographics": "Patient Demographics",
+  "patientDemographicsSubtitle": "Provide information about your patient",
+  "ageGroup": "Age Group",
+  "sex": "Sex",
+  "anatomicalLocation": "Anatomical Location",
+  "ageGroup0to18": "0-18 years",
+  "ageGroup19to40": "19-40 years",
+  "ageGroup41to65": "41-65 years",
+  "ageGroup65Plus": "65+ years",
+  "male": "Male",
+  "female": "Female",
+  "upperExtremity": "Upper extremity",
+  "lowerExtremity": "Lower extremity",
+  "spine": "Spine",
+  "pelvis": "Pelvis",
+  "shoulder": "Shoulder",
+  "knee": "Knee",
+  "hip": "Hip",
+  "ankle": "Ankle",
+  "wrist": "Wrist",
+  "continueButton": "Continue",
+  "preparingAssessment": "Preparing Assessment...",
+  "preparingAssessmentSubtitle": "Generating clinical questions based on ACR guidelines",
+  "analyzingResponses": "Analyzing Your Responses...",
+  "analyzingResponsesSubtitle": "Matching with appropriate imaging recommendations",
+  "acrRecommendation": "ACR Recommendation",
+  "acrRecommendationSubtitle": "Based on evidence-based guidelines and your clinical scenario",
+  "usuallyAppropriateVerdict": "Usually Appropriate",
+  "usuallyAppropriateVerdictDesc": "This imaging study is usually appropriate for this clinical scenario",
+  "appropriatenessScore": "Appropriateness Score",
+  "guidelineCode": "Guideline Code",
+  "clinicalScenario": "Clinical Scenario",
+  "recommendedImagingStudy": "Recommended Imaging Study",
+  "evidenceSummary": "Evidence Summary",
+  "alternativeImagingOptions": "Alternative Imaging Options",
+  "mayBeAppropriate": "May Be Appropriate",
+  "usuallyNotAppropriate": "Usually Not Appropriate",
+  "clinicalJudgment": "Clinical Judgment",
+  "clinicalJudgmentDisclaimer": "These recommendations are based on ACR Appropriateness Criteria® and should be used in conjunction with clinical judgment, considering individual patient factors, institutional protocols, and the specific clinical context.",
   "searchTopics": "Search topics...",
   "question": "Question",
   "questionProgress": "Question {current} of {total}",
   "@questionProgress": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "back": "Back",
@@ -48,22 +88,18 @@
   "assessmentResults": "Assessment Results",
   "imagingRecommendations": "Imaging Recommendations",
   "noRecommendations": "No imaging recommendations",
-
   "procedure": "Procedure",
   "appropriateness": "Appropriateness",
   "radiation": "Radiation",
   "comments": "Comments",
-
   "usuallyAppropriate": "Usually Appropriate",
   "mayBeAppropriate": "May Be Appropriate",
   "usuallyNotAppropriate": "Usually Not Appropriate",
   "noImagingIndicated": "No Imaging Indicated",
-
   "radiationNone": "None",
   "radiationLow": "Low",
   "radiationMedium": "Medium",
   "radiationHigh": "High",
-
   "subscription": "Subscription",
   "subscriptionStatus": "Subscription Status",
   "trial": "Trial",
@@ -74,7 +110,9 @@
   "daysRemaining": "{days} days remaining",
   "@daysRemaining": {
     "placeholders": {
-      "days": {"type": "int"}
+      "days": {
+        "type": "int"
+      }
     }
   },
   "subscriptionExpired": "Your subscription has expired",
@@ -84,13 +122,11 @@
   "contactPhone": "Phone",
   "copyToClipboard": "Copy to clipboard",
   "copiedToClipboard": "Copied to clipboard",
-
   "noHistory": "No assessment history",
   "clearHistory": "Clear History",
   "clearHistoryConfirmation": "Are you sure you want to clear all history?",
   "assessmentCompleted": "Assessment completed",
   "viewDetails": "View Details",
-
   "language": "Language",
   "english": "English",
   "arabic": "العربية",
@@ -98,17 +134,14 @@
   "lightTheme": "Light",
   "darkTheme": "Dark",
   "systemTheme": "System",
-
   "error": "Error",
   "retry": "Retry",
   "loading": "Loading...",
   "noConnection": "No internet connection",
   "somethingWentWrong": "Something went wrong",
   "tryAgain": "Try again",
-
   "musculoskeletal": "Musculoskeletal",
   "musculoskeletalDescription": "ACR Appropriateness Criteria for musculoskeletal imaging",
-
   "acuteElbowForearmPain": "Acute Elbow or Forearm Pain",
   "acuteHandWristTrauma": "Acute Hand and Wrist Trauma",
   "acuteHipPain": "Acute Hip Pain",

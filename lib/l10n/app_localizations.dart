@@ -239,14 +239,254 @@ abstract class AppLocalizations {
   /// No description provided for @selectPanel.
   ///
   /// In en, this message translates to:
-  /// **'Select Panel'**
+  /// **'Select Clinical Panel'**
   String get selectPanel;
+
+  /// No description provided for @selectPanelSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the clinical specialty relevant to your patient\'s case.'**
+  String get selectPanelSubtitle;
 
   /// No description provided for @selectTopic.
   ///
   /// In en, this message translates to:
   /// **'Select Topic'**
   String get selectTopic;
+
+  /// No description provided for @patientDemographics.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient Demographics'**
+  String get patientDemographics;
+
+  /// No description provided for @patientDemographicsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Provide information about your patient'**
+  String get patientDemographicsSubtitle;
+
+  /// No description provided for @ageGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Age Group'**
+  String get ageGroup;
+
+  /// No description provided for @sex.
+  ///
+  /// In en, this message translates to:
+  /// **'Sex'**
+  String get sex;
+
+  /// No description provided for @anatomicalLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Anatomical Location'**
+  String get anatomicalLocation;
+
+  /// No description provided for @ageGroup0to18.
+  ///
+  /// In en, this message translates to:
+  /// **'0-18 years'**
+  String get ageGroup0to18;
+
+  /// No description provided for @ageGroup19to40.
+  ///
+  /// In en, this message translates to:
+  /// **'19-40 years'**
+  String get ageGroup19to40;
+
+  /// No description provided for @ageGroup41to65.
+  ///
+  /// In en, this message translates to:
+  /// **'41-65 years'**
+  String get ageGroup41to65;
+
+  /// No description provided for @ageGroup65Plus.
+  ///
+  /// In en, this message translates to:
+  /// **'65+ years'**
+  String get ageGroup65Plus;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @upperExtremity.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper extremity'**
+  String get upperExtremity;
+
+  /// No description provided for @lowerExtremity.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower extremity'**
+  String get lowerExtremity;
+
+  /// No description provided for @spine.
+  ///
+  /// In en, this message translates to:
+  /// **'Spine'**
+  String get spine;
+
+  /// No description provided for @pelvis.
+  ///
+  /// In en, this message translates to:
+  /// **'Pelvis'**
+  String get pelvis;
+
+  /// No description provided for @shoulder.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulder'**
+  String get shoulder;
+
+  /// No description provided for @knee.
+  ///
+  /// In en, this message translates to:
+  /// **'Knee'**
+  String get knee;
+
+  /// No description provided for @hip.
+  ///
+  /// In en, this message translates to:
+  /// **'Hip'**
+  String get hip;
+
+  /// No description provided for @ankle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ankle'**
+  String get ankle;
+
+  /// No description provided for @wrist.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrist'**
+  String get wrist;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// No description provided for @preparingAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing Assessment...'**
+  String get preparingAssessment;
+
+  /// No description provided for @preparingAssessmentSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating clinical questions based on ACR guidelines'**
+  String get preparingAssessmentSubtitle;
+
+  /// No description provided for @analyzingResponses.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing Your Responses...'**
+  String get analyzingResponses;
+
+  /// No description provided for @analyzingResponsesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching with appropriate imaging recommendations'**
+  String get analyzingResponsesSubtitle;
+
+  /// No description provided for @acrRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'ACR Recommendation'**
+  String get acrRecommendation;
+
+  /// No description provided for @acrRecommendationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on evidence-based guidelines and your clinical scenario'**
+  String get acrRecommendationSubtitle;
+
+  /// No description provided for @usuallyAppropriateVerdict.
+  ///
+  /// In en, this message translates to:
+  /// **'Usually Appropriate'**
+  String get usuallyAppropriateVerdict;
+
+  /// No description provided for @usuallyAppropriateVerdictDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'This imaging study is usually appropriate for this clinical scenario'**
+  String get usuallyAppropriateVerdictDesc;
+
+  /// No description provided for @appropriatenessScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Appropriateness Score'**
+  String get appropriatenessScore;
+
+  /// No description provided for @guidelineCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Guideline Code'**
+  String get guidelineCode;
+
+  /// No description provided for @clinicalScenario.
+  ///
+  /// In en, this message translates to:
+  /// **'Clinical Scenario'**
+  String get clinicalScenario;
+
+  /// No description provided for @recommendedImagingStudy.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Imaging Study'**
+  String get recommendedImagingStudy;
+
+  /// No description provided for @evidenceSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence Summary'**
+  String get evidenceSummary;
+
+  /// No description provided for @alternativeImagingOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternative Imaging Options'**
+  String get alternativeImagingOptions;
+
+  /// No description provided for @mayBeAppropriate.
+  ///
+  /// In en, this message translates to:
+  /// **'May Be Appropriate'**
+  String get mayBeAppropriate;
+
+  /// No description provided for @usuallyNotAppropriate.
+  ///
+  /// In en, this message translates to:
+  /// **'Usually Not Appropriate'**
+  String get usuallyNotAppropriate;
+
+  /// No description provided for @clinicalJudgment.
+  ///
+  /// In en, this message translates to:
+  /// **'Clinical Judgment'**
+  String get clinicalJudgment;
+
+  /// No description provided for @clinicalJudgmentDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'These recommendations are based on ACR Appropriateness Criteria® and should be used in conjunction with clinical judgment, considering individual patient factors, institutional protocols, and the specific clinical context.'**
+  String get clinicalJudgmentDisclaimer;
 
   /// No description provided for @searchTopics.
   ///
@@ -337,18 +577,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Usually Appropriate'**
   String get usuallyAppropriate;
-
-  /// No description provided for @mayBeAppropriate.
-  ///
-  /// In en, this message translates to:
-  /// **'May Be Appropriate'**
-  String get mayBeAppropriate;
-
-  /// No description provided for @usuallyNotAppropriate.
-  ///
-  /// In en, this message translates to:
-  /// **'Usually Not Appropriate'**
-  String get usuallyNotAppropriate;
 
   /// No description provided for @noImagingIndicated.
   ///

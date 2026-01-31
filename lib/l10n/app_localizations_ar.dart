@@ -81,7 +81,134 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectPanel => 'اختر اللوحة';
 
   @override
+  String get selectPanelSubtitle =>
+      'Choose the clinical specialty relevant to your patient\'s case.';
+
+  @override
   String get selectTopic => 'اختر الموضوع';
+
+  @override
+  String get patientDemographics => 'Patient Demographics';
+
+  @override
+  String get patientDemographicsSubtitle =>
+      'Provide information about your patient';
+
+  @override
+  String get ageGroup => 'Age Group';
+
+  @override
+  String get sex => 'Sex';
+
+  @override
+  String get anatomicalLocation => 'Anatomical Location';
+
+  @override
+  String get ageGroup0to18 => '0-18 years';
+
+  @override
+  String get ageGroup19to40 => '19-40 years';
+
+  @override
+  String get ageGroup41to65 => '41-65 years';
+
+  @override
+  String get ageGroup65Plus => '65+ years';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get upperExtremity => 'Upper extremity';
+
+  @override
+  String get lowerExtremity => 'Lower extremity';
+
+  @override
+  String get spine => 'Spine';
+
+  @override
+  String get pelvis => 'Pelvis';
+
+  @override
+  String get shoulder => 'Shoulder';
+
+  @override
+  String get knee => 'Knee';
+
+  @override
+  String get hip => 'Hip';
+
+  @override
+  String get ankle => 'Ankle';
+
+  @override
+  String get wrist => 'Wrist';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get preparingAssessment => 'Preparing Assessment...';
+
+  @override
+  String get preparingAssessmentSubtitle =>
+      'Generating clinical questions based on ACR guidelines';
+
+  @override
+  String get analyzingResponses => 'Analyzing Your Responses...';
+
+  @override
+  String get analyzingResponsesSubtitle =>
+      'Matching with appropriate imaging recommendations';
+
+  @override
+  String get acrRecommendation => 'ACR Recommendation';
+
+  @override
+  String get acrRecommendationSubtitle =>
+      'Based on evidence-based guidelines and your clinical scenario';
+
+  @override
+  String get usuallyAppropriateVerdict => 'Usually Appropriate';
+
+  @override
+  String get usuallyAppropriateVerdictDesc =>
+      'This imaging study is usually appropriate for this clinical scenario';
+
+  @override
+  String get appropriatenessScore => 'Appropriateness Score';
+
+  @override
+  String get guidelineCode => 'Guideline Code';
+
+  @override
+  String get clinicalScenario => 'Clinical Scenario';
+
+  @override
+  String get recommendedImagingStudy => 'Recommended Imaging Study';
+
+  @override
+  String get evidenceSummary => 'Evidence Summary';
+
+  @override
+  String get alternativeImagingOptions => 'Alternative Imaging Options';
+
+  @override
+  String get mayBeAppropriate => 'قد يكون مناسباً';
+
+  @override
+  String get usuallyNotAppropriate => 'غير مناسب عادة';
+
+  @override
+  String get clinicalJudgment => 'Clinical Judgment';
+
+  @override
+  String get clinicalJudgmentDisclaimer =>
+      'These recommendations are based on ACR Appropriateness Criteria® and should be used in conjunction with clinical judgment, considering individual patient factors, institutional protocols, and the specific clinical context.';
 
   @override
   String get searchTopics => 'البحث في المواضيع...';
@@ -129,12 +256,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get usuallyAppropriate => 'مناسب عادة';
-
-  @override
-  String get mayBeAppropriate => 'قد يكون مناسباً';
-
-  @override
-  String get usuallyNotAppropriate => 'غير مناسب عادة';
 
   @override
   String get noImagingIndicated => 'لا يوجد مؤشر للتصوير';

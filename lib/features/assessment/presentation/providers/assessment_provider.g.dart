@@ -275,12 +275,12 @@ class _TopicProviderElement extends AutoDisposeFutureProviderElement<Topic?>
   String get topicId => (origin as TopicProvider).topicId;
 }
 
-String _$currentAssessmentHash() => r'4ca5412590e9ac600c3bc654f739e1cce9eefa7c';
+String _$currentAssessmentHash() => r'a2538a8c09083c333cb45aef837585f9187a40c6';
 
 /// See also [CurrentAssessment].
 @ProviderFor(CurrentAssessment)
 final currentAssessmentProvider =
-    AutoDisposeNotifierProvider<CurrentAssessment, AssessmentState>.internal(
+    NotifierProvider<CurrentAssessment, AssessmentState>.internal(
       CurrentAssessment.new,
       name: r'currentAssessmentProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -290,6 +290,6 @@ final currentAssessmentProvider =
       allTransitiveDependencies: null,
     );
 
-typedef _$CurrentAssessment = AutoDisposeNotifier<AssessmentState>;
+typedef _$CurrentAssessment = Notifier<AssessmentState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

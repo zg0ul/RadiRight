@@ -15,10 +15,6 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
-AnswerOption _$AnswerOptionFromJson(Map<String, dynamic> json) {
-  return _AnswerOption.fromJson(json);
-}
-
 /// @nodoc
 mixin _$AnswerOption {
   String get id => throw _privateConstructorUsedError;
@@ -27,161 +23,14 @@ mixin _$AnswerOption {
   String get nextNodeId => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get descriptionAr => throw _privateConstructorUsedError;
-
-  /// Serializes this AnswerOption to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of AnswerOption
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AnswerOptionCopyWith<AnswerOption> get copyWith =>
-      throw _privateConstructorUsedError;
+  NavigationRule? get navigationRule => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get contextData => throw _privateConstructorUsedError;
+  RedFlagInfo? get redFlag => throw _privateConstructorUsedError;
+  ScoreContribution? get scoreImpact => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AnswerOptionCopyWith<$Res> {
-  factory $AnswerOptionCopyWith(
-    AnswerOption value,
-    $Res Function(AnswerOption) then,
-  ) = _$AnswerOptionCopyWithImpl<$Res, AnswerOption>;
-  @useResult
-  $Res call({
-    String id,
-    String text,
-    String textAr,
-    String nextNodeId,
-    String? description,
-    String? descriptionAr,
-  });
-}
 
-/// @nodoc
-class _$AnswerOptionCopyWithImpl<$Res, $Val extends AnswerOption>
-    implements $AnswerOptionCopyWith<$Res> {
-  _$AnswerOptionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of AnswerOption
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? text = null,
-    Object? textAr = null,
-    Object? nextNodeId = null,
-    Object? description = freezed,
-    Object? descriptionAr = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            text: null == text
-                ? _value.text
-                : text // ignore: cast_nullable_to_non_nullable
-                      as String,
-            textAr: null == textAr
-                ? _value.textAr
-                : textAr // ignore: cast_nullable_to_non_nullable
-                      as String,
-            nextNodeId: null == nextNodeId
-                ? _value.nextNodeId
-                : nextNodeId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            descriptionAr: freezed == descriptionAr
-                ? _value.descriptionAr
-                : descriptionAr // ignore: cast_nullable_to_non_nullable
-                      as String?,
-          )
-          as $Val,
-    );
-  }
-}
-
-/// @nodoc
-abstract class _$$AnswerOptionImplCopyWith<$Res>
-    implements $AnswerOptionCopyWith<$Res> {
-  factory _$$AnswerOptionImplCopyWith(
-    _$AnswerOptionImpl value,
-    $Res Function(_$AnswerOptionImpl) then,
-  ) = __$$AnswerOptionImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String id,
-    String text,
-    String textAr,
-    String nextNodeId,
-    String? description,
-    String? descriptionAr,
-  });
-}
-
-/// @nodoc
-class __$$AnswerOptionImplCopyWithImpl<$Res>
-    extends _$AnswerOptionCopyWithImpl<$Res, _$AnswerOptionImpl>
-    implements _$$AnswerOptionImplCopyWith<$Res> {
-  __$$AnswerOptionImplCopyWithImpl(
-    _$AnswerOptionImpl _value,
-    $Res Function(_$AnswerOptionImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AnswerOption
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? text = null,
-    Object? textAr = null,
-    Object? nextNodeId = null,
-    Object? description = freezed,
-    Object? descriptionAr = freezed,
-  }) {
-    return _then(
-      _$AnswerOptionImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        text: null == text
-            ? _value.text
-            : text // ignore: cast_nullable_to_non_nullable
-                  as String,
-        textAr: null == textAr
-            ? _value.textAr
-            : textAr // ignore: cast_nullable_to_non_nullable
-                  as String,
-        nextNodeId: null == nextNodeId
-            ? _value.nextNodeId
-            : nextNodeId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: freezed == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        descriptionAr: freezed == descriptionAr
-            ? _value.descriptionAr
-            : descriptionAr // ignore: cast_nullable_to_non_nullable
-                  as String?,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
 class _$AnswerOptionImpl extends _AnswerOption {
   const _$AnswerOptionImpl({
     required this.id,
@@ -190,10 +39,12 @@ class _$AnswerOptionImpl extends _AnswerOption {
     required this.nextNodeId,
     this.description,
     this.descriptionAr,
-  }) : super._();
-
-  factory _$AnswerOptionImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AnswerOptionImplFromJson(json);
+    this.navigationRule,
+    final Map<String, dynamic>? contextData,
+    this.redFlag,
+    this.scoreImpact,
+  }) : _contextData = contextData,
+       super._();
 
   @override
   final String id;
@@ -207,10 +58,26 @@ class _$AnswerOptionImpl extends _AnswerOption {
   final String? description;
   @override
   final String? descriptionAr;
+  @override
+  final NavigationRule? navigationRule;
+  final Map<String, dynamic>? _contextData;
+  @override
+  Map<String, dynamic>? get contextData {
+    final value = _contextData;
+    if (value == null) return null;
+    if (_contextData is EqualUnmodifiableMapView) return _contextData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  @override
+  final RedFlagInfo? redFlag;
+  @override
+  final ScoreContribution? scoreImpact;
 
   @override
   String toString() {
-    return 'AnswerOption(id: $id, text: $text, textAr: $textAr, nextNodeId: $nextNodeId, description: $description, descriptionAr: $descriptionAr)';
+    return 'AnswerOption(id: $id, text: $text, textAr: $textAr, nextNodeId: $nextNodeId, description: $description, descriptionAr: $descriptionAr, navigationRule: $navigationRule, contextData: $contextData, redFlag: $redFlag, scoreImpact: $scoreImpact)';
   }
 
   @override
@@ -226,10 +93,18 @@ class _$AnswerOptionImpl extends _AnswerOption {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.descriptionAr, descriptionAr) ||
-                other.descriptionAr == descriptionAr));
+                other.descriptionAr == descriptionAr) &&
+            (identical(other.navigationRule, navigationRule) ||
+                other.navigationRule == navigationRule) &&
+            const DeepCollectionEquality().equals(
+              other._contextData,
+              _contextData,
+            ) &&
+            (identical(other.redFlag, redFlag) || other.redFlag == redFlag) &&
+            (identical(other.scoreImpact, scoreImpact) ||
+                other.scoreImpact == scoreImpact));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
     runtimeType,
@@ -239,20 +114,11 @@ class _$AnswerOptionImpl extends _AnswerOption {
     nextNodeId,
     description,
     descriptionAr,
+    navigationRule,
+    const DeepCollectionEquality().hash(_contextData),
+    redFlag,
+    scoreImpact,
   );
-
-  /// Create a copy of AnswerOption
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AnswerOptionImplCopyWith<_$AnswerOptionImpl> get copyWith =>
-      __$$AnswerOptionImplCopyWithImpl<_$AnswerOptionImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AnswerOptionImplToJson(this);
-  }
 }
 
 abstract class _AnswerOption extends AnswerOption {
@@ -263,11 +129,12 @@ abstract class _AnswerOption extends AnswerOption {
     required final String nextNodeId,
     final String? description,
     final String? descriptionAr,
+    final NavigationRule? navigationRule,
+    final Map<String, dynamic>? contextData,
+    final RedFlagInfo? redFlag,
+    final ScoreContribution? scoreImpact,
   }) = _$AnswerOptionImpl;
   const _AnswerOption._() : super._();
-
-  factory _AnswerOption.fromJson(Map<String, dynamic> json) =
-      _$AnswerOptionImpl.fromJson;
 
   @override
   String get id;
@@ -281,11 +148,12 @@ abstract class _AnswerOption extends AnswerOption {
   String? get description;
   @override
   String? get descriptionAr;
-
-  /// Create a copy of AnswerOption
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AnswerOptionImplCopyWith<_$AnswerOptionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  NavigationRule? get navigationRule;
+  @override
+  Map<String, dynamic>? get contextData;
+  @override
+  RedFlagInfo? get redFlag;
+  @override
+  ScoreContribution? get scoreImpact;
 }
