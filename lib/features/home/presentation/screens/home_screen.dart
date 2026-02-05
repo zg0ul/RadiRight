@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
+
 import '../../../../app/routing/routes.dart';
-import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../../../app/theme/app_theme_extension.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_icons.dart';
+import '../../../../core/utils/animation_extensions.dart';
+import '../../../../core/utils/app_spacer.dart';
+import '../../../../shared/widgets/glassmorphism_card.dart';
 import '../../../subscription/presentation/widgets/trial_countdown_widget.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -12,186 +20,269 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final authState = ref.watch(authNotifierProvider);
-    final userName = authState.valueOrNull?.name ?? '';
+    final appTheme = context.appTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.appName),
-        actions: [
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: appTheme.backgroundGradient,
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              _buildAppBar(context, l10n),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingLG),
+                  child: Column(
+                    children: [
+                      AppSpacer.verticalXL,
+                      _buildLogo(context).fadeSlideIn(index: 0),
+                      AppSpacer.verticalMD,
+                      _buildTitle(context, l10n).fadeSlideIn(index: 1),
+                      AppSpacer.verticalSM,
+                      _buildTagline(context, l10n).fadeSlideIn(index: 2),
+                      AppSpacer.verticalXL,
+                      _buildDescriptionCard(context, l10n).fadeSlideIn(index: 3),
+                      AppSpacer.verticalXL,
+                      _buildStartButton(context, l10n).fadeSlideIn(index: 4),
+                      AppSpacer.verticalXL,
+                      _buildFeatureIcons(context, l10n).fadeSlideIn(index: 5),
+                      AppSpacer.verticalXL,
+                      _buildFooter(context, l10n).fadeSlideIn(index: 6),
+                      AppSpacer.verticalLG,
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context, AppLocalizations l10n) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppConstants.spacingMD,
+        vertical: AppConstants.spacingSM,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
           const TrialCountdownWidget(),
-          const SizedBox(width: 8),
+          AppSpacer.horizontalSM,
           IconButton(
-            icon: const Icon(Icons.history),
+            icon: HugeIcon(
+              icon: AppIcons.history,
+              size: AppConstants.iconMD,
+              color: theme.colorScheme.onSurface,
+            ),
             onPressed: () => context.push(AppRoutes.history),
             tooltip: l10n.history,
           ),
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: HugeIcon(
+              icon: AppIcons.settings,
+              size: AppConstants.iconMD,
+              color: theme.colorScheme.onSurface,
+            ),
             onPressed: () => context.push(AppRoutes.settings),
             tooltip: l10n.settings,
           ),
         ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildWelcomeCard(context, userName),
-              const SizedBox(height: 32),
-              _buildStartAssessmentCard(context, l10n),
-              const SizedBox(height: 24),
-              _buildQuickActionsRow(context, l10n),
-            ],
+    );
+  }
+
+  Widget _buildLogo(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      width: 100.w,
+      height: 100.w,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.primary,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: theme.colorScheme.primary.withValues(alpha: 0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
+        ],
+      ),
+      child: Center(
+        child: HugeIcon(
+          icon: AppIcons.medical,
+          size: 50.w,
+          color: theme.colorScheme.onPrimary,
         ),
       ),
     );
   }
 
-  Widget _buildWelcomeCard(BuildContext context, String userName) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildTitle(BuildContext context, AppLocalizations l10n) {
+    final theme = Theme.of(context);
+    return Text(
+      l10n.appName,
+      style: theme.textTheme.headlineLarge?.copyWith(
+        fontWeight: FontWeight.bold,
+        color: theme.colorScheme.onSurface,
+      ),
+    );
+  }
+
+  Widget _buildTagline(BuildContext context, AppLocalizations l10n) {
+    final theme = Theme.of(context);
+    return Text(
+      'Evidence-Based Imaging Guidance',
+      style: theme.textTheme.bodyLarge?.copyWith(
+        color: theme.colorScheme.onSurfaceVariant,
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _buildDescriptionCard(BuildContext context, AppLocalizations l10n) {
+    final theme = Theme.of(context);
+    return GlassmorphismCard(
+      padding: EdgeInsets.all(AppConstants.spacingLG),
+      child: Column(
+        children: [
+          HugeIcon(
+            icon: AppIcons.info,
+            size: AppConstants.iconLG,
+            color: theme.colorScheme.primary,
+          ),
+          AppSpacer.verticalMD,
+          Text(
+            'Navigate clinical imaging decisions with confidence using ACR Appropriateness Criteria guidelines.',
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurface,
+              height: 1.5,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStartButton(BuildContext context, AppLocalizations l10n) {
+    final theme = Theme.of(context);
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () => context.push(AppRoutes.panelSelection),
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: AppConstants.spacingMD),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusMD),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 28,
-                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                  child: Icon(
-                    Icons.person,
-                    size: 32,
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Welcome back,',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withValues(alpha: 0.7),
-                            ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        userName.isNotEmpty ? userName : 'Doctor',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            HugeIcon(
+              icon: AppIcons.medical,
+              size: AppConstants.iconMD,
+              color: theme.colorScheme.onPrimary,
+            ),
+            AppSpacer.horizontalSM,
+            Text(
+              l10n.startAssessment,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
-      ),
+      ).pulseOnIdle(),
     );
   }
 
-  Widget _buildStartAssessmentCard(BuildContext context, AppLocalizations l10n) {
-    return Card(
-      color: Theme.of(context).colorScheme.primaryContainer,
-      child: InkWell(
-        onTap: () => context.push(AppRoutes.panelSelection),
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            children: [
-              Icon(
-                Icons.medical_services_outlined,
-                size: 64,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                l10n.startAssessment,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'ACR Appropriateness Criteria',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onPrimaryContainer
-                          .withValues(alpha: 0.8),
-                    ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildQuickActionsRow(BuildContext context, AppLocalizations l10n) {
+  Widget _buildFeatureIcons(BuildContext context, AppLocalizations l10n) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Expanded(
-          child: _buildQuickActionCard(
-            context,
-            icon: Icons.history,
-            title: l10n.history,
-            onTap: () => context.push(AppRoutes.history),
-          ),
+        _buildFeatureItem(
+          context,
+          icon: AppIcons.evidenceBased,
+          label: 'Evidence\nBased',
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildQuickActionCard(
-            context,
-            icon: Icons.settings,
-            title: l10n.settings,
-            onTap: () => context.push(AppRoutes.settings),
-          ),
+        _buildFeatureItem(
+          context,
+          icon: AppIcons.criteria,
+          label: 'ACR\nCriteria',
+        ),
+        _buildFeatureItem(
+          context,
+          icon: AppIcons.quickResults,
+          label: 'Quick\nResults',
         ),
       ],
     );
   }
 
-  Widget _buildQuickActionCard(
+  Widget _buildFeatureItem(
     BuildContext context, {
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
+    required List<List<dynamic>> icon,
+    required String label,
   }) {
-    return Card(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Icon(
-                icon,
-                size: 32,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ],
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        Container(
+          width: 56.w,
+          height: 56.w,
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primaryContainer,
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: HugeIcon(
+              icon: icon,
+              size: AppConstants.iconMD,
+              color: theme.colorScheme.primary,
+            ),
           ),
         ),
+        AppSpacer.verticalSM,
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFooter(BuildContext context, AppLocalizations l10n) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppConstants.spacingMD,
+        vertical: AppConstants.spacingSM,
+      ),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(AppConstants.radiusSM),
+      ),
+      child: Text(
+        'Based on ACR Appropriateness Criteria\u00ae',
+        style: theme.textTheme.labelSmall?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }

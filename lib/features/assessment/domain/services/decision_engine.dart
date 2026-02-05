@@ -4,7 +4,6 @@ import '../models/assessment_result.dart';
 import '../models/decision_node.dart';
 import '../models/imaging_recommendation.dart';
 import '../models/navigation_rule.dart';
-import '../models/patient_profile.dart';
 import '../models/red_flag_info.dart';
 
 part 'decision_engine.g.dart';
@@ -19,7 +18,6 @@ class DecisionEngineState {
   final Map<String, dynamic> assessmentContext;
   final List<RedFlagInfo> redFlags;
   final Map<String, int> modalityScores;
-  final PatientProfile? patientProfile;
 
   const DecisionEngineState({
     required this.topicId,
@@ -31,7 +29,6 @@ class DecisionEngineState {
     this.assessmentContext = const {},
     this.redFlags = const [],
     this.modalityScores = const {},
-    this.patientProfile,
   });
 
   DecisionEngineState copyWith({
@@ -44,7 +41,6 @@ class DecisionEngineState {
     Map<String, dynamic>? assessmentContext,
     List<RedFlagInfo>? redFlags,
     Map<String, int>? modalityScores,
-    PatientProfile? patientProfile,
   }) {
     return DecisionEngineState(
       topicId: topicId ?? this.topicId,
@@ -56,7 +52,6 @@ class DecisionEngineState {
       assessmentContext: assessmentContext ?? this.assessmentContext,
       redFlags: redFlags ?? this.redFlags,
       modalityScores: modalityScores ?? this.modalityScores,
-      patientProfile: patientProfile ?? this.patientProfile,
     );
   }
 
@@ -98,16 +93,13 @@ class DecisionEngine extends _$DecisionEngine {
     required String topicName,
     required DecisionNode rootNode,
     required Map<String, DecisionNode> allNodes,
-    PatientProfile? patientProfile,
   }) {
     _nodeCache = allNodes;
-    final initialContext = patientProfile?.toContextMap() ?? <String, dynamic>{};
     state = DecisionEngineState(
       topicId: topicId,
       topicName: topicName,
       currentNode: rootNode,
-      assessmentContext: Map<String, dynamic>.from(initialContext),
-      patientProfile: patientProfile,
+      assessmentContext: <String, dynamic>{},
     );
   }
 

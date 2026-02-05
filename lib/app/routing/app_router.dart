@@ -9,7 +9,6 @@ import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/assessment/presentation/screens/panel_selection_screen.dart';
 import '../../features/assessment/presentation/screens/topic_selection_screen.dart';
-import '../../features/assessment/presentation/screens/demographics_screen.dart';
 import '../../features/assessment/presentation/screens/question_screen.dart';
 import '../../features/assessment/presentation/screens/result_screen.dart';
 import '../../features/history/presentation/screens/history_screen.dart';
@@ -92,14 +91,13 @@ GoRouter appRouter(Ref ref) {
         },
       ),
       GoRoute(
-        path: AppRoutes.demographics,
-        name: 'demographics',
+        path: AppRoutes.question,
+        name: 'question',
         builder: (context, state) {
           final topicId = state.pathParameters['topicId']!;
-          return DemographicsScreen(topicId: topicId);
+          return QuestionScreen(topicId: topicId);
         },
       ),
-      GoRoute(path: AppRoutes.question, name: 'question', builder: (context, state) => const QuestionScreen()),
       GoRoute(path: AppRoutes.result, name: 'result', builder: (context, state) => const ResultScreen()),
       GoRoute(path: AppRoutes.history, name: 'history', builder: (context, state) => const HistoryScreen()),
       GoRoute(path: AppRoutes.settings, name: 'settings', builder: (context, state) => const SettingsScreen()),

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:radi_right/features/assessment/domain/enums/radiation_level.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
+
 import '../../../../app/routing/routes.dart';
+import '../../../../app/theme/app_theme_extension.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/providers/locale_provider.dart';
+import '../../../../core/utils/app_spacer.dart';
 import '../../domain/models/assessment_result.dart';
 import '../../domain/models/decision_node.dart';
 import '../../domain/models/imaging_recommendation.dart';
-import '../../domain/models/patient_profile.dart';
 import '../../domain/services/decision_engine.dart';
 import '../providers/assessment_provider.dart';
-import '../widgets/appropriateness_indicator.dart';
 
 class ResultScreen extends ConsumerWidget {
   const ResultScreen({super.key});
@@ -18,167 +24,182 @@ class ResultScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final appTheme = context.appTheme;
     final locale = ref.watch(localeNotifierProvider).languageCode;
     final engineState = ref.watch(decisionEngineProvider);
-    final assessmentState = ref.watch(currentAssessmentProvider);
 
     if (engineState == null || !engineState.isComplete) {
-      return Scaffold(
-        appBar: AppBar(title: Text(l10n.results)),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, size: 64),
-              const SizedBox(height: 16),
-              Text(l10n.somethingWentWrong),
-              const SizedBox(height: 16),
-              ElevatedButton(onPressed: () => context.go(AppRoutes.home), child: Text(l10n.home)),
-            ],
-          ),
-        ),
-      );
+      return _buildErrorState(context, l10n, ref);
     }
 
     final recommendations = engineState.recommendations;
-    final resultNode = engineState.currentNode is ResultNode ? engineState.currentNode as ResultNode : null;
-    final summary = resultNode != null ? (locale == 'ar' ? resultNode.summaryAr : resultNode.summary) : null;
+    final resultNode = engineState.currentNode is ResultNode
+        ? engineState.currentNode as ResultNode
+        : null;
+    final summary = resultNode != null
+        ? (locale == 'ar' ? resultNode.summaryAr : resultNode.summary)
+        : null;
 
-    // Primary: first usually-appropriate recommendation or highest score; rest are alternatives
     final primary = _primaryRecommendation(recommendations);
     final alternatives = recommendations.where((r) => r != primary).toList();
+    final scenarioText = _buildClinicalScenario(engineState.answerHistory);
 
-    // Build clinical scenario from demographics + answer history
-    final scenarioText = _buildClinicalScenario(assessmentState.patientProfile, engineState.answerHistory);
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _AnimatedSuccessHeader(appTheme: appTheme),
+                    Padding(
+                      padding: EdgeInsets.all(AppConstants.spacingMD),
+                      child: Column(
+                        children: [
+                          if (scenarioText != null && scenarioText.isNotEmpty)
+                            _AnimatedCard(
+                              index: 0,
+                              child: _ClinicalScenarioCard(
+                                l10n: l10n,
+                                scenarioText: scenarioText,
+                              ),
+                            ),
+                          AppSpacer.verticalMD,
+                          if (primary != null)
+                            _AnimatedCard(
+                              index: 1,
+                              child: _RecommendationCard(
+                                l10n: l10n,
+                                locale: locale,
+                                recommendation: primary,
+                                appTheme: appTheme,
+                              ),
+                            ),
+                          if (summary != null && summary.isNotEmpty) ...[
+                            AppSpacer.verticalMD,
+                            _AnimatedCard(
+                              index: 2,
+                              child: _SummaryCard(
+                                l10n: l10n,
+                                summary: summary,
+                              ),
+                            ),
+                          ],
+                          if (alternatives.isNotEmpty) ...[
+                            AppSpacer.verticalMD,
+                            _AnimatedCard(
+                              index: 3,
+                              child: _AlternativesCard(
+                                l10n: l10n,
+                                locale: locale,
+                                alternatives: alternatives,
+                                appTheme: appTheme,
+                              ),
+                            ),
+                          ],
+                          AppSpacer.verticalMD,
+                          _AnimatedCard(
+                            index: 4,
+                            child: _DisclaimerCard(l10n: l10n),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            _buildActionButtons(context, l10n, ref),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(
+    BuildContext context,
+    AppLocalizations l10n,
+    WidgetRef ref,
+  ) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: EdgeInsets.all(AppConstants.spacingMD),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        border: Border(
+          top: BorderSide(
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+          ),
+        ),
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        height: AppConstants.buttonHeightLG,
+        child: ElevatedButton(
+          onPressed: () {
+            ref.read(currentAssessmentProvider.notifier).reset();
+            context.go(AppRoutes.home);
+          },
+          child: Text(l10n.startAssessment),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildErrorState(
+    BuildContext context,
+    AppLocalizations l10n,
+    WidgetRef ref,
+  ) {
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.acrRecommendation),
         leading: IconButton(
-          icon: const Icon(Icons.close),
+          icon: HugeIcon(
+            icon: AppIcons.close,
+            size: AppConstants.iconMD,
+            color: theme.colorScheme.onSurface,
+          ),
           onPressed: () {
             ref.read(currentAssessmentProvider.notifier).reset();
             context.go(AppRoutes.home);
           },
         ),
+        title: Text(l10n.results),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              l10n.acrRecommendationSubtitle,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-            ),
-            const SizedBox(height: 16),
-            const Divider(),
-            const SizedBox(height: 16),
-            // ACR Recommendation card (primary)
-            _AcrRecommendationCard(recommendation: primary, guidelineCode: 'MSK 1', locale: locale, l10n: l10n),
-            const SizedBox(height: 20),
-            // Clinical Scenario
-            if (scenarioText != null && scenarioText.isNotEmpty) ...[
-              _SectionCard(title: l10n.clinicalScenario, child: Text(scenarioText)),
-              const SizedBox(height: 16),
-            ],
-            // Recommended Imaging Study
-            if (primary != null) ...[
-              _SectionCard(
-                title: l10n.recommendedImagingStudy,
-                child: Text(
-                  primary.getLocalizedProcedure(locale),
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(AppConstants.spacingLG),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              HugeIcon(
+                icon: AppIcons.error,
+                size: AppConstants.iconXXL,
+                color: theme.colorScheme.error,
               ),
-              const SizedBox(height: 16),
-            ],
-            // Evidence Summary
-            if (summary != null && summary.isNotEmpty) ...[
-              _SectionCard(title: l10n.evidenceSummary, child: Text(summary)),
-              const SizedBox(height: 16),
-            ],
-            // Alternative Imaging Options
-            if (alternatives.isNotEmpty) ...[
-              _SectionCard(
-                title: l10n.alternativeImagingOptions,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: alternatives.map((rec) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  rec.getLocalizedModality(locale),
-                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(rec.getLocalizedProcedure(locale), style: Theme.of(context).textTheme.bodySmall),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          if (rec.score != null)
-                            Text(
-                              '${rec.score}/9',
-                              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                color: _scoreColor(context, rec.appropriateness.name),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          const SizedBox(width: 8),
-                          AppropriatenessIndicator(level: rec.appropriateness, locale: locale),
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ),
+              AppSpacer.verticalMD,
+              Text(
+                l10n.somethingWentWrong,
+                style: theme.textTheme.titleMedium,
               ),
-              const SizedBox(height: 16),
+              AppSpacer.verticalLG,
+              ElevatedButton.icon(
+                onPressed: () {
+                  ref.read(currentAssessmentProvider.notifier).reset();
+                  context.go(AppRoutes.home);
+                },
+                icon: HugeIcon(
+                  icon: AppIcons.home,
+                  size: AppConstants.iconSM,
+                  color: theme.colorScheme.onPrimary,
+                ),
+                label: Text(l10n.home),
+              ),
             ],
-            // Clinical Judgment disclaimer
-            _SectionCard(
-              title: l10n.clinicalJudgment,
-              child: Text(l10n.clinicalJudgmentDisclaimer, style: Theme.of(context).textTheme.bodySmall),
-            ),
-            const SizedBox(height: 24),
-            // Action buttons
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      ref.read(currentAssessmentProvider.notifier).reset();
-                      context.go(AppRoutes.panelSelection);
-                    },
-                    child: Text(l10n.startAssessment),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      ref.read(currentAssessmentProvider.notifier).reset();
-                      context.go(AppRoutes.home);
-                    },
-                    child: Text(l10n.home),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-          ],
+          ),
         ),
       ),
     );
@@ -186,7 +207,8 @@ class ResultScreen extends ConsumerWidget {
 
   ImagingRecommendation? _primaryRecommendation(List<ImagingRecommendation> recommendations) {
     if (recommendations.isEmpty) return null;
-    final usuallyAppropriate = recommendations.where((r) => r.appropriateness.name == 'usuallyAppropriate').toList();
+    final usuallyAppropriate =
+        recommendations.where((r) => r.appropriateness.name == 'usuallyAppropriate').toList();
     if (usuallyAppropriate.isNotEmpty) {
       final byScore = usuallyAppropriate..sort((a, b) => (b.score ?? 0).compareTo(a.score ?? 0));
       return byScore.first;
@@ -196,130 +218,597 @@ class ResultScreen extends ConsumerWidget {
     return byScore.first;
   }
 
-  String? _buildClinicalScenario(PatientProfile? patientProfile, List<AnswerRecord> answerHistory) {
-    final parts = <String>[];
-    if (patientProfile != null) {
-      parts.add(patientProfile.ageGroup);
-      parts.add(patientProfile.sex);
-      parts.add(patientProfile.anatomicalLocation);
-    }
-    for (final a in answerHistory) {
-      parts.add('${a.questionText}: ${a.selectedOptionText}');
-    }
-    if (parts.isEmpty) return null;
-    return parts.join(', ');
-  }
-
-  Color _scoreColor(BuildContext context, String appropriateness) {
-    final theme = Theme.of(context);
-    switch (appropriateness) {
-      case 'usuallyAppropriate':
-        return theme.colorScheme.primary;
-      case 'mayBeAppropriate':
-        return theme.colorScheme.tertiary;
-      case 'usuallyNotAppropriate':
-        return theme.colorScheme.error;
-      default:
-        return theme.colorScheme.onSurface;
-    }
+  String? _buildClinicalScenario(List<AnswerRecord> answerHistory) {
+    if (answerHistory.isEmpty) return null;
+    final parts = answerHistory.map((a) => '${a.questionText}: ${a.selectedOptionText}').toList();
+    return parts.join('\n');
   }
 }
 
-class _AcrRecommendationCard extends StatelessWidget {
-  final ImagingRecommendation? recommendation;
-  final String guidelineCode;
-  final String locale;
-  final AppLocalizations l10n;
+/// Animated success header with scale animation
+class _AnimatedSuccessHeader extends StatefulWidget {
+  final AppThemeExtension appTheme;
 
-  const _AcrRecommendationCard({
-    required this.recommendation,
-    required this.guidelineCode,
-    required this.locale,
-    required this.l10n,
-  });
+  const _AnimatedSuccessHeader({required this.appTheme});
+
+  @override
+  State<_AnimatedSuccessHeader> createState() => _AnimatedSuccessHeaderState();
+}
+
+class _AnimatedSuccessHeaderState extends State<_AnimatedSuccessHeader>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (recommendation == null) return const SizedBox.shrink();
-    final rec = recommendation!;
     final theme = Theme.of(context);
-    final statusText = locale == 'ar' ? rec.appropriateness.arabicDisplayName : rec.appropriateness.displayName;
-    final scoreText = rec.score != null ? '${rec.score}/9' : null;
-    final isUsuallyAppropriate = rec.appropriateness.name == 'usuallyAppropriate';
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.5)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: ScaleTransition(
+        scale: _scaleAnimation,
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: AppConstants.spacingLG,
+            vertical: AppConstants.spacingXL,
+          ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: widget.appTheme.successGradient,
+            ),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(AppConstants.radiusXL),
+              bottomRight: Radius.circular(AppConstants.radiusXL),
+            ),
+          ),
+          child: Column(
             children: [
-              Icon(
-                isUsuallyAppropriate ? Icons.check_circle : Icons.info_outline,
-                color: theme.colorScheme.primary,
-                size: 28,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  statusText,
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: theme.colorScheme.primary,
+              Container(
+                width: 80.w,
+                height: 80.w,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: HugeIcon(
+                    icon: AppIcons.checkCircle,
+                    size: 48.w,
+                    color: Colors.white,
                   ),
+                ),
+              ),
+              AppSpacer.verticalMD,
+              Text(
+                'Recommendation Found',
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              AppSpacer.verticalXS,
+              Text(
+                'Based on ACR Appropriateness Criteria',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.white.withValues(alpha: 0.9),
                 ),
               ),
             ],
           ),
-          if (isUsuallyAppropriate) ...[
-            const SizedBox(height: 8),
-            Text(
-              l10n.usuallyAppropriateVerdictDesc,
-              style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+        ),
+      ),
+    );
+  }
+}
+
+/// Wrapper for animated cards
+class _AnimatedCard extends StatefulWidget {
+  final int index;
+  final Widget child;
+
+  const _AnimatedCard({
+    required this.index,
+    required this.child,
+  });
+
+  @override
+  State<_AnimatedCard> createState() => _AnimatedCardState();
+}
+
+class _AnimatedCardState extends State<_AnimatedCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+
+    Future.delayed(Duration(milliseconds: 100 + (widget.index * 100)), () {
+      if (mounted) {
+        _controller.forward();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: SlideTransition(
+        position: _slideAnimation,
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+/// Clinical scenario card
+class _ClinicalScenarioCard extends StatelessWidget {
+  final AppLocalizations l10n;
+  final String scenarioText;
+
+  const _ClinicalScenarioCard({
+    required this.l10n,
+    required this.scenarioText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(AppConstants.spacingMD),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppConstants.spacingSM,
+                    vertical: AppConstants.spacingXS,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(AppConstants.radiusSM),
+                  ),
+                  child: Text(
+                    'ACR',
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                AppSpacer.horizontalSM,
+                Text(
+                  l10n.clinicalScenario,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-          ],
-          if (scoreText != null) ...[
-            const SizedBox(height: 12),
-            Text(l10n.appropriatenessScore, style: theme.textTheme.labelMedium),
+            AppSpacer.verticalMD,
             Text(
-              scoreText,
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: theme.colorScheme.primary,
+              scenarioText,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+                height: 1.5,
               ),
             ),
           ],
-          const SizedBox(height: 8),
-          Text(l10n.guidelineCode, style: theme.textTheme.labelMedium),
-          Text(guidelineCode, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+        ),
+      ),
+    );
+  }
+}
+
+/// Main recommendation card
+class _RecommendationCard extends StatelessWidget {
+  final AppLocalizations l10n;
+  final String locale;
+  final ImagingRecommendation recommendation;
+  final AppThemeExtension appTheme;
+
+  const _RecommendationCard({
+    required this.l10n,
+    required this.locale,
+    required this.recommendation,
+    required this.appTheme,
+  });
+
+  Color _getAppropriatenessColor(String appropriateness) {
+    switch (appropriateness) {
+      case 'usuallyAppropriate':
+        return appTheme.usuallyAppropriate;
+      case 'mayBeAppropriate':
+        return appTheme.mayBeAppropriate;
+      case 'usuallyNotAppropriate':
+        return appTheme.usuallyNotAppropriate;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final appropriatenessColor = _getAppropriatenessColor(recommendation.appropriateness.name);
+    final appropriatenessText = locale == 'ar'
+        ? recommendation.appropriateness.arabicDisplayName
+        : recommendation.appropriateness.displayName;
+
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(AppConstants.spacingMD),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.recommendedImagingStudy,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            AppSpacer.verticalMD,
+            Text(
+              recommendation.getLocalizedProcedure(locale),
+              style: theme.textTheme.headlineSmall?.copyWith(
+                color: theme.colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            AppSpacer.verticalMD,
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppConstants.spacingMD,
+                      vertical: AppConstants.spacingSM,
+                    ),
+                    decoration: BoxDecoration(
+                      color: appropriatenessColor.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(AppConstants.radiusFull),
+                      border: Border.all(color: appropriatenessColor.withValues(alpha: 0.3)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        HugeIcon(
+                          icon: recommendation.appropriateness.name == 'usuallyAppropriate'
+                              ? AppIcons.checkCircle
+                              : recommendation.appropriateness.name == 'mayBeAppropriate'
+                                  ? AppIcons.info
+                                  : AppIcons.warning,
+                          size: AppConstants.iconSM,
+                          color: appropriatenessColor,
+                        ),
+                        AppSpacer.horizontalSM,
+                        Flexible(
+                          child: Text(
+                            appropriatenessText,
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: appropriatenessColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                if (recommendation.score != null) ...[
+                  AppSpacer.horizontalMD,
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppConstants.spacingMD,
+                      vertical: AppConstants.spacingSM,
+                    ),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(AppConstants.radiusFull),
+                    ),
+                    child: Text(
+                      '${recommendation.score}/9',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: appropriatenessColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+            if (recommendation.radiation != RadiationLevel.none) ...[
+              AppSpacer.verticalMD,
+              Row(
+                children: [
+                  HugeIcon(
+                    icon: AppIcons.radiation,
+                    size: AppConstants.iconSM,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  AppSpacer.horizontalSM,
+                  Text(
+                    'Radiation: ${recommendation.radiation.displayName}',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Expandable summary card
+class _SummaryCard extends StatelessWidget {
+  final AppLocalizations l10n;
+  final String summary;
+
+  const _SummaryCard({
+    required this.l10n,
+    required this.summary,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Card(
+      child: ExpansionTile(
+        initiallyExpanded: false,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusMD),
+        ),
+        collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusMD),
+        ),
+        title: Row(
+          children: [
+            HugeIcon(
+              icon: AppIcons.info,
+              size: AppConstants.iconMD,
+              color: theme.colorScheme.primary,
+            ),
+            AppSpacer.horizontalSM,
+            Expanded(
+              child: Text(
+                'Why this recommendation?',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              AppConstants.spacingMD,
+              0,
+              AppConstants.spacingMD,
+              AppConstants.spacingMD,
+            ),
+            child: Text(
+              summary,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+                height: 1.5,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-class _SectionCard extends StatelessWidget {
-  final String title;
-  final Widget child;
+/// Alternative imaging options card
+class _AlternativesCard extends StatelessWidget {
+  final AppLocalizations l10n;
+  final String locale;
+  final List<ImagingRecommendation> alternatives;
+  final AppThemeExtension appTheme;
 
-  const _SectionCard({required this.title, required this.child});
+  const _AlternativesCard({
+    required this.l10n,
+    required this.locale,
+    required this.alternatives,
+    required this.appTheme,
+  });
+
+  Color _getAppropriatenessColor(String appropriateness) {
+    switch (appropriateness) {
+      case 'usuallyAppropriate':
+        return appTheme.usuallyAppropriate;
+      case 'mayBeAppropriate':
+        return appTheme.mayBeAppropriate;
+      case 'usuallyNotAppropriate':
+        return appTheme.usuallyNotAppropriate;
+      default:
+        return Colors.grey;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(AppConstants.spacingMD),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            child,
+            Text(
+              l10n.alternativeImagingOptions,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            AppSpacer.verticalMD,
+            ...alternatives.map((rec) {
+              final color = _getAppropriatenessColor(rec.appropriateness.name);
+              return Padding(
+                padding: EdgeInsets.only(bottom: AppConstants.spacingSM),
+                child: Container(
+                  padding: EdgeInsets.all(AppConstants.spacingSM),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusSM),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              rec.getLocalizedProcedure(locale),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            AppSpacer.verticalXS,
+                            Text(
+                              rec.getLocalizedModality(locale),
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (rec.score != null)
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppConstants.spacingSM,
+                            vertical: AppConstants.spacingXS,
+                          ),
+                          decoration: BoxDecoration(
+                            color: color.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(AppConstants.radiusSM),
+                          ),
+                          child: Text(
+                            '${rec.score}/9',
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: color,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Clinical judgment disclaimer card
+class _DisclaimerCard extends StatelessWidget {
+  final AppLocalizations l10n;
+
+  const _DisclaimerCard({required this.l10n});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Card(
+      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+      child: Padding(
+        padding: EdgeInsets.all(AppConstants.spacingMD),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                HugeIcon(
+                  icon: AppIcons.warning,
+                  size: AppConstants.iconSM,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                AppSpacer.horizontalSM,
+                Text(
+                  l10n.clinicalJudgment,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            AppSpacer.verticalSM,
+            Text(
+              l10n.clinicalJudgmentDisclaimer,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+                height: 1.5,
+              ),
+            ),
           ],
         ),
       ),

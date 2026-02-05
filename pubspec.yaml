@@ -15,7 +15,9 @@ dependencies:
 
   # UI
   cupertino_icons: ^1.0.8
-  flutter_screenutil: ^5.9.0
+  flutter_screenutil: ^5.9.3
+  flutter_animate: ^4.5.0
+  hugeicons: ^1.1.5
 
   # State Management
   flutter_hooks: ^0.21.0

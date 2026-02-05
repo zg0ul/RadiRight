@@ -275,7 +275,7 @@ class _TopicProviderElement extends AutoDisposeFutureProviderElement<Topic?>
   String get topicId => (origin as TopicProvider).topicId;
 }
 
-String _$currentAssessmentHash() => r'a2538a8c09083c333cb45aef837585f9187a40c6';
+String _$currentAssessmentHash() => r'491cc0088df589ece450ef5b61c87b27f811c4b5';
 
 /// See also [CurrentAssessment].
 @ProviderFor(CurrentAssessment)

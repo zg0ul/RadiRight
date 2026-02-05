@@ -3,7 +3,6 @@ import 'package:radi_right/features/assessment/domain/models/decision_node.dart'
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/repositories/assessment_repository.dart';
 import '../../domain/models/panel.dart';
-import '../../domain/models/patient_profile.dart';
 import '../../domain/models/topic.dart';
 import '../../domain/services/decision_engine.dart';
 
@@ -37,8 +36,8 @@ class CurrentAssessment extends _$CurrentAssessment {
     return const AssessmentState();
   }
 
-  Future<void> startAssessment(String topicId, {PatientProfile? patientProfile}) async {
-    state = state.copyWith(isLoading: true, error: null, patientProfile: patientProfile);
+  Future<void> startAssessment(String topicId) async {
+    state = state.copyWith(isLoading: true, error: null);
 
     final repository = ref.read(assessmentRepositoryProvider);
 
@@ -73,15 +72,12 @@ class CurrentAssessment extends _$CurrentAssessment {
       return;
     }
 
-    // Initialize the decision engine (with optional demographics as initial context)
-    ref
-        .read(decisionEngineProvider.notifier)
-        .initialize(
+    // Initialize the decision engine
+    ref.read(decisionEngineProvider.notifier).initialize(
           topicId: topicId,
           topicName: topic.name,
           rootNode: rootNode,
           allNodes: nodes,
-          patientProfile: patientProfile,
         );
 
     state = state.copyWith(
@@ -90,7 +86,6 @@ class CurrentAssessment extends _$CurrentAssessment {
       topicId: topicId,
       topicName: topic.name,
       isActive: true,
-      patientProfile: patientProfile ?? state.patientProfile,
     );
   }
 
@@ -106,7 +101,6 @@ class AssessmentState {
   final String? topicId;
   final String? topicName;
   final bool isActive;
-  final PatientProfile? patientProfile;
 
   const AssessmentState({
     this.isLoading = false,
@@ -114,7 +108,6 @@ class AssessmentState {
     this.topicId,
     this.topicName,
     this.isActive = false,
-    this.patientProfile,
   });
 
   AssessmentState copyWith({
@@ -123,7 +116,6 @@ class AssessmentState {
     String? topicId,
     String? topicName,
     bool? isActive,
-    PatientProfile? patientProfile,
   }) {
     return AssessmentState(
       isLoading: isLoading ?? this.isLoading,
@@ -131,7 +123,6 @@ class AssessmentState {
       topicId: topicId ?? this.topicId,
       topicName: topicName ?? this.topicName,
       isActive: isActive ?? this.isActive,
-      patientProfile: patientProfile ?? this.patientProfile,
     );
   }
 }

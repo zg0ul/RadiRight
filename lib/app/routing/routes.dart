@@ -5,8 +5,7 @@ abstract class AppRoutes {
   static const String home = '/home';
   static const String panelSelection = '/assessment/panels';
   static const String topicSelection = '/assessment/topics/:panelId';
-  static const String demographics = '/assessment/demographics/:topicId';
-  static const String question = '/assessment/question';
+  static const String question = '/assessment/question/:topicId';
   static const String result = '/assessment/result';
   static const String history = '/history';
   static const String historyDetail = '/history/:historyId';
@@ -18,7 +17,7 @@ abstract class AppRoutes {
 
   static String topicSelectionPath(String panelId) => '/assessment/topics/$panelId';
 
-  static String demographicsPath(String topicId) => '/assessment/demographics/$topicId';
+  static String questionPath(String topicId) => '/assessment/question/$topicId';
 
   static String historyDetailPath(String historyId) => '/history/$historyId';
 }
