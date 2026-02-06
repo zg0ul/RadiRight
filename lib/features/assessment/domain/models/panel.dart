@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:radi_right/features/assessment/domain/enums/panel_icon.dart';
+import '../../../../core/constants/app_icons.dart';
 
 part 'panel.freezed.dart';
 part 'panel.g.dart';
@@ -20,9 +22,14 @@ abstract class Panel with _$Panel {
 
   factory Panel.fromJson(Map<String, dynamic> json) => _$PanelFromJson(json);
 
-  String getLocalizedName(String locale) =>
-      locale == 'ar' ? nameAr : name;
+  String getLocalizedName(String locale) => locale == 'ar' ? nameAr : name;
 
-  String? getLocalizedDescription(String locale) =>
-      locale == 'ar' ? descriptionAr : description;
+  String? getLocalizedDescription(String locale) => locale == 'ar' ? descriptionAr : description;
+
+  /// Gets the AppIcons icon data for this panel.
+  /// Returns a default medical icon if iconName is not recognized.
+  List<List<dynamic>> getIcon() {
+    final panelIcon = PanelIcon.tryFromString(iconName);
+    return panelIcon?.icon ?? AppIcons.medical;
+  }
 }

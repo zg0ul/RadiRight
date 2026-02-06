@@ -1,0 +1,12 @@
+{
+  "panel_info": {
+    "id": "pediatric",
+    "name": "Pediatric",
+    "nameAr": "الأطفال",
+    "description": "Children & Infants",
+    "descriptionAr": "الأطفال والرضع",
+    "iconName": "baby",
+    "isEnabled": false
+  },
+  "topics": []
+}

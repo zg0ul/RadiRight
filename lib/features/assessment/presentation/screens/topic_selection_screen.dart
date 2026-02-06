@@ -12,7 +12,6 @@ import '../../../../core/constants/app_icons.dart';
 import '../../../../core/providers/locale_provider.dart';
 import '../../../../core/utils/app_spacer.dart';
 import '../../../../shared/widgets/app_search_bar.dart';
-import '../../../../shared/widgets/loading_skeleton.dart';
 import '../../domain/models/topic.dart';
 import '../providers/assessment_provider.dart';
 
@@ -56,7 +55,7 @@ class TopicSelectionScreen extends HookConsumerWidget {
           ),
           Expanded(
             child: topicsAsync.when(
-              loading: () => const ListSkeleton(itemCount: 6),
+              loading: () => const CircularProgressIndicator(),
               error: (error, stack) => _buildErrorState(context, ref, error, l10n),
               data: (topics) {
                 final filteredTopics = topics.where((topic) {

@@ -1,0 +1,12 @@
+{
+  "panel_info": {
+    "id": "neuro",
+    "name": "Neurological",
+    "nameAr": "الأعصاب",
+    "description": "Brain, Spine & Nerves",
+    "descriptionAr": "الدماغ والعمود الفقري والأعصاب",
+    "iconName": "brain",
+    "isEnabled": false
+  },
+  "topics": []
+}

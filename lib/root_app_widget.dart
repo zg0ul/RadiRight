@@ -19,10 +19,7 @@ class RootAppWidget extends ConsumerWidget {
     final locale = ref.watch(localeNotifierProvider);
 
     return ScreenUtilInit(
-      designSize: const Size(
-        AppConstants.designWidth,
-        AppConstants.designHeight,
-      ),
+      designSize: const Size(AppConstants.designWidth, AppConstants.designHeight),
       minTextAdapt: true,
       splitScreenMode: true,
       useInheritedMediaQuery: true,
@@ -35,10 +32,7 @@ class RootAppWidget extends ConsumerWidget {
           darkTheme: AppTheme.darkTheme,
           routerConfig: router,
           locale: locale,
-          supportedLocales: const [
-            Locale('en'),
-            Locale('ar'),
-          ],
+          supportedLocales: const [Locale('en'), Locale('ar')],
           localizationsDelegates: [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -47,10 +41,11 @@ class RootAppWidget extends ConsumerWidget {
           ],
           builder: (context, child) {
             return Directionality(
-              textDirection: locale.languageCode == 'ar'
-                  ? TextDirection.rtl
-                  : TextDirection.ltr,
-              child: child ?? const SizedBox.shrink(),
+              textDirection: locale.languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr,
+              child: GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: child ?? const SizedBox.shrink(),
+              ),
             );
           },
         );

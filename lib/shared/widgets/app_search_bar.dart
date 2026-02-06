@@ -12,7 +12,6 @@ class AppSearchBar extends StatelessWidget {
   final VoidCallback? onClear;
   final bool autofocus;
   final bool showClearButton;
-  final EdgeInsetsGeometry? margin;
 
   const AppSearchBar({
     super.key,
@@ -22,7 +21,6 @@ class AppSearchBar extends StatelessWidget {
     this.onClear,
     this.autofocus = false,
     this.showClearButton = true,
-    this.margin,
   });
 
   @override
@@ -30,66 +28,46 @@ class AppSearchBar extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Container(
-      margin: margin ?? EdgeInsets.symmetric(
-        horizontal: AppConstants.spacingMD,
-        vertical: AppConstants.spacingSM,
-      ),
-      child: TextField(
-        controller: controller,
-        autofocus: autofocus,
-        onChanged: onChanged,
-        style: theme.textTheme.bodyMedium,
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
-          prefixIcon: Padding(
-            padding: const EdgeInsets.all(12),
-            child: HugeIcon(
-              icon: AppIcons.search,
-              size: AppConstants.iconMD,
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
-          ),
-          suffixIcon: showClearButton && (controller?.text.isNotEmpty ?? false)
-              ? IconButton(
-                  icon: HugeIcon(
-                    icon: AppIcons.close,
-                    size: AppConstants.iconSM,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  onPressed: () {
-                    controller?.clear();
-                    onClear?.call();
-                  },
-                )
-              : null,
-          filled: true,
-          fillColor: isDark
-              ? AppColorPalette.surfaceContainerDark
-              : AppColorPalette.surfaceContainerLight,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppConstants.radiusFull),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppConstants.radiusFull),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppConstants.radiusFull),
-            borderSide: BorderSide(
-              color: theme.colorScheme.primary,
-              width: 2,
-            ),
-          ),
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: AppConstants.spacingMD,
-            vertical: AppConstants.spacingSM,
-          ),
+    return TextField(
+      controller: controller,
+      autofocus: autofocus,
+      onChanged: onChanged,
+      style: theme.textTheme.bodyMedium,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+        prefixIcon: Padding(
+          padding: EdgeInsets.all(AppConstants.spacingMD),
+          child: HugeIcon(icon: AppIcons.search, size: AppConstants.iconMD, color: theme.colorScheme.onSurfaceVariant),
         ),
+        suffixIcon: showClearButton && (controller?.text.isNotEmpty ?? false)
+            ? IconButton(
+                icon: HugeIcon(
+                  icon: AppIcons.close,
+                  size: AppConstants.iconSM,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                onPressed: () {
+                  controller?.clear();
+                  onClear?.call();
+                },
+              )
+            : null,
+        filled: true,
+        fillColor: isDark ? AppColorPalette.surfaceContainerDark : AppColorPalette.surfaceContainerLight,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusFull),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusFull),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusFull),
+          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
       ),
     );
   }

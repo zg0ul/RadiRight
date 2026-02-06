@@ -1,0 +1,12 @@
+{
+  "panel_info": {
+    "id": "chest",
+    "name": "Chest",
+    "nameAr": "الصدر",
+    "description": "Thoracic & Pulmonary",
+    "descriptionAr": "الصدر والرئة",
+    "iconName": "lungs",
+    "isEnabled": false
+  },
+  "topics": []
+}

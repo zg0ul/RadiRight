@@ -1,0 +1,12 @@
+{
+  "panel_info": {
+    "id": "abdominal",
+    "name": "Abdominal",
+    "nameAr": "البطن",
+    "description": "GI, GU & Pelvic",
+    "descriptionAr": "الجهاز الهضمي والبولي والحوض",
+    "iconName": "kidneys",
+    "isEnabled": false
+  },
+  "topics": []
+}

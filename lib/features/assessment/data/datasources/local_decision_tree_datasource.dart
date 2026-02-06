@@ -9,43 +9,57 @@ import 'decision_tree_datasource.dart';
 
 part 'local_decision_tree_datasource.g.dart';
 
+/// Panel ids that have (or will have) a decision tree file.
+/// File name convention: `${panelId}_decision_trees.json`
+const List<String> _panelIds = ['msk', 'chest', 'neuro', 'abdominal', 'cardiac', 'pediatric'];
+
 @riverpod
-LocalDecisionTreeDatasource localDecisionTreeDatasource(
-    Ref ref) {
+LocalDecisionTreeDatasource localDecisionTreeDatasource(Ref ref) {
   return LocalDecisionTreeDatasource();
 }
 
 class LocalDecisionTreeDatasource implements DecisionTreeDatasource {
-  Map<String, dynamic>? _cachedData;
-  bool _isLoaded = false;
+  final Map<String, Map<String, dynamic>> _cacheByPanelId = {};
+  bool _panelsLoaded = false;
 
-  Future<void> _ensureLoaded() async {
-    if (_isLoaded && _cachedData != null) return;
+  static String _pathForPanel(String panelId) => 'assets/data/decision_trees/${panelId}_decision_trees.json';
 
-    try {
-      final jsonString = await rootBundle.loadString(
-        'assets/data/decision_trees/msk_decision_trees.json',
-      );
-      _cachedData = json.decode(jsonString) as Map<String, dynamic>;
-      _isLoaded = true;
-    } catch (e) {
-      // Return empty data structure if file not found
-      _cachedData = {
-        'panels': [],
-        'topics': [],
-        'nodes': {},
-      };
-      _isLoaded = true;
+  Future<void> _ensurePanelsLoaded() async {
+    if (_panelsLoaded) return;
+    for (final panelId in _panelIds) {
+      try {
+        final jsonString = await rootBundle.loadString(_pathForPanel(panelId));
+        final data = json.decode(jsonString) as Map<String, dynamic>;
+        _cacheByPanelId[panelId] = data;
+      } catch (_) {
+        // Skip missing or invalid files
+      }
     }
+    _panelsLoaded = true;
   }
 
   @override
   Future<List<Panel>> getPanels() async {
-    await _ensureLoaded();
-    final panels = _cachedData!['panels'] as List<dynamic>? ?? [];
-    return panels
-        .map((p) => Panel.fromJson(p as Map<String, dynamic>))
-        .toList();
+    await _ensurePanelsLoaded();
+    final panels = <Panel>[];
+    for (final entry in _cacheByPanelId.entries) {
+      final data = entry.value;
+      final panelInfo = data['panel_info'] as Map<String, dynamic>?;
+      if (panelInfo == null) continue;
+      final topics = data['topics'] as List<dynamic>? ?? [];
+      final panelJson = <String, dynamic>{...panelInfo, 'topicCount': topics.length};
+      panels.add(Panel.fromJson(panelJson));
+    }
+    // Sort panels: enabled panels first, then by name (case-insensitive)
+    panels.sort((a, b) {
+      // Place enabled panels before disabled ones
+      if (a.isEnabled != b.isEnabled) {
+        return a.isEnabled ? -1 : 1; // negative means a is the winner, positive means b is the winner of the sort
+      }
+      // If same enabled status, sort by name (case-insensitive)
+      return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+    });
+    return panels;
   }
 
   @override
@@ -56,45 +70,71 @@ class LocalDecisionTreeDatasource implements DecisionTreeDatasource {
 
   @override
   Future<List<Topic>> getTopics(String panelId) async {
-    await _ensureLoaded();
-    final topics = _cachedData!['topics'] as List<dynamic>? ?? [];
-    return topics
-        .map((t) => Topic.fromJson(t as Map<String, dynamic>))
-        .where((t) => t.panelId == panelId)
-        .toList();
+    await _ensurePanelsLoaded();
+    final data = _cacheByPanelId[panelId];
+    if (data == null) return [];
+    final topics = data['topics'] as List<dynamic>? ?? [];
+    return topics.map((t) => Topic.fromJson(t as Map<String, dynamic>)).where((t) => t.panelId == panelId).toList();
   }
 
   @override
   Future<Topic?> getTopic(String topicId) async {
-    await _ensureLoaded();
-    final topics = _cachedData!['topics'] as List<dynamic>? ?? [];
-    final topicData = topics.where((t) => t['id'] == topicId).firstOrNull;
-    if (topicData == null) return null;
-    return Topic.fromJson(topicData as Map<String, dynamic>);
+    await _ensurePanelsLoaded();
+    for (final data in _cacheByPanelId.values) {
+      final topics = data['topics'] as List<dynamic>? ?? [];
+      final match = topics.where((t) => (t as Map)['id'] == topicId).firstOrNull;
+      if (match != null) {
+        return Topic.fromJson(match as Map<String, dynamic>);
+      }
+    }
+    return null;
+  }
+
+  /// Find the raw topic JSON object by topic ID.
+  Map<String, dynamic>? _findTopicJson(String topicId) {
+    for (final data in _cacheByPanelId.values) {
+      final topics = data['topics'] as List<dynamic>? ?? [];
+      for (final t in topics) {
+        final topicMap = t as Map<String, dynamic>;
+        if (topicMap['id'] == topicId) {
+          return topicMap;
+        }
+      }
+    }
+    return null;
   }
 
   @override
   Future<DecisionNode?> getNode(String nodeId) async {
-    await _ensureLoaded();
-    final nodes = _cachedData!['nodes'] as Map<String, dynamic>? ?? {};
-    final nodeData = nodes[nodeId];
-    if (nodeData == null) return null;
-    return DecisionNode.fromJson(nodeData as Map<String, dynamic>);
+    // NOTE: With nested nodes, nodeId is only unique within a topic.
+    // This method searches all topics. Prefer getAllNodesForTopic when possible.
+    await _ensurePanelsLoaded();
+    for (final data in _cacheByPanelId.values) {
+      final topics = data['topics'] as List<dynamic>? ?? [];
+      for (final t in topics) {
+        final topicMap = t as Map<String, dynamic>;
+        final nodes = topicMap['nodes'] as Map<String, dynamic>? ?? {};
+        final nodeData = nodes[nodeId];
+        if (nodeData != null) {
+          return DecisionNode.fromJson(nodeData as Map<String, dynamic>);
+        }
+      }
+    }
+    return null;
   }
 
   @override
   Future<Map<String, DecisionNode>> getAllNodesForTopic(String topicId) async {
-    await _ensureLoaded();
-    final nodes = _cachedData!['nodes'] as Map<String, dynamic>? ?? {};
-    final topicNodes = <String, DecisionNode>{};
+    await _ensurePanelsLoaded();
+    final topicJson = _findTopicJson(topicId);
+    if (topicJson == null) return {};
 
+    final nodes = topicJson['nodes'] as Map<String, dynamic>? ?? {};
+    final topicNodes = <String, DecisionNode>{};
     for (final entry in nodes.entries) {
       final nodeData = entry.value as Map<String, dynamic>;
-      if (nodeData['topicId'] == topicId) {
-        topicNodes[entry.key] = DecisionNode.fromJson(nodeData);
-      }
+      topicNodes[entry.key] = DecisionNode.fromJson(nodeData);
     }
-
     return topicNodes;
   }
 }

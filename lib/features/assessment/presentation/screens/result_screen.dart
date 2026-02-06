@@ -33,37 +33,30 @@ class ResultScreen extends ConsumerWidget {
     }
 
     final recommendations = engineState.recommendations;
-    final resultNode = engineState.currentNode is ResultNode
-        ? engineState.currentNode as ResultNode
-        : null;
-    final summary = resultNode != null
-        ? (locale == 'ar' ? resultNode.summaryAr : resultNode.summary)
-        : null;
+    final resultNode = engineState.currentNode is ResultNode ? engineState.currentNode as ResultNode : null;
+    final summary = resultNode != null ? (locale == 'ar' ? resultNode.summaryAr : resultNode.summary) : null;
 
     final primary = _primaryRecommendation(recommendations);
     final alternatives = recommendations.where((r) => r != primary).toList();
     final scenarioText = _buildClinicalScenario(engineState.answerHistory);
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _AnimatedSuccessHeader(appTheme: appTheme),
-                    Padding(
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _AnimatedSuccessHeader(appTheme: appTheme),
+                  SafeArea(
+                    child: Padding(
                       padding: EdgeInsets.all(AppConstants.spacingMD),
                       child: Column(
                         children: [
                           if (scenarioText != null && scenarioText.isNotEmpty)
                             _AnimatedCard(
                               index: 0,
-                              child: _ClinicalScenarioCard(
-                                l10n: l10n,
-                                scenarioText: scenarioText,
-                              ),
+                              child: _ClinicalScenarioCard(l10n: l10n, scenarioText: scenarioText),
                             ),
                           AppSpacer.verticalMD,
                           if (primary != null)
@@ -80,10 +73,7 @@ class ResultScreen extends ConsumerWidget {
                             AppSpacer.verticalMD,
                             _AnimatedCard(
                               index: 2,
-                              child: _SummaryCard(
-                                l10n: l10n,
-                                summary: summary,
-                              ),
+                              child: _SummaryCard(l10n: l10n, summary: summary),
                             ),
                           ],
                           if (alternatives.isNotEmpty) ...[
@@ -99,39 +89,28 @@ class ResultScreen extends ConsumerWidget {
                             ),
                           ],
                           AppSpacer.verticalMD,
-                          _AnimatedCard(
-                            index: 4,
-                            child: _DisclaimerCard(l10n: l10n),
-                          ),
+                          _AnimatedCard(index: 4, child: _DisclaimerCard(l10n: l10n)),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            _buildActionButtons(context, l10n, ref),
-          ],
-        ),
+          ),
+          _buildActionButtons(context, l10n, ref),
+        ],
       ),
     );
   }
 
-  Widget _buildActionButtons(
-    BuildContext context,
-    AppLocalizations l10n,
-    WidgetRef ref,
-  ) {
+  Widget _buildActionButtons(BuildContext context, AppLocalizations l10n, WidgetRef ref) {
     final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.all(AppConstants.spacingMD),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        border: Border(
-          top: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
-          ),
-        ),
+        border: Border(top: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2))),
       ),
       child: SizedBox(
         width: double.infinity,
@@ -147,21 +126,13 @@ class ResultScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildErrorState(
-    BuildContext context,
-    AppLocalizations l10n,
-    WidgetRef ref,
-  ) {
+  Widget _buildErrorState(BuildContext context, AppLocalizations l10n, WidgetRef ref) {
     final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: HugeIcon(
-            icon: AppIcons.close,
-            size: AppConstants.iconMD,
-            color: theme.colorScheme.onSurface,
-          ),
+          icon: HugeIcon(icon: AppIcons.close, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
           onPressed: () {
             ref.read(currentAssessmentProvider.notifier).reset();
             context.go(AppRoutes.home);
@@ -175,27 +146,16 @@ class ResultScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              HugeIcon(
-                icon: AppIcons.error,
-                size: AppConstants.iconXXL,
-                color: theme.colorScheme.error,
-              ),
+              HugeIcon(icon: AppIcons.error, size: AppConstants.iconXXL, color: theme.colorScheme.error),
               AppSpacer.verticalMD,
-              Text(
-                l10n.somethingWentWrong,
-                style: theme.textTheme.titleMedium,
-              ),
+              Text(l10n.somethingWentWrong, style: theme.textTheme.titleMedium),
               AppSpacer.verticalLG,
               ElevatedButton.icon(
                 onPressed: () {
                   ref.read(currentAssessmentProvider.notifier).reset();
                   context.go(AppRoutes.home);
                 },
-                icon: HugeIcon(
-                  icon: AppIcons.home,
-                  size: AppConstants.iconSM,
-                  color: theme.colorScheme.onPrimary,
-                ),
+                icon: HugeIcon(icon: AppIcons.home, size: AppConstants.iconSM, color: theme.colorScheme.onPrimary),
                 label: Text(l10n.home),
               ),
             ],
@@ -207,8 +167,7 @@ class ResultScreen extends ConsumerWidget {
 
   ImagingRecommendation? _primaryRecommendation(List<ImagingRecommendation> recommendations) {
     if (recommendations.isEmpty) return null;
-    final usuallyAppropriate =
-        recommendations.where((r) => r.appropriateness.name == 'usuallyAppropriate').toList();
+    final usuallyAppropriate = recommendations.where((r) => r.appropriateness.name == 'usuallyAppropriate').toList();
     if (usuallyAppropriate.isNotEmpty) {
       final byScore = usuallyAppropriate..sort((a, b) => (b.score ?? 0).compareTo(a.score ?? 0));
       return byScore.first;
@@ -235,8 +194,7 @@ class _AnimatedSuccessHeader extends StatefulWidget {
   State<_AnimatedSuccessHeader> createState() => _AnimatedSuccessHeaderState();
 }
 
-class _AnimatedSuccessHeaderState extends State<_AnimatedSuccessHeader>
-    with SingleTickerProviderStateMixin {
+class _AnimatedSuccessHeaderState extends State<_AnimatedSuccessHeader> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
@@ -244,18 +202,17 @@ class _AnimatedSuccessHeaderState extends State<_AnimatedSuccessHeader>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
-    );
+    _controller = AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
 
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
 
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _controller.forward();
   }
@@ -276,10 +233,7 @@ class _AnimatedSuccessHeaderState extends State<_AnimatedSuccessHeader>
         scale: _scaleAnimation,
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.spacingLG,
-            vertical: AppConstants.spacingXL,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingXL),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -296,32 +250,20 @@ class _AnimatedSuccessHeaderState extends State<_AnimatedSuccessHeader>
               Container(
                 width: 80.w,
                 height: 80.w,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), shape: BoxShape.circle),
                 child: Center(
-                  child: HugeIcon(
-                    icon: AppIcons.checkCircle,
-                    size: 48.w,
-                    color: Colors.white,
-                  ),
+                  child: HugeIcon(icon: AppIcons.checkCircle, size: 48.w, color: Colors.white),
                 ),
               ),
               AppSpacer.verticalMD,
               Text(
                 'Recommendation Found',
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: theme.textTheme.headlineSmall?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               AppSpacer.verticalXS,
               Text(
                 'Based on ACR Appropriateness Criteria',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.9),
-                ),
+                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white.withValues(alpha: 0.9)),
               ),
             ],
           ),
@@ -336,17 +278,13 @@ class _AnimatedCard extends StatefulWidget {
   final int index;
   final Widget child;
 
-  const _AnimatedCard({
-    required this.index,
-    required this.child,
-  });
+  const _AnimatedCard({required this.index, required this.child});
 
   @override
   State<_AnimatedCard> createState() => _AnimatedCardState();
 }
 
-class _AnimatedCardState extends State<_AnimatedCard>
-    with SingleTickerProviderStateMixin {
+class _AnimatedCardState extends State<_AnimatedCard> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -354,14 +292,12 @@ class _AnimatedCardState extends State<_AnimatedCard>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: this,
-    );
+    _controller = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
 
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.1),
@@ -385,10 +321,7 @@ class _AnimatedCardState extends State<_AnimatedCard>
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _fadeAnimation,
-      child: SlideTransition(
-        position: _slideAnimation,
-        child: widget.child,
-      ),
+      child: SlideTransition(position: _slideAnimation, child: widget.child),
     );
   }
 }
@@ -398,10 +331,7 @@ class _ClinicalScenarioCard extends StatelessWidget {
   final AppLocalizations l10n;
   final String scenarioText;
 
-  const _ClinicalScenarioCard({
-    required this.l10n,
-    required this.scenarioText,
-  });
+  const _ClinicalScenarioCard({required this.l10n, required this.scenarioText});
 
   @override
   Widget build(BuildContext context) {
@@ -416,10 +346,7 @@ class _ClinicalScenarioCard extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppConstants.spacingSM,
-                    vertical: AppConstants.spacingXS,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingSM, vertical: AppConstants.spacingXS),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(AppConstants.radiusSM),
@@ -433,21 +360,13 @@ class _ClinicalScenarioCard extends StatelessWidget {
                   ),
                 ),
                 AppSpacer.horizontalSM,
-                Text(
-                  l10n.clinicalScenario,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(l10n.clinicalScenario, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
               ],
             ),
             AppSpacer.verticalMD,
             Text(
               scenarioText,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-                height: 1.5,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant, height: 1.5),
             ),
           ],
         ),
@@ -499,9 +418,7 @@ class _RecommendationCard extends StatelessWidget {
           children: [
             Text(
               l10n.recommendedImagingStudy,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             AppSpacer.verticalMD,
             Text(
@@ -516,10 +433,7 @@ class _RecommendationCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppConstants.spacingMD,
-                      vertical: AppConstants.spacingSM,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
                     decoration: BoxDecoration(
                       color: appropriatenessColor.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(AppConstants.radiusFull),
@@ -532,8 +446,8 @@ class _RecommendationCard extends StatelessWidget {
                           icon: recommendation.appropriateness.name == 'usuallyAppropriate'
                               ? AppIcons.checkCircle
                               : recommendation.appropriateness.name == 'mayBeAppropriate'
-                                  ? AppIcons.info
-                                  : AppIcons.warning,
+                              ? AppIcons.info
+                              : AppIcons.warning,
                           size: AppConstants.iconSM,
                           color: appropriatenessColor,
                         ),
@@ -554,10 +468,7 @@ class _RecommendationCard extends StatelessWidget {
                 if (recommendation.score != null) ...[
                   AppSpacer.horizontalMD,
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppConstants.spacingMD,
-                      vertical: AppConstants.spacingSM,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(AppConstants.radiusFull),
@@ -585,9 +496,7 @@ class _RecommendationCard extends StatelessWidget {
                   AppSpacer.horizontalSM,
                   Text(
                     'Radiation: ${recommendation.radiation.displayName}',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
+                    style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   ),
                 ],
               ),
@@ -604,10 +513,7 @@ class _SummaryCard extends StatelessWidget {
   final AppLocalizations l10n;
   final String summary;
 
-  const _SummaryCard({
-    required this.l10n,
-    required this.summary,
-  });
+  const _SummaryCard({required this.l10n, required this.summary});
 
   @override
   Widget build(BuildContext context) {
@@ -616,44 +522,26 @@ class _SummaryCard extends StatelessWidget {
     return Card(
       child: ExpansionTile(
         initiallyExpanded: false,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-        ),
-        collapsedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
+        collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
         title: Row(
           children: [
-            HugeIcon(
-              icon: AppIcons.info,
-              size: AppConstants.iconMD,
-              color: theme.colorScheme.primary,
-            ),
+            HugeIcon(icon: AppIcons.info, size: AppConstants.iconMD, color: theme.colorScheme.primary),
             AppSpacer.horizontalSM,
             Expanded(
               child: Text(
                 'Why this recommendation?',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
           ],
         ),
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(
-              AppConstants.spacingMD,
-              0,
-              AppConstants.spacingMD,
-              AppConstants.spacingMD,
-            ),
+            padding: EdgeInsets.fromLTRB(AppConstants.spacingMD, 0, AppConstants.spacingMD, AppConstants.spacingMD),
             child: Text(
               summary,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-                height: 1.5,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant, height: 1.5),
             ),
           ),
         ],
@@ -701,9 +589,7 @@ class _AlternativesCard extends StatelessWidget {
           children: [
             Text(
               l10n.alternativeImagingOptions,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             AppSpacer.verticalMD,
             ...alternatives.map((rec) {
@@ -724,16 +610,12 @@ class _AlternativesCard extends StatelessWidget {
                           children: [
                             Text(
                               rec.getLocalizedProcedure(locale),
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
                             ),
                             AppSpacer.verticalXS,
                             Text(
                               rec.getLocalizedModality(locale),
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurfaceVariant,
-                              ),
+                              style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                             ),
                           ],
                         ),
@@ -750,10 +632,7 @@ class _AlternativesCard extends StatelessWidget {
                           ),
                           child: Text(
                             '${rec.score}/9',
-                            style: theme.textTheme.labelLarge?.copyWith(
-                              color: color,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: theme.textTheme.labelLarge?.copyWith(color: color, fontWeight: FontWeight.bold),
                           ),
                         ),
                     ],
@@ -787,27 +666,15 @@ class _DisclaimerCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                HugeIcon(
-                  icon: AppIcons.warning,
-                  size: AppConstants.iconSM,
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
+                HugeIcon(icon: AppIcons.warning, size: AppConstants.iconSM, color: theme.colorScheme.onSurfaceVariant),
                 AppSpacer.horizontalSM,
-                Text(
-                  l10n.clinicalJudgment,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(l10n.clinicalJudgment, style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
               ],
             ),
             AppSpacer.verticalSM,
             Text(
               l10n.clinicalJudgmentDisclaimer,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-                height: 1.5,
-              ),
+              style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant, height: 1.5),
             ),
           ],
         ),

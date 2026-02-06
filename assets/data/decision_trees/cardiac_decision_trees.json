@@ -1,0 +1,12 @@
+{
+  "panel_info": {
+    "id": "cardiac",
+    "name": "Cardiac",
+    "nameAr": "القلب",
+    "description": "Heart & Vascular",
+    "descriptionAr": "القلب والأوعية الدموية",
+    "iconName": "heart",
+    "isEnabled": false
+  },
+  "topics": []
+}
