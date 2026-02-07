@@ -48,7 +48,7 @@ class PanelSelectionScreen extends HookConsumerWidget {
             AppSpacer.verticalMD,
             Expanded(
               child: panelsAsync.when(
-                loading: () => const CircularProgressIndicator(),
+                loading: () => Center(child: const CircularProgressIndicator()),
                 error: (error, stack) => _buildErrorState(context, ref, error, l10n),
                 data: (panels) {
                   final filteredPanels = panels.where((panel) {
@@ -156,8 +156,8 @@ class _PanelCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest,
-        border: Border.all(color: theme.colorScheme.outline, width: 1),
+        color: theme.colorScheme.surfaceContainer,
+        border: Border.all(color: theme.colorScheme.outlineVariant, width: 1),
         boxShadow: [
           BoxShadow(
             color: theme.colorScheme.onSurface.withValues(alpha: 0.05),

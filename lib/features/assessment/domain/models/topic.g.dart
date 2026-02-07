@@ -15,6 +15,8 @@ _$TopicImpl _$$TopicImplFromJson(Map<String, dynamic> json) => _$TopicImpl(
   descriptionAr: json['descriptionAr'] as String?,
   rootNodeId: json['rootNodeId'] as String,
   isEnabled: json['isEnabled'] as bool? ?? true,
+  questionCount: (json['questionCount'] as num?)?.toInt(),
+  iconName: json['iconName'] as String?,
 );
 
 Map<String, dynamic> _$$TopicImplToJson(_$TopicImpl instance) =>
@@ -27,4 +29,6 @@ Map<String, dynamic> _$$TopicImplToJson(_$TopicImpl instance) =>
       'descriptionAr': instance.descriptionAr,
       'rootNodeId': instance.rootNodeId,
       'isEnabled': instance.isEnabled,
+      'questionCount': instance.questionCount,
+      'iconName': instance.iconName,
     };

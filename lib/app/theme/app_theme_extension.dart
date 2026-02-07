@@ -3,6 +3,7 @@ import 'app_color_palette.dart';
 
 /// Custom theme extension for app-specific colors
 class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
+  // Appropriateness colors
   final Color usuallyAppropriate;
   final Color usuallyAppropriateBackground;
   final Color mayBeAppropriate;
@@ -10,18 +11,35 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
   final Color usuallyNotAppropriate;
   final Color usuallyNotAppropriateBackground;
 
+  // Radiation colors
   final Color radiationNone;
   final Color radiationLow;
   final Color radiationMedium;
   final Color radiationHigh;
   final Color radiationVeryHigh;
 
+  // Gradients
   final List<Color> primaryGradient;
   final List<Color> successGradient;
   final List<Color> backgroundGradient;
 
+  // Glass effects
   final Color glassBackground;
   final Color glassBorder;
+
+  // Semantic colors
+  final Color success;
+  final Color warning;
+  final Color info;
+
+  // Text colors
+  final Color textMuted;
+  final Color textDisabled;
+
+  // Border colors
+  final Color borderLight;
+  final Color borderMedium;
+  final Color borderStrong;
 
   const AppThemeExtension({
     required this.usuallyAppropriate,
@@ -40,6 +58,14 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
     required this.backgroundGradient,
     required this.glassBackground,
     required this.glassBorder,
+    required this.success,
+    required this.warning,
+    required this.info,
+    required this.textMuted,
+    required this.textDisabled,
+    required this.borderLight,
+    required this.borderMedium,
+    required this.borderStrong,
   });
 
   static const light = AppThemeExtension(
@@ -58,7 +84,15 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
     successGradient: AppColorPalette.successGradient,
     backgroundGradient: AppColorPalette.backgroundGradientLight,
     glassBackground: Color(0xB3FFFFFF), // white with 0.7 alpha
-    glassBorder: Color(0xCCFFFFFF), // white with 0.8 alpha
+    glassBorder: Color(0xE6FFFFFF), // white with 0.9 alpha
+    success: AppColorPalette.successLight,
+    warning: AppColorPalette.warningLight,
+    info: AppColorPalette.infoLight,
+    textMuted: AppColorPalette.onSurfaceVariantLight,
+    textDisabled: Color(0xFF9CA3AF), // gray-400
+    borderLight: Color(0xFFE5E7EB), // gray-200
+    borderMedium: Color(0xFFD1D5DB), // gray-300
+    borderStrong: Color(0xFF9CA3AF), // gray-400
   );
 
   static const dark = AppThemeExtension(
@@ -78,6 +112,14 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
     backgroundGradient: AppColorPalette.backgroundGradientDark,
     glassBackground: Color(0x1AFFFFFF), // white with 0.1 alpha
     glassBorder: Color(0x33FFFFFF), // white with 0.2 alpha
+    success: AppColorPalette.successDark,
+    warning: AppColorPalette.warningDark,
+    info: AppColorPalette.infoDark,
+    textMuted: AppColorPalette.onSurfaceVariantDark,
+    textDisabled: Color(0xFF6B7280), // gray-500
+    borderLight: AppColorPalette.outlineVariantDark,
+    borderMedium: AppColorPalette.outlineDark,
+    borderStrong: AppColorPalette.onSurfaceVariantDark,
   );
 
   @override
@@ -98,6 +140,14 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
     List<Color>? backgroundGradient,
     Color? glassBackground,
     Color? glassBorder,
+    Color? success,
+    Color? warning,
+    Color? info,
+    Color? textMuted,
+    Color? textDisabled,
+    Color? borderLight,
+    Color? borderMedium,
+    Color? borderStrong,
   }) {
     return AppThemeExtension(
       usuallyAppropriate: usuallyAppropriate ?? this.usuallyAppropriate,
@@ -120,6 +170,14 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
       backgroundGradient: backgroundGradient ?? this.backgroundGradient,
       glassBackground: glassBackground ?? this.glassBackground,
       glassBorder: glassBorder ?? this.glassBorder,
+      success: success ?? this.success,
+      warning: warning ?? this.warning,
+      info: info ?? this.info,
+      textMuted: textMuted ?? this.textMuted,
+      textDisabled: textDisabled ?? this.textDisabled,
+      borderLight: borderLight ?? this.borderLight,
+      borderMedium: borderMedium ?? this.borderMedium,
+      borderStrong: borderStrong ?? this.borderStrong,
     );
   }
 
@@ -151,6 +209,14 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
           _lerpGradient(backgroundGradient, other.backgroundGradient, t),
       glassBackground: Color.lerp(glassBackground, other.glassBackground, t)!,
       glassBorder: Color.lerp(glassBorder, other.glassBorder, t)!,
+      success: Color.lerp(success, other.success, t)!,
+      warning: Color.lerp(warning, other.warning, t)!,
+      info: Color.lerp(info, other.info, t)!,
+      textMuted: Color.lerp(textMuted, other.textMuted, t)!,
+      textDisabled: Color.lerp(textDisabled, other.textDisabled, t)!,
+      borderLight: Color.lerp(borderLight, other.borderLight, t)!,
+      borderMedium: Color.lerp(borderMedium, other.borderMedium, t)!,
+      borderStrong: Color.lerp(borderStrong, other.borderStrong, t)!,
     );
   }
 

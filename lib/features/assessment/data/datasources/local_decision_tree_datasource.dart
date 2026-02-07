@@ -68,13 +68,35 @@ class LocalDecisionTreeDatasource implements DecisionTreeDatasource {
     return panels.where((p) => p.id == panelId).firstOrNull;
   }
 
+  /// Count the number of question nodes in a topic's nodes map.
+  int _countQuestionNodes(Map<String, dynamic> topicJson) {
+    final nodes = topicJson['nodes'] as Map<String, dynamic>? ?? {};
+    int count = 0;
+    for (final entry in nodes.entries) {
+      final nodeData = entry.value as Map<String, dynamic>;
+      if (nodeData['type'] == 'question') {
+        count++;
+      }
+    }
+    return count;
+  }
+
   @override
   Future<List<Topic>> getTopics(String panelId) async {
     await _ensurePanelsLoaded();
     final data = _cacheByPanelId[panelId];
     if (data == null) return [];
     final topics = data['topics'] as List<dynamic>? ?? [];
-    return topics.map((t) => Topic.fromJson(t as Map<String, dynamic>)).where((t) => t.panelId == panelId).toList();
+    return topics.map((t) {
+      final topicJson = t as Map<String, dynamic>;
+      final questionCount = _countQuestionNodes(topicJson);
+      // Add questionCount to the JSON before parsing
+      final enrichedJson = <String, dynamic>{
+        ...topicJson,
+        'questionCount': questionCount,
+      };
+      return Topic.fromJson(enrichedJson);
+    }).where((t) => t.panelId == panelId).toList();
   }
 
   @override
@@ -84,7 +106,13 @@ class LocalDecisionTreeDatasource implements DecisionTreeDatasource {
       final topics = data['topics'] as List<dynamic>? ?? [];
       final match = topics.where((t) => (t as Map)['id'] == topicId).firstOrNull;
       if (match != null) {
-        return Topic.fromJson(match as Map<String, dynamic>);
+        final topicJson = match as Map<String, dynamic>;
+        final questionCount = _countQuestionNodes(topicJson);
+        final enrichedJson = <String, dynamic>{
+          ...topicJson,
+          'questionCount': questionCount,
+        };
+        return Topic.fromJson(enrichedJson);
       }
     }
     return null;

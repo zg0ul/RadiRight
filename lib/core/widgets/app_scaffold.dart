@@ -93,7 +93,7 @@ class AppScaffold extends ConsumerWidget {
             )
           : null,
       centerTitle: centerTitle,
-      titleTextStyle: theme.textTheme.titleMedium,
+      titleTextStyle: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: theme.colorScheme.surface,

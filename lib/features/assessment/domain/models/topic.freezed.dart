@@ -29,6 +29,8 @@ mixin _$Topic {
   String? get descriptionAr => throw _privateConstructorUsedError;
   String get rootNodeId => throw _privateConstructorUsedError;
   bool get isEnabled => throw _privateConstructorUsedError;
+  int? get questionCount => throw _privateConstructorUsedError;
+  String? get iconName => throw _privateConstructorUsedError;
 
   /// Serializes this Topic to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,6 +55,8 @@ abstract class $TopicCopyWith<$Res> {
     String? descriptionAr,
     String rootNodeId,
     bool isEnabled,
+    int? questionCount,
+    String? iconName,
   });
 }
 
@@ -79,6 +83,8 @@ class _$TopicCopyWithImpl<$Res, $Val extends Topic>
     Object? descriptionAr = freezed,
     Object? rootNodeId = null,
     Object? isEnabled = null,
+    Object? questionCount = freezed,
+    Object? iconName = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -114,6 +120,14 @@ class _$TopicCopyWithImpl<$Res, $Val extends Topic>
                 ? _value.isEnabled
                 : isEnabled // ignore: cast_nullable_to_non_nullable
                       as bool,
+            questionCount: freezed == questionCount
+                ? _value.questionCount
+                : questionCount // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            iconName: freezed == iconName
+                ? _value.iconName
+                : iconName // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -137,6 +151,8 @@ abstract class _$$TopicImplCopyWith<$Res> implements $TopicCopyWith<$Res> {
     String? descriptionAr,
     String rootNodeId,
     bool isEnabled,
+    int? questionCount,
+    String? iconName,
   });
 }
 
@@ -162,6 +178,8 @@ class __$$TopicImplCopyWithImpl<$Res>
     Object? descriptionAr = freezed,
     Object? rootNodeId = null,
     Object? isEnabled = null,
+    Object? questionCount = freezed,
+    Object? iconName = freezed,
   }) {
     return _then(
       _$TopicImpl(
@@ -197,6 +215,14 @@ class __$$TopicImplCopyWithImpl<$Res>
             ? _value.isEnabled
             : isEnabled // ignore: cast_nullable_to_non_nullable
                   as bool,
+        questionCount: freezed == questionCount
+            ? _value.questionCount
+            : questionCount // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        iconName: freezed == iconName
+            ? _value.iconName
+            : iconName // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -214,6 +240,8 @@ class _$TopicImpl extends _Topic {
     this.descriptionAr,
     required this.rootNodeId,
     this.isEnabled = true,
+    this.questionCount,
+    this.iconName,
   }) : super._();
 
   factory _$TopicImpl.fromJson(Map<String, dynamic> json) =>
@@ -236,10 +264,14 @@ class _$TopicImpl extends _Topic {
   @override
   @JsonKey()
   final bool isEnabled;
+  @override
+  final int? questionCount;
+  @override
+  final String? iconName;
 
   @override
   String toString() {
-    return 'Topic(id: $id, panelId: $panelId, name: $name, nameAr: $nameAr, description: $description, descriptionAr: $descriptionAr, rootNodeId: $rootNodeId, isEnabled: $isEnabled)';
+    return 'Topic(id: $id, panelId: $panelId, name: $name, nameAr: $nameAr, description: $description, descriptionAr: $descriptionAr, rootNodeId: $rootNodeId, isEnabled: $isEnabled, questionCount: $questionCount, iconName: $iconName)';
   }
 
   @override
@@ -258,7 +290,11 @@ class _$TopicImpl extends _Topic {
             (identical(other.rootNodeId, rootNodeId) ||
                 other.rootNodeId == rootNodeId) &&
             (identical(other.isEnabled, isEnabled) ||
-                other.isEnabled == isEnabled));
+                other.isEnabled == isEnabled) &&
+            (identical(other.questionCount, questionCount) ||
+                other.questionCount == questionCount) &&
+            (identical(other.iconName, iconName) ||
+                other.iconName == iconName));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -273,6 +309,8 @@ class _$TopicImpl extends _Topic {
     descriptionAr,
     rootNodeId,
     isEnabled,
+    questionCount,
+    iconName,
   );
 
   /// Create a copy of Topic
@@ -299,6 +337,8 @@ abstract class _Topic extends Topic {
     final String? descriptionAr,
     required final String rootNodeId,
     final bool isEnabled,
+    final int? questionCount,
+    final String? iconName,
   }) = _$TopicImpl;
   const _Topic._() : super._();
 
@@ -320,6 +360,10 @@ abstract class _Topic extends Topic {
   String get rootNodeId;
   @override
   bool get isEnabled;
+  @override
+  int? get questionCount;
+  @override
+  String? get iconName;
 
   /// Create a copy of Topic
   /// with the given fields replaced by the non-null parameter values.

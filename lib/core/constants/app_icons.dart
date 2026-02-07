@@ -47,12 +47,20 @@ class AppIcons {
 
   // Body parts for panels
   static const IconType bone = HugeIcons.strokeRoundedBone01;
+  static const IconType bone02 = HugeIcons.strokeRoundedBone02;
   static const IconType lungs = HugeIcons.strokeRoundedLungs;
   static const IconType brain = HugeIcons.strokeRoundedBrain;
   static const IconType heart = HugeIcons.strokeRoundedHeartCheck;
   static const IconType kidneys = HugeIcons.strokeRoundedKidneys;
   static const IconType liver = HugeIcons.strokeRoundedLiver;
   static const IconType xray = HugeIcons.strokeRoundedXRay;
+
+  // Additional body part icons for topics
+  static const IconType hand = HugeIcons.strokeRoundedHandGrip;
+  static const IconType foot = HugeIcons.strokeRoundedRunningShoes;
+  static const IconType spine = HugeIcons.strokeRoundedBodyPartMuscle;
+  static const IconType shoulder = HugeIcons.strokeRoundedBone01;
+  static const IconType joint = HugeIcons.strokeRoundedBone02;
 
   // Assessment
   static const IconType question = HugeIcons.strokeRoundedHelpCircle;
