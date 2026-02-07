@@ -95,15 +95,19 @@ class QuestionScreen extends HookConsumerWidget {
             AppSpacer.verticalLG,
             Expanded(
               child: SingleChildScrollView(
-                child: QuestionCard(
-                  key: ValueKey(currentQuestionKey),
-                  node: currentNode,
-                  locale: locale,
-                  ref: ref,
-                  l10n: l10n,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: AppConstants.spacingLG),
+                  child: QuestionCard(
+                    key: ValueKey(currentQuestionKey),
+                    node: currentNode,
+                    locale: locale,
+                    ref: ref,
+                    l10n: l10n,
+                  ),
                 ),
               ),
             ),
+
             QuestionFooter(engineState: engineState, ref: ref, l10n: l10n),
           ],
         ),
