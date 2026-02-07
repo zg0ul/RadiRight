@@ -332,6 +332,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get clearHistoryConfirmation => 'هل أنت متأكد من مسح كل السجل؟';
 
   @override
+  String get exitProgressWarning => 'هل أنت متأكد من الخروج؟ سيتم فقدان تقدمك.';
+
+  @override
   String get assessmentCompleted => 'اكتمل التقييم';
 
   @override

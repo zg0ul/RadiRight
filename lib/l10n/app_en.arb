@@ -126,6 +126,7 @@
   "noHistory": "No assessment history",
   "clearHistory": "Clear History",
   "clearHistoryConfirmation": "Are you sure you want to clear all history?",
+  "exitProgressWarning": "Are you sure you want to exit? Your progress will be lost.",
   "assessmentCompleted": "Assessment completed",
   "viewDetails": "View Details",
   "language": "Language",

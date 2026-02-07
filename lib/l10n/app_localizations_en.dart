@@ -333,6 +333,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Are you sure you want to clear all history?';
 
   @override
+  String get exitProgressWarning =>
+      'Are you sure you want to exit? Your progress will be lost.';
+
+  @override
   String get assessmentCompleted => 'Assessment completed';
 
   @override

@@ -75,6 +75,7 @@
   "noHistory": "لا يوجد سجل تقييمات",
   "clearHistory": "مسح السجل",
   "clearHistoryConfirmation": "هل أنت متأكد من مسح كل السجل؟",
+  "exitProgressWarning": "هل أنت متأكد من الخروج؟ سيتم فقدان تقدمك.",
   "assessmentCompleted": "اكتمل التقييم",
   "viewDetails": "عرض التفاصيل",
 

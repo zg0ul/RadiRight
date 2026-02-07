@@ -722,6 +722,12 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to clear all history?'**
   String get clearHistoryConfirmation;
 
+  /// No description provided for @exitProgressWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to exit? Your progress will be lost.'**
+  String get exitProgressWarning;
+
   /// No description provided for @assessmentCompleted.
   ///
   /// In en, this message translates to:
