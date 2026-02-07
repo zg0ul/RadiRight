@@ -4,10 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:radi_right/core/widgets/app_scaffold.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
 
 import '../../../../app/routing/routes.dart';
-import '../../../../app/theme/app_theme_extension.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_icons.dart';
 import '../../../../core/utils/animation_extensions.dart';
@@ -21,71 +21,53 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final appTheme = context.appTheme;
+    final theme = Theme.of(context);
 
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: appTheme.backgroundGradient,
-          ),
+    return AppScaffold(
+      showBackButton: false,
+      showContentPadding: false,
+      actions: [
+        const TrialCountdownWidget(),
+        AppSpacer.horizontalSM,
+        IconButton(
+          icon: HugeIcon(icon: AppIcons.history, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
+          onPressed: () => context.push(AppRoutes.history),
+          tooltip: l10n.history,
         ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              _buildAppBar(context, l10n),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingLG),
-                  child: Column(
-                    children: [
-                      _buildLogo(context).fadeSlideIn(index: 0),
-                      AppSpacer.verticalMD,
-                      _buildTitle(context, l10n).fadeSlideIn(index: 1),
-                      AppSpacer.verticalSM,
-                      _buildTagline(context, l10n).fadeSlideIn(index: 2),
-                      AppSpacer.verticalXL,
-                      _buildDescriptionCard(context, l10n).fadeSlideIn(index: 3),
-                      AppSpacer.verticalXL,
-                      _buildStartButton(context, l10n).fadeSlideIn(index: 4),
-                      AppSpacer.verticalXL,
-                      _buildFeatureIcons(context, l10n).fadeSlideIn(index: 5),
-                      AppSpacer.verticalXL,
-                      _buildFooter(context, l10n).fadeSlideIn(index: 6),
-                      AppSpacer.verticalLG,
-                    ],
-                  ),
+        IconButton(
+          icon: HugeIcon(icon: AppIcons.settings, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
+          onPressed: () => context.push(AppRoutes.settings),
+          tooltip: l10n.settings,
+        ),
+      ],
+      child: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingLG),
+                child: Column(
+                  children: [
+                    _buildLogo(context).fadeSlideIn(index: 0),
+                    AppSpacer.verticalMD,
+                    _buildTitle(context, l10n).fadeSlideIn(index: 1),
+                    AppSpacer.verticalSM,
+                    _buildTagline(context, l10n).fadeSlideIn(index: 2),
+                    AppSpacer.verticalXL,
+                    _buildDescriptionCard(context, l10n).fadeSlideIn(index: 3),
+                    AppSpacer.verticalXL,
+                    _buildStartButton(context, l10n).fadeSlideIn(index: 4),
+                    AppSpacer.verticalXL,
+                    _buildFeatureIcons(context, l10n).fadeSlideIn(index: 5),
+                    AppSpacer.verticalXL,
+                    _buildFooter(context, l10n).fadeSlideIn(index: 6),
+                    AppSpacer.verticalLG,
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildAppBar(BuildContext context, AppLocalizations l10n) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          const TrialCountdownWidget(),
-          AppSpacer.horizontalSM,
-          IconButton(
-            icon: HugeIcon(icon: AppIcons.history, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
-            onPressed: () => context.push(AppRoutes.history),
-            tooltip: l10n.history,
-          ),
-          IconButton(
-            icon: HugeIcon(icon: AppIcons.settings, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
-            onPressed: () => context.push(AppRoutes.settings),
-            tooltip: l10n.settings,
-          ),
-        ],
       ),
     );
   }

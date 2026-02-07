@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/constants/app_constants.dart';
-import '../../app/theme/app_theme_extension.dart';
 
 /// A card with glassmorphism (frosted glass) effect
 class GlassmorphismCard extends StatelessWidget {
@@ -29,20 +27,6 @@ class GlassmorphismCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final appTheme = context.appTheme;
-    final isDark = theme.brightness == Brightness.dark;
-
-    final effectiveBgColor = backgroundColor ??
-        (isDark
-            ? Colors.white.withValues(alpha: 0.08)
-            : Colors.white.withValues(alpha: 0.7));
-
-    final effectiveBorderColor = borderColor ??
-        (isDark
-            ? Colors.white.withValues(alpha: 0.15)
-            : Colors.white.withValues(alpha: 0.8));
-
     return Container(
       margin: margin,
       child: ClipRRect(
@@ -52,16 +36,16 @@ class GlassmorphismCard extends StatelessWidget {
           child: Container(
             padding: padding ?? EdgeInsets.all(AppConstants.spacingMD),
             decoration: BoxDecoration(
-              color: effectiveBgColor,
+              color: Theme.of(context).colorScheme.surfaceContainer,
               borderRadius: BorderRadius.circular(borderRadius ?? AppConstants.radiusLG),
               border: Border.all(
-                color: effectiveBorderColor,
+                color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5),
                 width: borderWidth,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 10,
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 1),
+                  blurRadius: 20,
                   offset: const Offset(0, 4),
                 ),
               ],
@@ -102,16 +86,11 @@ class GradientGlassCard extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final colors = gradientColors ??
+    final colors =
+        gradientColors ??
         (isDark
-            ? [
-                Colors.white.withValues(alpha: 0.1),
-                Colors.white.withValues(alpha: 0.05),
-              ]
-            : [
-                Colors.white.withValues(alpha: 0.8),
-                Colors.white.withValues(alpha: 0.6),
-              ]);
+            ? [Colors.white.withValues(alpha: 0.1), Colors.white.withValues(alpha: 0.05)]
+            : [Colors.white.withValues(alpha: 0.8), Colors.white.withValues(alpha: 0.6)]);
 
     return Container(
       margin: margin,
@@ -122,16 +101,10 @@ class GradientGlassCard extends StatelessWidget {
           child: Container(
             padding: padding ?? EdgeInsets.all(AppConstants.spacingMD),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: colors,
-                begin: gradientBegin,
-                end: gradientEnd,
-              ),
+              gradient: LinearGradient(colors: colors, begin: gradientBegin, end: gradientEnd),
               borderRadius: BorderRadius.circular(borderRadius ?? AppConstants.radiusLG),
               border: Border.all(
-                color: isDark
-                    ? Colors.white.withValues(alpha: 0.15)
-                    : Colors.white.withValues(alpha: 0.8),
+                color: isDark ? Colors.white.withValues(alpha: 0.15) : Colors.white.withValues(alpha: 0.8),
                 width: 1,
               ),
             ),
