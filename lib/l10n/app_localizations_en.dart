@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appName => 'RadiRight';
 
   @override
+  String get acrAppropriatenessCriteria => 'ACR Appropriateness Criteria';
+
+  @override
   String get login => 'Login';
 
   @override

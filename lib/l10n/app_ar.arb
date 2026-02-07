@@ -2,6 +2,7 @@
   "@@locale": "ar",
 
   "appName": "راديرايت",
+  "acrAppropriatenessCriteria": "معايير ملاءمة ACR",
 
   "login": "تسجيل الدخول",
   "register": "إنشاء حساب",

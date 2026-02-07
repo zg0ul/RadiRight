@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
   "appName": "RadiRight",
+  "acrAppropriatenessCriteria": "ACR Appropriateness Criteria",
   "@appName": {
     "description": "The name of the application"
   },

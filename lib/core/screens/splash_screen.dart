@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:radi_right/core/utils/app_spacer.dart';
+import 'package:radi_right/core/widgets/app_scaffold.dart';
+import 'package:radi_right/l10n/app_localizations.dart';
 import '../../app/routing/routes.dart';
 import '../../features/auth/presentation/providers/auth_provider.dart';
 import '../../features/subscription/presentation/providers/subscription_provider.dart';
@@ -43,32 +48,29 @@ class SplashScreen extends HookConsumerWidget {
       return null;
     }, [authState, subscriptionState]);
 
-    return Scaffold(
-      body: Center(
+    return AppScaffold(
+      showBackButton: false,
+      showContentPadding: false,
+      showAppBar: false,
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.medical_services_outlined,
-              size: 100,
-              color: Theme.of(context).colorScheme.primary,
+            SvgPicture.asset(
+              'assets/radi_right_logo.svg',
+              width: 200.w,
+              height: 200.w,
+              fit: BoxFit.contain,
+              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
             ),
-            const SizedBox(height: 24),
+            AppSpacer.verticalSM,
             Text(
-              'RadiRight',
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+              AppLocalizations.of(context)!.acrAppropriatenessCriteria,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
             ),
-            const SizedBox(height: 8),
-            Text(
-              'ACR Appropriateness Criteria',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-            ),
-            const SizedBox(height: 48),
+            AppSpacer.verticalLG,
             const CircularProgressIndicator(),
           ],
         ),

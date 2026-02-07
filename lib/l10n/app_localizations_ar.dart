@@ -12,6 +12,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appName => 'راديرايت';
 
   @override
+  String get acrAppropriatenessCriteria => 'معايير ملاءمة ACR';
+
+  @override
   String get login => 'تسجيل الدخول';
 
   @override

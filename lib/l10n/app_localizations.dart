@@ -104,6 +104,12 @@ abstract class AppLocalizations {
   /// **'RadiRight'**
   String get appName;
 
+  /// No description provided for @acrAppropriatenessCriteria.
+  ///
+  /// In en, this message translates to:
+  /// **'ACR Appropriateness Criteria'**
+  String get acrAppropriatenessCriteria;
+
   /// No description provided for @login.
   ///
   /// In en, this message translates to:

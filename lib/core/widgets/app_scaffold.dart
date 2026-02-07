@@ -19,6 +19,9 @@ class AppScaffold extends ConsumerWidget {
   final bool showContentPadding;
   final ScrollController? scrollController;
 
+  /// When `false`, hides the app bar completely (no title, actions, leading, or back button)
+  final bool showAppBar;
+
   final VoidCallback? onBackButtonPressed;
 
   /// When `onRefresh` is not null, it adds a refresh indicator with the onRefresh callback
@@ -43,6 +46,7 @@ class AppScaffold extends ConsumerWidget {
     this.leading,
     this.showBackButton = true,
     this.showContentPadding = true,
+    this.showAppBar = true,
     this.scrollController,
     this.onRefresh,
     this.onBackButtonPressed,
@@ -129,7 +133,7 @@ class AppScaffold extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: customAppBar ?? buildAppBar(context),
+      appBar: showAppBar ? (customAppBar ?? buildAppBar(context)) : null,
       backgroundColor: Theme.of(context).colorScheme.surface,
       // Prevent bottom sheet/keyboard from resizing the nav bar
       resizeToAvoidBottomInset: false,
