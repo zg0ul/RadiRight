@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -40,7 +41,6 @@ class HomeScreen extends ConsumerWidget {
                   padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingLG),
                   child: Column(
                     children: [
-                      AppSpacer.verticalXL,
                       _buildLogo(context).fadeSlideIn(index: 0),
                       AppSpacer.verticalMD,
                       _buildTitle(context, l10n).fadeSlideIn(index: 1),
@@ -69,30 +69,19 @@ class HomeScreen extends ConsumerWidget {
   Widget _buildAppBar(BuildContext context, AppLocalizations l10n) {
     final theme = Theme.of(context);
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppConstants.spacingMD,
-        vertical: AppConstants.spacingSM,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const TrialCountdownWidget(),
           AppSpacer.horizontalSM,
           IconButton(
-            icon: HugeIcon(
-              icon: AppIcons.history,
-              size: AppConstants.iconMD,
-              color: theme.colorScheme.onSurface,
-            ),
+            icon: HugeIcon(icon: AppIcons.history, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
             onPressed: () => context.push(AppRoutes.history),
             tooltip: l10n.history,
           ),
           IconButton(
-            icon: HugeIcon(
-              icon: AppIcons.settings,
-              size: AppConstants.iconMD,
-              color: theme.colorScheme.onSurface,
-            ),
+            icon: HugeIcon(icon: AppIcons.settings, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
             onPressed: () => context.push(AppRoutes.settings),
             tooltip: l10n.settings,
           ),
@@ -104,8 +93,8 @@ class HomeScreen extends ConsumerWidget {
   Widget _buildLogo(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      width: 100.w,
-      height: 100.w,
+      width: 150.w,
+      height: 150.w,
       decoration: BoxDecoration(
         color: theme.colorScheme.primary,
         shape: BoxShape.circle,
@@ -118,10 +107,11 @@ class HomeScreen extends ConsumerWidget {
         ],
       ),
       child: Center(
-        child: HugeIcon(
-          icon: AppIcons.medical,
-          size: 50.w,
-          color: theme.colorScheme.onPrimary,
+        child: SvgPicture.asset(
+          'assets/radi_right_logo.svg',
+          width: 120.w,
+          height: 120.w,
+          colorFilter: ColorFilter.mode(theme.colorScheme.onPrimary, BlendMode.srcIn),
         ),
       ),
     );
@@ -131,20 +121,15 @@ class HomeScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     return Text(
       l10n.appName,
-      style: theme.textTheme.headlineLarge?.copyWith(
-        fontWeight: FontWeight.bold,
-        color: theme.colorScheme.onSurface,
-      ),
+      style: theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold, color: theme.colorScheme.onSurface),
     );
   }
 
   Widget _buildTagline(BuildContext context, AppLocalizations l10n) {
     final theme = Theme.of(context);
     return Text(
-      'Evidence-Based Imaging Guidance',
-      style: theme.textTheme.bodyLarge?.copyWith(
-        color: theme.colorScheme.onSurfaceVariant,
-      ),
+      l10n.homeTagline,
+      style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant),
       textAlign: TextAlign.center,
     );
   }
@@ -155,18 +140,11 @@ class HomeScreen extends ConsumerWidget {
       padding: EdgeInsets.all(AppConstants.spacingLG),
       child: Column(
         children: [
-          HugeIcon(
-            icon: AppIcons.info,
-            size: AppConstants.iconLG,
-            color: theme.colorScheme.primary,
-          ),
+          HugeIcon(icon: AppIcons.info, size: AppConstants.iconLG, color: theme.colorScheme.primary),
           AppSpacer.verticalMD,
           Text(
-            'Navigate clinical imaging decisions with confidence using ACR Appropriateness Criteria guidelines.',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface,
-              height: 1.5,
-            ),
+            l10n.homeDescriptionCard,
+            style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurface, height: 1.5),
             textAlign: TextAlign.center,
           ),
         ],
@@ -182,18 +160,12 @@ class HomeScreen extends ConsumerWidget {
         onPressed: () => context.push(AppRoutes.panelSelection),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: AppConstants.spacingMD),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            HugeIcon(
-              icon: AppIcons.medical,
-              size: AppConstants.iconMD,
-              color: theme.colorScheme.onPrimary,
-            ),
+            HugeIcon(icon: AppIcons.medical, size: AppConstants.iconMD, color: theme.colorScheme.onPrimary),
             AppSpacer.horizontalSM,
             Text(
               l10n.startAssessment,
@@ -212,54 +184,29 @@ class HomeScreen extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildFeatureItem(
-          context,
-          icon: AppIcons.evidenceBased,
-          label: 'Evidence\nBased',
-        ),
-        _buildFeatureItem(
-          context,
-          icon: AppIcons.criteria,
-          label: 'ACR\nCriteria',
-        ),
-        _buildFeatureItem(
-          context,
-          icon: AppIcons.quickResults,
-          label: 'Quick\nResults',
-        ),
+        _buildFeatureItem(context, icon: AppIcons.evidenceBased, label: l10n.homeFeatureEvidenceBased),
+        _buildFeatureItem(context, icon: AppIcons.criteria, label: l10n.homeFeatureAcrCriteria),
+        _buildFeatureItem(context, icon: AppIcons.quickResults, label: l10n.homeFeatureQuickResults),
       ],
     );
   }
 
-  Widget _buildFeatureItem(
-    BuildContext context, {
-    required List<List<dynamic>> icon,
-    required String label,
-  }) {
+  Widget _buildFeatureItem(BuildContext context, {required List<List<dynamic>> icon, required String label}) {
     final theme = Theme.of(context);
     return Column(
       children: [
         Container(
           width: 56.w,
           height: 56.w,
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: theme.colorScheme.primaryContainer, shape: BoxShape.circle),
           child: Center(
-            child: HugeIcon(
-              icon: icon,
-              size: AppConstants.iconMD,
-              color: theme.colorScheme.primary,
-            ),
+            child: HugeIcon(icon: icon, size: AppConstants.iconMD, color: theme.colorScheme.primary),
           ),
         ),
         AppSpacer.verticalSM,
         Text(
           label,
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
+          style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
           textAlign: TextAlign.center,
         ),
       ],
@@ -269,19 +216,14 @@ class HomeScreen extends ConsumerWidget {
   Widget _buildFooter(BuildContext context, AppLocalizations l10n) {
     final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppConstants.spacingMD,
-        vertical: AppConstants.spacingSM,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(AppConstants.radiusSM),
       ),
       child: Text(
-        'Based on ACR Appropriateness Criteria\u00ae',
-        style: theme.textTheme.labelSmall?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
+        l10n.homeFooterAcrBased,
+        style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
         textAlign: TextAlign.center,
       ),
     );

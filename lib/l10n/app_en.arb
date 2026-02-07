@@ -169,5 +169,23 @@
   "osteoporosisBoneDensity": "Osteoporosis and Bone Mineral Density",
   "stressFracture": "Stress (Fatigue/Insufficiency) Fracture",
   "suspectedOsteomyelitis": "Suspected Osteomyelitis/Septic Arthritis/Soft Tissue Infection",
-  "suspectedPrimaryBoneTumors": "Suspected Primary Bone Tumors"
+  "suspectedPrimaryBoneTumors": "Suspected Primary Bone Tumors",
+  "questions": "questions",
+  "questionSingular": "question",
+  "questionsCount": "{count} {count, plural, =1{question} other{questions}}",
+  "@questionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hapticFeedback": "Haptic Feedback",
+  "hapticFeedbackDescription": "Enable tactile feedback for interactions",
+  "homeTagline": "Evidence-Based Imaging Guidance",
+  "homeDescriptionCard": "Navigate clinical imaging decisions with confidence using ACR Appropriateness Criteria guidelines.",
+  "homeFeatureEvidenceBased": "Evidence\nBased",
+  "homeFeatureAcrCriteria": "ACR\nCriteria",
+  "homeFeatureQuickResults": "Quick\nResults",
+  "homeFooterAcrBased": "Based on ACR Appropriateness Criteria®"
 }

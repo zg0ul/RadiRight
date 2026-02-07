@@ -474,4 +474,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get suspectedPrimaryBoneTumors => 'Suspected Primary Bone Tumors';
+
+  @override
+  String get questions => 'questions';
+
+  @override
+  String get questionSingular => 'question';
+
+  @override
+  String questionsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'questions',
+      one: 'question',
+    );
+    return '$count $_temp0';
+  }
+
+  @override
+  String get hapticFeedback => 'Haptic Feedback';
+
+  @override
+  String get hapticFeedbackDescription =>
+      'Enable tactile feedback for interactions';
+
+  @override
+  String get homeTagline => 'Evidence-Based Imaging Guidance';
+
+  @override
+  String get homeDescriptionCard =>
+      'Navigate clinical imaging decisions with confidence using ACR Appropriateness Criteria guidelines.';
+
+  @override
+  String get homeFeatureEvidenceBased => 'Evidence\nBased';
+
+  @override
+  String get homeFeatureAcrCriteria => 'ACR\nCriteria';
+
+  @override
+  String get homeFeatureQuickResults => 'Quick\nResults';
+
+  @override
+  String get homeFooterAcrBased => 'Based on ACR Appropriateness Criteria®';
 }

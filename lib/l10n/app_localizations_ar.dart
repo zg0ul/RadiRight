@@ -471,4 +471,46 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get suspectedPrimaryBoneTumors => 'اشتباه أورام العظام الأولية';
+
+  @override
+  String get questions => 'أسئلة';
+
+  @override
+  String get questionSingular => 'سؤال';
+
+  @override
+  String questionsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'أسئلة',
+      one: 'سؤال',
+    );
+    return '$count $_temp0';
+  }
+
+  @override
+  String get hapticFeedback => 'ردود الفعل اللمسية';
+
+  @override
+  String get hapticFeedbackDescription => 'تفعيل ردود الفعل اللمسية للتفاعلات';
+
+  @override
+  String get homeTagline => 'إرشادات التصوير المبنية على الأدلة';
+
+  @override
+  String get homeDescriptionCard =>
+      'اتخذ قرارات التصوير السريري بثقة باستخدام معايير ملاءمة ACR.';
+
+  @override
+  String get homeFeatureEvidenceBased => 'مبني على\nالأدلة';
+
+  @override
+  String get homeFeatureAcrCriteria => 'معايير\nACR';
+
+  @override
+  String get homeFeatureQuickResults => 'نتائج\nسريعة';
+
+  @override
+  String get homeFooterAcrBased => 'بناءً على معايير ملاءمة ACR®';
 }

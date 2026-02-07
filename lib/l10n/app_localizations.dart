@@ -985,6 +985,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Suspected Primary Bone Tumors'**
   String get suspectedPrimaryBoneTumors;
+
+  /// No description provided for @questions.
+  ///
+  /// In en, this message translates to:
+  /// **'questions'**
+  String get questions;
+
+  /// No description provided for @questionSingular.
+  ///
+  /// In en, this message translates to:
+  /// **'question'**
+  String get questionSingular;
+
+  /// No description provided for @questionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} {count, plural, =1{question} other{questions}}'**
+  String questionsCount(int count);
+
+  /// No description provided for @hapticFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptic Feedback'**
+  String get hapticFeedback;
+
+  /// No description provided for @hapticFeedbackDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable tactile feedback for interactions'**
+  String get hapticFeedbackDescription;
+
+  /// No description provided for @homeTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence-Based Imaging Guidance'**
+  String get homeTagline;
+
+  /// No description provided for @homeDescriptionCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate clinical imaging decisions with confidence using ACR Appropriateness Criteria guidelines.'**
+  String get homeDescriptionCard;
+
+  /// No description provided for @homeFeatureEvidenceBased.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence\nBased'**
+  String get homeFeatureEvidenceBased;
+
+  /// No description provided for @homeFeatureAcrCriteria.
+  ///
+  /// In en, this message translates to:
+  /// **'ACR\nCriteria'**
+  String get homeFeatureAcrCriteria;
+
+  /// No description provided for @homeFeatureQuickResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick\nResults'**
+  String get homeFeatureQuickResults;
+
+  /// No description provided for @homeFooterAcrBased.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on ACR Appropriateness Criteria®'**
+  String get homeFooterAcrBased;
 }
 
 class _AppLocalizationsDelegate

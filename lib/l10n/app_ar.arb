@@ -122,5 +122,23 @@
   "osteoporosisBoneDensity": "هشاشة العظام وكثافة المعادن العظمية",
   "stressFracture": "كسور الإجهاد",
   "suspectedOsteomyelitis": "اشتباه التهاب العظم والنقي/التهاب المفاصل الإنتاني/عدوى الأنسجة الرخوة",
-  "suspectedPrimaryBoneTumors": "اشتباه أورام العظام الأولية"
+  "suspectedPrimaryBoneTumors": "اشتباه أورام العظام الأولية",
+  "questions": "أسئلة",
+  "questionSingular": "سؤال",
+  "questionsCount": "{count} {count, plural, =1{سؤال} other{أسئلة}}",
+  "@questionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hapticFeedback": "ردود الفعل اللمسية",
+  "hapticFeedbackDescription": "تفعيل ردود الفعل اللمسية للتفاعلات",
+  "homeTagline": "إرشادات التصوير المبنية على الأدلة",
+  "homeDescriptionCard": "اتخذ قرارات التصوير السريري بثقة باستخدام معايير ملاءمة ACR.",
+  "homeFeatureEvidenceBased": "مبني على\nالأدلة",
+  "homeFeatureAcrCriteria": "معايير\nACR",
+  "homeFeatureQuickResults": "نتائج\nسريعة",
+  "homeFooterAcrBased": "بناءً على معايير ملاءمة ACR®"
 }

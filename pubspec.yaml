@@ -16,6 +16,7 @@ dependencies:
   # UI
   cupertino_icons: ^1.0.8
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.0.16
   flutter_animate: ^4.5.0
   hugeicons: ^1.1.5
 
@@ -69,3 +70,4 @@ flutter:
   assets:
     - assets/data/
     - assets/data/decision_trees/
+    - assets/radi_right_logo.svg
