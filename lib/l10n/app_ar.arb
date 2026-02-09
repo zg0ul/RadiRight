@@ -142,5 +142,17 @@
   "homeFeatureEvidenceBased": "مبني على\nالأدلة",
   "homeFeatureAcrCriteria": "معايير\nACR",
   "homeFeatureQuickResults": "نتائج\nسريعة",
-  "homeFooterAcrBased": "بناءً على معايير ملاءمة ACR®"
+  "homeFooterAcrBased": "بناءً على معايير ملاءمة ACR®",
+  "recommendationFound": "تم العثور على توصية",
+  "resultBasedOnAcr": "بناءً على معايير ملاءمة ACR",
+  "acr": "ACR",
+  "whyThisRecommendation": "لماذا هذه التوصية؟",
+  "radiationLevel": "الإشعاع: {level}",
+  "@radiationLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  }
 }

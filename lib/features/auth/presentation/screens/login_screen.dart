@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:radi_right/core/constants/app_icons.dart';
+import 'package:radi_right/core/utils/app_spacer.dart';
+import 'package:radi_right/core/widgets/app_scaffold.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
-import '../../../../app/routing/routes.dart';
-import '../providers/auth_provider.dart';
+import 'package:radi_right/shared/widgets/app_logo.dart';
+import 'package:radi_right/app/routing/routes.dart';
+import 'package:radi_right/features/auth/presentation/providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -14,63 +19,63 @@ class LoginScreen extends ConsumerWidget {
     final formState = ref.watch(authFormStateProvider);
     final formNotifier = ref.read(authFormStateProvider.notifier);
 
-    return Scaffold(
-      body: SafeArea(
+    return AppScaffold(
+      showBackButton: false,
+      child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 48),
-              Icon(
-                Icons.medical_services_outlined,
-                size: 80,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const SizedBox(height: 24),
+              const AppLogo(),
+              AppSpacer.verticalMD,
               Text(
                 l10n.appName,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 48),
-              Text(
-                l10n.login,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 24),
+              AppSpacer.verticalXL,
+              Text(l10n.login, style: Theme.of(context).textTheme.headlineSmall),
+              AppSpacer.verticalMD,
               TextField(
                 onChanged: formNotifier.setEmail,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   labelText: l10n.email,
-                  prefixIcon: const Icon(Icons.email_outlined),
+                  prefixIcon: const UnconstrainedBox(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    child: HugeIcon(icon: AppIcons.email),
+                  ),
                 ),
               ),
-              const SizedBox(height: 16),
+              AppSpacer.verticalSM,
               TextField(
                 onChanged: formNotifier.setPassword,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: l10n.password,
-                  prefixIcon: const Icon(Icons.lock_outline),
+                  prefixIcon: const UnconstrainedBox(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    child: HugeIcon(icon: AppIcons.locked),
+                  ),
                 ),
               ),
-              const SizedBox(height: 8),
-              Align(
-                alignment: AlignmentDirectional.centerEnd,
-                child: TextButton(
-                  onPressed: () {
-                    // TODO: Implement forgot password
-                  },
-                  child: Text(l10n.forgotPassword),
-                ),
-              ),
+              // AppSpacer.verticalSM,
+              // Align(
+              //   alignment: AlignmentDirectional.centerEnd,
+              //   child: TextButton(
+              //     onPressed: () {
+              //       // TODO: Implement forgot password
+              //     },
+              //     child: Text(l10n.forgotPassword),
+              //   ),
+              // ),
               if (formState.error != null) ...[
-                const SizedBox(height: 8),
+                AppSpacer.verticalMD,
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -79,13 +84,11 @@ class LoginScreen extends ConsumerWidget {
                   ),
                   child: Text(
                     formState.error!,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onErrorContainer,
-                    ),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
                   ),
                 ),
               ],
-              const SizedBox(height: 24),
+              AppSpacer.verticalMD,
               ElevatedButton(
                 onPressed: formState.isLoading
                     ? null
@@ -93,10 +96,9 @@ class LoginScreen extends ConsumerWidget {
                         if (!formNotifier.validateLogin()) return;
                         formNotifier.setLoading(true);
                         try {
-                          await ref.read(authNotifierProvider.notifier).signIn(
-                                email: formState.email,
-                                password: formState.password,
-                              );
+                          await ref
+                              .read(authNotifierProvider.notifier)
+                              .signIn(email: formState.email, password: formState.password);
                           if (context.mounted) {
                             context.go(AppRoutes.home);
                           }
@@ -107,22 +109,20 @@ class LoginScreen extends ConsumerWidget {
                         }
                       },
                 child: formState.isLoading
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                    ? CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        strokeCap: StrokeCap.round,
+                        constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
                       )
                     : Text(l10n.signIn),
               ),
-              const SizedBox(height: 24),
+              AppSpacer.verticalMD,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(l10n.dontHaveAccount),
-                  TextButton(
-                    onPressed: () => context.go(AppRoutes.register),
-                    child: Text(l10n.signUp),
-                  ),
+                  TextButton(onPressed: () => context.go(AppRoutes.register), child: Text(l10n.signUp)),
                 ],
               ),
             ],

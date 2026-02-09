@@ -84,8 +84,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectPanel => 'اختر اللوحة';
 
   @override
-  String get selectPanelSubtitle =>
-      'Choose the clinical specialty relevant to your patient\'s case.';
+  String get selectPanelSubtitle => 'Choose the clinical specialty relevant to your patient\'s case.';
 
   @override
   String get selectTopic => 'اختر الموضوع';
@@ -94,8 +93,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get patientDemographics => 'Patient Demographics';
 
   @override
-  String get patientDemographicsSubtitle =>
-      'Provide information about your patient';
+  String get patientDemographicsSubtitle => 'Provide information about your patient';
 
   @override
   String get ageGroup => 'Age Group';
@@ -158,29 +156,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get preparingAssessment => 'Preparing Assessment...';
 
   @override
-  String get preparingAssessmentSubtitle =>
-      'Generating clinical questions based on ACR guidelines';
+  String get preparingAssessmentSubtitle => 'Generating clinical questions based on ACR guidelines';
 
   @override
   String get analyzingResponses => 'Analyzing Your Responses...';
 
   @override
-  String get analyzingResponsesSubtitle =>
-      'Matching with appropriate imaging recommendations';
+  String get analyzingResponsesSubtitle => 'Matching with appropriate imaging recommendations';
 
   @override
   String get acrRecommendation => 'ACR Recommendation';
 
   @override
-  String get acrRecommendationSubtitle =>
-      'Based on evidence-based guidelines and your clinical scenario';
+  String get acrRecommendationSubtitle => 'Based on evidence-based guidelines and your clinical scenario';
 
   @override
   String get usuallyAppropriateVerdict => 'Usually Appropriate';
 
   @override
-  String get usuallyAppropriateVerdictDesc =>
-      'This imaging study is usually appropriate for this clinical scenario';
+  String get usuallyAppropriateVerdictDesc => 'This imaging study is usually appropriate for this clinical scenario';
 
   @override
   String get appropriatenessScore => 'Appropriateness Score';
@@ -383,8 +377,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get musculoskeletal => 'العضلات والهيكل العظمي';
 
   @override
-  String get musculoskeletalDescription =>
-      'معايير ملاءمة ACR لتصوير العضلات والهيكل العظمي';
+  String get musculoskeletalDescription => 'معايير ملاءمة ACR لتصوير العضلات والهيكل العظمي';
 
   @override
   String get acuteElbowForearmPain => 'ألم حاد في الكوع أو الساعد';
@@ -399,12 +392,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get acuteShoulderPain => 'ألم حاد في الكتف';
 
   @override
-  String get acuteSpinalTraumaCervical =>
-      'إصابة حادة في العمود الفقري - الفقرات العنقية';
+  String get acuteSpinalTraumaCervical => 'إصابة حادة في العمود الفقري - الفقرات العنقية';
 
   @override
-  String get acuteSpinalTraumaThoracicLumbar =>
-      'إصابة حادة في العمود الفقري - الفقرات الصدرية/القطنية';
+  String get acuteSpinalTraumaThoracicLumbar => 'إصابة حادة في العمود الفقري - الفقرات الصدرية/القطنية';
 
   @override
   String get acuteTraumaAnkle => 'إصابة حادة في الكاحل';
@@ -422,8 +413,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get chronicElbowPain => 'ألم مزمن في الكوع';
 
   @override
-  String get chronicExtremityJointPainInflammatory =>
-      'ألم مزمن في مفاصل الأطراف - التهاب المفاصل';
+  String get chronicExtremityJointPainInflammatory => 'ألم مزمن في مفاصل الأطراف - التهاب المفاصل';
 
   @override
   String get chronicFootPain => 'ألم مزمن في القدم';
@@ -444,20 +434,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get imagingAfterShoulderArthroplasty => 'التصوير بعد تبديل مفصل الكتف';
 
   @override
-  String get imagingAfterTotalHipArthroplasty =>
-      'التصوير بعد تبديل مفصل الورك الكلي';
+  String get imagingAfterTotalHipArthroplasty => 'التصوير بعد تبديل مفصل الورك الكلي';
 
   @override
-  String get imagingAfterTotalKneeArthroplasty =>
-      'التصوير بعد تبديل مفصل الركبة الكلي';
+  String get imagingAfterTotalKneeArthroplasty => 'التصوير بعد تبديل مفصل الركبة الكلي';
 
   @override
-  String get inflammatoryBackPainAxial =>
-      'ألم الظهر الالتهابي - التهاب الفقار المحوري';
+  String get inflammatoryBackPainAxial => 'ألم الظهر الالتهابي - التهاب الفقار المحوري';
 
   @override
-  String get malignantPrimaryMskTumor =>
-      'أورام العضلات والهيكل العظمي الأولية الخبيثة - التدريج والمتابعة';
+  String get malignantPrimaryMskTumor => 'أورام العضلات والهيكل العظمي الأولية الخبيثة - التدريج والمتابعة';
 
   @override
   String get vertebralCompressionFractures => 'إدارة كسور الفقرات الانضغاطية';
@@ -472,8 +458,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get stressFracture => 'كسور الإجهاد';
 
   @override
-  String get suspectedOsteomyelitis =>
-      'اشتباه التهاب العظم والنقي/التهاب المفاصل الإنتاني/عدوى الأنسجة الرخوة';
+  String get suspectedOsteomyelitis => 'اشتباه التهاب العظم والنقي/التهاب المفاصل الإنتاني/عدوى الأنسجة الرخوة';
 
   @override
   String get suspectedPrimaryBoneTumors => 'اشتباه أورام العظام الأولية';
@@ -486,12 +471,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String questionsCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'أسئلة',
-      one: 'سؤال',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'أسئلة', one: 'سؤال');
     return '$count $_temp0';
   }
 
@@ -505,8 +485,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeTagline => 'إرشادات التصوير المبنية على الأدلة';
 
   @override
-  String get homeDescriptionCard =>
-      'اتخذ قرارات التصوير السريري بثقة باستخدام معايير ملاءمة ACR.';
+  String get homeDescriptionCard => 'اتخذ قرارات التصوير السريري بثقة باستخدام معايير ملاءمة ACR.';
 
   @override
   String get homeFeatureEvidenceBased => 'مبني على\nالأدلة';
@@ -519,4 +498,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeFooterAcrBased => 'بناءً على معايير ملاءمة ACR®';
+
+  @override
+  String get recommendationFound => 'تم العثور على توصية';
+
+  @override
+  String get resultBasedOnAcr => 'بناءً على معايير ملاءمة ACR';
+
+  @override
+  String get acr => 'ACR';
+
+  @override
+  String get whyThisRecommendation => 'لماذا هذه التوصية؟';
+
+  @override
+  String radiationLevel(String level) {
+    return 'الإشعاع: $level';
+  }
 }

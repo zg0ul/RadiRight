@@ -189,5 +189,17 @@
   "homeFeatureEvidenceBased": "Evidence\nBased",
   "homeFeatureAcrCriteria": "ACR\nCriteria",
   "homeFeatureQuickResults": "Quick\nResults",
-  "homeFooterAcrBased": "Based on ACR Appropriateness Criteria®"
+  "homeFooterAcrBased": "Based on ACR Appropriateness Criteria®",
+  "recommendationFound": "Recommendation Found",
+  "resultBasedOnAcr": "Based on ACR Appropriateness Criteria",
+  "acr": "ACR",
+  "whyThisRecommendation": "Why this recommendation?",
+  "radiationLevel": "Radiation: {level}",
+  "@radiationLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  }
 }

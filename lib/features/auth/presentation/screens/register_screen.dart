@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:radi_right/core/constants/app_icons.dart';
+import 'package:radi_right/core/utils/app_spacer.dart';
+import 'package:radi_right/core/widgets/app_scaffold.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
-import '../../../../app/routing/routes.dart';
-import '../../../subscription/presentation/providers/subscription_provider.dart';
-import '../providers/auth_provider.dart';
+import 'package:radi_right/app/routing/routes.dart';
+import 'package:radi_right/features/subscription/presentation/providers/subscription_provider.dart';
+import 'package:radi_right/features/auth/presentation/providers/auth_provider.dart';
+import 'package:radi_right/shared/widgets/app_logo.dart';
 
 class RegisterScreen extends ConsumerWidget {
   const RegisterScreen({super.key});
@@ -15,46 +20,85 @@ class RegisterScreen extends ConsumerWidget {
     final formState = ref.watch(authFormStateProvider);
     final formNotifier = ref.read(authFormStateProvider.notifier);
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.go(AppRoutes.login)),
-        title: Text(l10n.register),
-      ),
-      body: SafeArea(
+    return AppScaffold(
+      showBackButton: false,
+      child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 24),
+              const AppLogo(),
+              AppSpacer.verticalMD,
+              Text(
+                l10n.appName,
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              AppSpacer.verticalMD,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  l10n.register,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.start,
+                ),
+              ),
+              AppSpacer.verticalMD,
               TextField(
                 onChanged: formNotifier.setName,
                 textCapitalization: TextCapitalization.words,
-                decoration: InputDecoration(labelText: l10n.name, prefixIcon: const Icon(Icons.person_outline)),
+                decoration: InputDecoration(
+                  labelText: l10n.name,
+                  prefixIcon: const UnconstrainedBox(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    child: HugeIcon(icon: AppIcons.person),
+                  ),
+                ),
               ),
-              const SizedBox(height: 16),
+              AppSpacer.verticalSM,
               TextField(
                 onChanged: formNotifier.setEmail,
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(labelText: l10n.email, prefixIcon: const Icon(Icons.email_outlined)),
+                decoration: InputDecoration(
+                  labelText: l10n.email,
+                  prefixIcon: const UnconstrainedBox(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    child: HugeIcon(icon: AppIcons.email),
+                  ),
+                ),
               ),
-              const SizedBox(height: 16),
+              AppSpacer.verticalSM,
               TextField(
                 onChanged: formNotifier.setPassword,
                 obscureText: true,
-                decoration: InputDecoration(labelText: l10n.password, prefixIcon: const Icon(Icons.lock_outline)),
+                decoration: InputDecoration(
+                  labelText: l10n.password,
+                  prefixIcon: const UnconstrainedBox(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    child: HugeIcon(icon: AppIcons.locked),
+                  ),
+                ),
               ),
-              const SizedBox(height: 16),
+              AppSpacer.verticalSM,
               TextField(
                 onChanged: formNotifier.setConfirmPassword,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: l10n.confirmPassword,
-                  prefixIcon: const Icon(Icons.lock_outline),
+                  prefixIcon: const UnconstrainedBox(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    child: HugeIcon(icon: AppIcons.locked),
+                  ),
                 ),
               ),
               if (formState.error != null) ...[
-                const SizedBox(height: 16),
+                AppSpacer.verticalSM,
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -67,7 +111,7 @@ class RegisterScreen extends ConsumerWidget {
                   ),
                 ),
               ],
-              const SizedBox(height: 24),
+              AppSpacer.verticalMD,
               ElevatedButton(
                 onPressed: formState.isLoading
                     ? null
@@ -126,10 +170,15 @@ class RegisterScreen extends ConsumerWidget {
                         }
                       },
                 child: formState.isLoading
-                    ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                    ? CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        strokeCap: StrokeCap.round,
+                        constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
+                      )
                     : Text(l10n.signUp),
               ),
-              const SizedBox(height: 24),
+              AppSpacer.verticalMD,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

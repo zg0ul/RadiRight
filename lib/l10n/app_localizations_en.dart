@@ -84,8 +84,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectPanel => 'Select Clinical Panel';
 
   @override
-  String get selectPanelSubtitle =>
-      'Choose the clinical specialty relevant to your patient\'s case.';
+  String get selectPanelSubtitle => 'Choose the clinical specialty relevant to your patient\'s case.';
 
   @override
   String get selectTopic => 'Select Topic';
@@ -94,8 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get patientDemographics => 'Patient Demographics';
 
   @override
-  String get patientDemographicsSubtitle =>
-      'Provide information about your patient';
+  String get patientDemographicsSubtitle => 'Provide information about your patient';
 
   @override
   String get ageGroup => 'Age Group';
@@ -158,29 +156,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get preparingAssessment => 'Preparing Assessment...';
 
   @override
-  String get preparingAssessmentSubtitle =>
-      'Generating clinical questions based on ACR guidelines';
+  String get preparingAssessmentSubtitle => 'Generating clinical questions based on ACR guidelines';
 
   @override
   String get analyzingResponses => 'Analyzing Your Responses...';
 
   @override
-  String get analyzingResponsesSubtitle =>
-      'Matching with appropriate imaging recommendations';
+  String get analyzingResponsesSubtitle => 'Matching with appropriate imaging recommendations';
 
   @override
   String get acrRecommendation => 'ACR Recommendation';
 
   @override
-  String get acrRecommendationSubtitle =>
-      'Based on evidence-based guidelines and your clinical scenario';
+  String get acrRecommendationSubtitle => 'Based on evidence-based guidelines and your clinical scenario';
 
   @override
   String get usuallyAppropriateVerdict => 'Usually Appropriate';
 
   @override
-  String get usuallyAppropriateVerdictDesc =>
-      'This imaging study is usually appropriate for this clinical scenario';
+  String get usuallyAppropriateVerdictDesc => 'This imaging study is usually appropriate for this clinical scenario';
 
   @override
   String get appropriatenessScore => 'Appropriateness Score';
@@ -329,12 +323,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearHistory => 'Clear History';
 
   @override
-  String get clearHistoryConfirmation =>
-      'Are you sure you want to clear all history?';
+  String get clearHistoryConfirmation => 'Are you sure you want to clear all history?';
 
   @override
-  String get exitProgressWarning =>
-      'Are you sure you want to exit? Your progress will be lost.';
+  String get exitProgressWarning => 'Are you sure you want to exit? Your progress will be lost.';
 
   @override
   String get assessmentCompleted => 'Assessment completed';
@@ -385,8 +377,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get musculoskeletal => 'Musculoskeletal';
 
   @override
-  String get musculoskeletalDescription =>
-      'ACR Appropriateness Criteria for musculoskeletal imaging';
+  String get musculoskeletalDescription => 'ACR Appropriateness Criteria for musculoskeletal imaging';
 
   @override
   String get acuteElbowForearmPain => 'Acute Elbow or Forearm Pain';
@@ -401,12 +392,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get acuteShoulderPain => 'Acute Shoulder Pain';
 
   @override
-  String get acuteSpinalTraumaCervical =>
-      'Acute Spinal Trauma - Cervical Spine';
+  String get acuteSpinalTraumaCervical => 'Acute Spinal Trauma - Cervical Spine';
 
   @override
-  String get acuteSpinalTraumaThoracicLumbar =>
-      'Acute Spinal Trauma - Thoracic/Lumbar Spine';
+  String get acuteSpinalTraumaThoracicLumbar => 'Acute Spinal Trauma - Thoracic/Lumbar Spine';
 
   @override
   String get acuteTraumaAnkle => 'Acute Trauma to the Ankle';
@@ -424,8 +413,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chronicElbowPain => 'Chronic Elbow Pain';
 
   @override
-  String get chronicExtremityJointPainInflammatory =>
-      'Chronic Extremity Joint Pain - Inflammatory Arthritis';
+  String get chronicExtremityJointPainInflammatory => 'Chronic Extremity Joint Pain - Inflammatory Arthritis';
 
   @override
   String get chronicFootPain => 'Chronic Foot Pain';
@@ -443,28 +431,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chronicShoulderPain => 'Chronic Shoulder Pain';
 
   @override
-  String get imagingAfterShoulderArthroplasty =>
-      'Imaging After Shoulder Arthroplasty';
+  String get imagingAfterShoulderArthroplasty => 'Imaging After Shoulder Arthroplasty';
 
   @override
-  String get imagingAfterTotalHipArthroplasty =>
-      'Imaging After Total Hip Arthroplasty';
+  String get imagingAfterTotalHipArthroplasty => 'Imaging After Total Hip Arthroplasty';
 
   @override
-  String get imagingAfterTotalKneeArthroplasty =>
-      'Imaging After Total Knee Arthroplasty';
+  String get imagingAfterTotalKneeArthroplasty => 'Imaging After Total Knee Arthroplasty';
 
   @override
-  String get inflammatoryBackPainAxial =>
-      'Inflammatory Back Pain - Axial Spondyloarthropathy';
+  String get inflammatoryBackPainAxial => 'Inflammatory Back Pain - Axial Spondyloarthropathy';
 
   @override
-  String get malignantPrimaryMskTumor =>
-      'Malignant Primary MSK Tumor - Staging & Surveillance';
+  String get malignantPrimaryMskTumor => 'Malignant Primary MSK Tumor - Staging & Surveillance';
 
   @override
-  String get vertebralCompressionFractures =>
-      'Management of Vertebral Compression Fractures';
+  String get vertebralCompressionFractures => 'Management of Vertebral Compression Fractures';
 
   @override
   String get osteonecrosis => 'Osteonecrosis';
@@ -476,8 +458,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stressFracture => 'Stress (Fatigue/Insufficiency) Fracture';
 
   @override
-  String get suspectedOsteomyelitis =>
-      'Suspected Osteomyelitis/Septic Arthritis/Soft Tissue Infection';
+  String get suspectedOsteomyelitis => 'Suspected Osteomyelitis/Septic Arthritis/Soft Tissue Infection';
 
   @override
   String get suspectedPrimaryBoneTumors => 'Suspected Primary Bone Tumors';
@@ -490,12 +471,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String questionsCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'questions',
-      one: 'question',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'questions', one: 'question');
     return '$count $_temp0';
   }
 
@@ -503,8 +479,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hapticFeedback => 'Haptic Feedback';
 
   @override
-  String get hapticFeedbackDescription =>
-      'Enable tactile feedback for interactions';
+  String get hapticFeedbackDescription => 'Enable tactile feedback for interactions';
 
   @override
   String get homeTagline => 'Evidence-Based Imaging Guidance';
@@ -524,4 +499,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeFooterAcrBased => 'Based on ACR Appropriateness Criteria®';
+
+  @override
+  String get recommendationFound => 'Recommendation Found';
+
+  @override
+  String get resultBasedOnAcr => 'Based on ACR Appropriateness Criteria';
+
+  @override
+  String get acr => 'ACR';
+
+  @override
+  String get whyThisRecommendation => 'Why this recommendation?';
+
+  @override
+  String radiationLevel(String level) {
+    return 'Radiation: $level';
+  }
 }
