@@ -84,7 +84,10 @@ class AppIcons {
 
   // Misc
   static const IconType lock = HugeIcons.strokeRoundedLock;
-  static const IconType locked = HugeIcons.strokeRoundedSquareLock02;
   static const IconType baby = HugeIcons.strokeRoundedBaby01;
   static const IconType stomach = HugeIcons.strokeRoundedKidneys; // Using kidneys as placeholder for abdominal
+
+  static const IconType email = HugeIcons.strokeRoundedMail01;
+  static const IconType locked = HugeIcons.strokeRoundedSquareLock02;
+  static const IconType person = HugeIcons.strokeRoundedUser;
 }

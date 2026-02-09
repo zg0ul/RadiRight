@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:radi_right/core/widgets/app_scaffold.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
+import 'package:radi_right/shared/widgets/app_logo.dart';
 
-import '../../../../app/routing/routes.dart';
-import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_icons.dart';
-import '../../../../core/utils/animation_extensions.dart';
-import '../../../../core/utils/app_spacer.dart';
-import '../../../../shared/widgets/glassmorphism_card.dart';
-import '../../../subscription/presentation/widgets/trial_countdown_widget.dart';
+import 'package:radi_right/app/routing/routes.dart';
+import 'package:radi_right/core/constants/app_constants.dart';
+import 'package:radi_right/core/constants/app_icons.dart';
+import 'package:radi_right/core/utils/animation_extensions.dart';
+import 'package:radi_right/core/utils/app_spacer.dart';
+import 'package:radi_right/shared/widgets/glassmorphism_card.dart';
+import 'package:radi_right/features/subscription/presentation/widgets/trial_countdown_widget.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -25,7 +25,6 @@ class HomeScreen extends ConsumerWidget {
 
     return AppScaffold(
       showBackButton: false,
-      showContentPadding: false,
       actions: [
         const TrialCountdownWidget(),
         AppSpacer.horizontalSM,
@@ -45,10 +44,9 @@ class HomeScreen extends ConsumerWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingLG),
                 child: Column(
                   children: [
-                    _buildLogo(context).fadeSlideIn(index: 0),
+                    const AppLogo().fadeSlideIn(index: 0),
                     AppSpacer.verticalMD,
                     _buildTitle(context, l10n).fadeSlideIn(index: 1),
                     AppSpacer.verticalSM,
@@ -67,33 +65,6 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLogo(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      width: 150.w,
-      height: 150.w,
-      decoration: BoxDecoration(
-        color: theme.colorScheme.primary,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: theme.colorScheme.primary.withValues(alpha: 0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Center(
-        child: SvgPicture.asset(
-          'assets/radi_right_logo.svg',
-          width: 120.w,
-          height: 120.w,
-          colorFilter: ColorFilter.mode(theme.colorScheme.onPrimary, BlendMode.srcIn),
         ),
       ),
     );
