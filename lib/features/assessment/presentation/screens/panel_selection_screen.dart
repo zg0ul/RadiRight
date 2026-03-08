@@ -12,7 +12,6 @@ import '../../../../core/constants/app_icons.dart';
 import '../../../../core/providers/locale_provider.dart';
 import '../../../../core/utils/animation_extensions.dart';
 import '../../../../core/utils/app_spacer.dart';
-import '../../../../shared/widgets/app_search_bar.dart';
 import '../../domain/models/panel.dart';
 import '../providers/assessment_provider.dart';
 
@@ -25,25 +24,61 @@ class PanelSelectionScreen extends HookConsumerWidget {
     final theme = Theme.of(context);
     final panelsAsync = ref.watch(panelsProvider);
     final locale = ref.watch(localeNotifierProvider).languageCode;
-    final searchController = useTextEditingController();
     final searchQuery = useState('');
 
     return AppScaffold(
-      title: l10n.selectPanel,
+      title: 'RadiRight',
       child: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppSearchBar(
-              controller: searchController,
-              hintText: l10n.searchTopics,
-              onChanged: (value) => searchQuery.value = value,
-              onClear: () => searchQuery.value = '',
-              showClearButton: searchQuery.value.isNotEmpty,
+            // Step indicator
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: LinearProgressIndicator(
+                      value: 0.5, // Step 2 of 4
+                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        theme.colorScheme.primary,
+                      ),
+                      borderRadius: BorderRadius.circular(AppConstants.radiusSM),
+                    ),
+                  ),
+                  AppSpacer.horizontalSM,
+                  Text(
+                    l10n.stepOf(2, 4),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            AppSpacer.verticalMD,
-            Text(
-              l10n.selectPanelSubtitle,
-              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+            AppSpacer.verticalLG,
+            // Title and subtitle
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.selectClinicalArea,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  AppSpacer.verticalXS,
+                  Text(
+                    l10n.chooseBodySystem,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
             ),
             AppSpacer.verticalMD,
             Expanded(
@@ -63,6 +98,22 @@ class PanelSelectionScreen extends HookConsumerWidget {
 
                   return _buildPanelGrid(context, filteredPanels, locale, l10n);
                 },
+              ),
+            ),
+            // Back button
+            Padding(
+              padding: EdgeInsets.all(AppConstants.spacingMD),
+              child: TextButton(
+                onPressed: () {
+                  ref.read(currentAssessmentProvider.notifier).clearModality();
+                  context.pop();
+                },
+                child: Text(
+                  l10n.back,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
               ),
             ),
           ],
@@ -138,7 +189,7 @@ class PanelSelectionScreen extends HookConsumerWidget {
   }
 }
 
-class _PanelCard extends StatelessWidget {
+class _PanelCard extends ConsumerWidget {
   final Panel panel;
   final String locale;
   final int index;
@@ -146,7 +197,7 @@ class _PanelCard extends StatelessWidget {
   const _PanelCard({required this.panel, required this.locale, required this.index});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final hasTopics = panel.topicCount > 0;
     final name = locale == 'ar' ? panel.nameAr : panel.name;
@@ -168,7 +219,13 @@ class _PanelCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppConstants.radiusMD),
       ),
       child: InkWell(
-        onTap: hasTopics ? () => context.push(AppRoutes.topicSelectionPath(panel.id)) : null,
+        onTap: hasTopics
+            ? () {
+                // Store selected panel in provider
+                ref.read(currentAssessmentProvider.notifier).selectPanel(panel.id, name);
+                context.push(AppRoutes.topicSelectionPath(panel.id));
+              }
+            : null,
         borderRadius: BorderRadius.circular(AppConstants.radiusMD),
         splashColor: theme.colorScheme.primary.withValues(alpha: 0.1),
         highlightColor: theme.colorScheme.primary.withValues(alpha: 0.1),

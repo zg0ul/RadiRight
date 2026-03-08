@@ -3,10 +3,15 @@ abstract class AppRoutes {
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
+
+  // Assessment flow routes (new 4-step flow)
+  static const String modalitySelection = '/assessment/modality';
   static const String panelSelection = '/assessment/panels';
   static const String topicSelection = '/assessment/topics/:panelId';
   static const String question = '/assessment/question/:topicId';
   static const String result = '/assessment/result';
+  static const String noGuidelines = '/assessment/no-guidelines';
+
   static const String history = '/history';
   static const String historyDetail = '/history/:historyId';
   static const String settings = '/settings';
@@ -15,7 +20,8 @@ abstract class AppRoutes {
   static const String trialExpired = '/trial-expired';
   static const String contactInfo = '/contact-info';
 
-  static String topicSelectionPath(String panelId) => '/assessment/topics/$panelId';
+  static String topicSelectionPath(String panelId) =>
+      '/assessment/topics/$panelId';
 
   static String questionPath(String topicId) => '/assessment/question/$topicId';
 

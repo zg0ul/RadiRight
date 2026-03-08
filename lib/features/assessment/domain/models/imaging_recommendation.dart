@@ -1,7 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../enums/appropriateness_level.dart';
-import '../enums/radiation_level.dart';
-
 part 'imaging_recommendation.freezed.dart';
 
 @freezed
@@ -13,11 +10,13 @@ abstract class ImagingRecommendation with _$ImagingRecommendation {
     required String modalityAr,
     required String procedure,
     required String procedureAr,
-    required AppropriatenessLevel appropriateness,
-    required RadiationLevel radiation,
     String? comments,
     String? commentsAr,
-    int? score,
+    /// Priority level for the recommendation.
+    /// 1 = primary/best choice (Option 1)
+    /// 2 = acceptable alternative (Option 2)
+    /// Higher numbers = lower priority
+    @Default(1) int priority,
   }) = _ImagingRecommendation;
 
   factory ImagingRecommendation.fromJson(Map<String, dynamic> json) {
@@ -26,17 +25,9 @@ abstract class ImagingRecommendation with _$ImagingRecommendation {
       modalityAr: json['modalityAr'] as String? ?? json['modality'] as String,
       procedure: json['procedure'] as String,
       procedureAr: json['procedureAr'] as String? ?? json['procedure'] as String,
-      appropriateness: json['appropriateness'] is String
-          ? AppropriatenessLevel.fromString(json['appropriateness'] as String)
-          : json['score'] != null
-          ? AppropriatenessLevel.fromScore(json['score'] as int)
-          : AppropriatenessLevel.noImagingIndicated,
-      radiation: json['radiation'] is String
-          ? RadiationLevel.fromString(json['radiation'] as String)
-          : RadiationLevel.none,
       comments: json['comments'] as String?,
       commentsAr: json['commentsAr'] as String?,
-      score: json['score'] as int?,
+      priority: json['priority'] as int? ?? 1,
     );
   }
 
@@ -45,11 +36,9 @@ abstract class ImagingRecommendation with _$ImagingRecommendation {
     'modalityAr': modalityAr,
     'procedure': procedure,
     'procedureAr': procedureAr,
-    'appropriateness': appropriateness.name,
-    'radiation': radiation.name,
     'comments': comments,
     'commentsAr': commentsAr,
-    'score': score,
+    'priority': priority,
   };
 
   String getLocalizedModality(String locale) => locale == 'ar' ? modalityAr : modality;

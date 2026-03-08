@@ -1087,6 +1087,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Radiation: {level}'**
   String radiationLevel(String level);
+
+  /// No description provided for @selectImagingModality.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Imaging Modality'**
+  String get selectImagingModality;
+
+  /// No description provided for @chooseImagingType.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the imaging type you would recommend'**
+  String get chooseImagingType;
+
+  /// No description provided for @selectClinicalArea.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Clinical Area'**
+  String get selectClinicalArea;
+
+  /// No description provided for @chooseBodySystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the body system to evaluate'**
+  String get chooseBodySystem;
+
+  /// No description provided for @selectClinicalScenario.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Clinical Scenario'**
+  String get selectClinicalScenario;
+
+  /// No description provided for @chooseRelevantPresentation.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the relevant clinical presentation'**
+  String get chooseRelevantPresentation;
+
+  /// No description provided for @stepOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String stepOf(int current, int total);
+
+  /// No description provided for @backToTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Topics'**
+  String get backToTopics;
+
+  /// No description provided for @modalityUltrasound.
+  ///
+  /// In en, this message translates to:
+  /// **'Ultrasound'**
+  String get modalityUltrasound;
+
+  /// No description provided for @modalityMRI.
+  ///
+  /// In en, this message translates to:
+  /// **'MRI'**
+  String get modalityMRI;
+
+  /// No description provided for @modalityCTScan.
+  ///
+  /// In en, this message translates to:
+  /// **'CT Scan'**
+  String get modalityCTScan;
+
+  /// No description provided for @modalityNuclearMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Nuclear Medicine'**
+  String get modalityNuclearMedicine;
+
+  /// No description provided for @modalityPETImaging.
+  ///
+  /// In en, this message translates to:
+  /// **'PET Imaging'**
+  String get modalityPETImaging;
+
+  /// No description provided for @modalityAngiography.
+  ///
+  /// In en, this message translates to:
+  /// **'Angiography'**
+  String get modalityAngiography;
+
+  /// No description provided for @modalityMammography.
+  ///
+  /// In en, this message translates to:
+  /// **'Mammography'**
+  String get modalityMammography;
+
+  /// No description provided for @modalityArthrography.
+  ///
+  /// In en, this message translates to:
+  /// **'Arthrography'**
+  String get modalityArthrography;
+
+  /// No description provided for @modalityXRay.
+  ///
+  /// In en, this message translates to:
+  /// **'X-ray'**
+  String get modalityXRay;
+
+  /// No description provided for @yourSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Selection'**
+  String get yourSelection;
+
+  /// No description provided for @notIndicated.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Indicated'**
+  String get notIndicated;
+
+  /// No description provided for @indicated.
+  ///
+  /// In en, this message translates to:
+  /// **'Indicated'**
+  String get indicated;
+
+  /// No description provided for @recommendedOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Option(s)'**
+  String get recommendedOptions;
+
+  /// No description provided for @primaryRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Recommendation'**
+  String get primaryRecommendation;
+
+  /// No description provided for @alternativeOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternative Option'**
+  String get alternativeOption;
+
+  /// No description provided for @trueImagingIndicated.
+  ///
+  /// In en, this message translates to:
+  /// **'TRUE - Imaging Indicated'**
+  String get trueImagingIndicated;
+
+  /// No description provided for @falseImagingNotIndicated.
+  ///
+  /// In en, this message translates to:
+  /// **'FALSE - Imaging NOT Indicated'**
+  String get falseImagingNotIndicated;
+
+  /// No description provided for @mayBeAppropriateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'May Be Appropriate'**
+  String get mayBeAppropriateTitle;
+
+  /// No description provided for @noCurrentGuidelines.
+  ///
+  /// In en, this message translates to:
+  /// **'No Current Guidelines Available'**
+  String get noCurrentGuidelines;
+
+  /// No description provided for @aiClinicalAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Clinical Assessment'**
+  String get aiClinicalAssessment;
+
+  /// No description provided for @scenarioNotCoveredByGuidelines.
+  ///
+  /// In en, this message translates to:
+  /// **'This specific scenario is not covered by current guidelines.'**
+  String get scenarioNotCoveredByGuidelines;
+
+  /// No description provided for @aiWouldAssess.
+  ///
+  /// In en, this message translates to:
+  /// **'The AI would assess:'**
+  String get aiWouldAssess;
+
+  /// No description provided for @aiAssessItem1.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask about pain severity and duration'**
+  String get aiAssessItem1;
+
+  /// No description provided for @aiAssessItem2.
+  ///
+  /// In en, this message translates to:
+  /// **'Assess clinical urgency'**
+  String get aiAssessItem2;
+
+  /// No description provided for @aiAssessItem3.
+  ///
+  /// In en, this message translates to:
+  /// **'Provide opinion on conservative management vs imaging'**
+  String get aiAssessItem3;
+
+  /// No description provided for @aiAssessItem4.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain clinical reasoning'**
+  String get aiAssessItem4;
+
+  /// No description provided for @finalDecisionDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Final decision depends on physician\'s clinical judgment'**
+  String get finalDecisionDisclaimer;
+
+  /// No description provided for @startNewAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Start New Assessment'**
+  String get startNewAssessment;
+
+  /// No description provided for @aiExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Explanation'**
+  String get aiExplanation;
+
+  /// No description provided for @aiExplanationPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'AI explanation will be generated here: \"Explain the appropriate imaging for this clinical scenario\"'**
+  String get aiExplanationPlaceholder;
+
+  /// No description provided for @notRecommendedForScenario.
+  ///
+  /// In en, this message translates to:
+  /// **'{modality} is not the recommended imaging for this scenario.'**
+  String notRecommendedForScenario(String modality);
+
+  /// No description provided for @yourChoiceIsIndicated.
+  ///
+  /// In en, this message translates to:
+  /// **'Your selected imaging study is the recommended choice for this clinical scenario.'**
+  String get yourChoiceIsIndicated;
+
+  /// No description provided for @yourChoiceMayBeAppropriate.
+  ///
+  /// In en, this message translates to:
+  /// **'Your selected imaging study may be appropriate, but other options might be preferred.'**
+  String get yourChoiceMayBeAppropriate;
+
+  /// No description provided for @yourChoiceNotIndicated.
+  ///
+  /// In en, this message translates to:
+  /// **'Your selected imaging study is not recommended for this clinical scenario.'**
+  String get yourChoiceNotIndicated;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming Soon'**
+  String get comingSoon;
+
+  /// No description provided for @topicsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Topics'**
+  String topicsCount(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

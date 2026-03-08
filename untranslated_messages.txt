@@ -1,6 +1,5 @@
 {
   "ar": [
-    "selectPanelSubtitle",
     "patientDemographics",
     "patientDemographicsSubtitle",
     "ageGroup",

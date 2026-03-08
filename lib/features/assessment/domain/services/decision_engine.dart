@@ -1,4 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:radi_right/features/assessment/domain/enums/imaging_modality.dart';
+import 'package:radi_right/features/assessment/domain/models/modality_comparison_result.dart';
 import '../models/answer_option.dart';
 import '../models/assessment_result.dart';
 import '../models/decision_node.dart';
@@ -19,6 +21,9 @@ class DecisionEngineState {
   final List<RedFlagInfo> redFlags;
   final Map<String, int> modalityScores;
 
+  /// The imaging modality the doctor selected at the start of the assessment
+  final ImagingModality? selectedModality;
+
   const DecisionEngineState({
     required this.topicId,
     required this.topicName,
@@ -29,6 +34,7 @@ class DecisionEngineState {
     this.assessmentContext = const {},
     this.redFlags = const [],
     this.modalityScores = const {},
+    this.selectedModality,
   });
 
   DecisionEngineState copyWith({
@@ -41,6 +47,7 @@ class DecisionEngineState {
     Map<String, dynamic>? assessmentContext,
     List<RedFlagInfo>? redFlags,
     Map<String, int>? modalityScores,
+    ImagingModality? selectedModality,
   }) {
     return DecisionEngineState(
       topicId: topicId ?? this.topicId,
@@ -52,6 +59,7 @@ class DecisionEngineState {
       assessmentContext: assessmentContext ?? this.assessmentContext,
       redFlags: redFlags ?? this.redFlags,
       modalityScores: modalityScores ?? this.modalityScores,
+      selectedModality: selectedModality ?? this.selectedModality,
     );
   }
 
@@ -64,7 +72,19 @@ class DecisionEngineState {
     return switch (currentNode) {
       ResultNode(:final recommendations) => recommendations,
       QuestionNode() => [],
+      NoGuidelinesNode() => [],
     };
+  }
+
+  /// Computes the comparison result between the doctor's selected modality
+  /// and the ACR recommendations. Returns null if assessment is not complete
+  /// or no modality was selected.
+  ModalityComparisonResult? get comparisonResult {
+    if (!isComplete || selectedModality == null) return null;
+    return ModalityComparisonResult.compute(
+      selectedModality: selectedModality!,
+      recommendations: recommendations,
+    );
   }
 
   AssessmentResult? get result {
@@ -93,6 +113,7 @@ class DecisionEngine extends _$DecisionEngine {
     required String topicName,
     required DecisionNode rootNode,
     required Map<String, DecisionNode> allNodes,
+    ImagingModality? selectedModality,
   }) {
     _nodeCache = allNodes;
     state = DecisionEngineState(
@@ -100,7 +121,15 @@ class DecisionEngine extends _$DecisionEngine {
       topicName: topicName,
       currentNode: rootNode,
       assessmentContext: <String, dynamic>{},
+      selectedModality: selectedModality,
     );
+  }
+
+  /// Sets the imaging modality selected by the doctor.
+  /// This should be called before starting the assessment.
+  void setSelectedModality(ImagingModality modality) {
+    if (state == null) return;
+    state = state!.copyWith(selectedModality: modality);
   }
 
   void selectAnswer(AnswerOption selectedOption, String locale) {
@@ -143,7 +172,7 @@ class DecisionEngine extends _$DecisionEngine {
       throw Exception('Node not found: $nextNodeId');
     }
 
-    final isResult = nextNode is ResultNode;
+    final isResult = nextNode is ResultNode || nextNode is NoGuidelinesNode;
 
     state = currentState.copyWith(
       currentNode: nextNode,

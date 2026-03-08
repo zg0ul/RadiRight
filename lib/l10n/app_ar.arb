@@ -154,5 +154,74 @@
         "type": "String"
       }
     }
-  }
+  },
+  "selectImagingModality": "اختر نوع التصوير",
+  "chooseImagingType": "اختر نوع التصوير الذي توصي به",
+  "selectClinicalArea": "اختر المنطقة السريرية",
+  "chooseBodySystem": "اختر نظام الجسم للتقييم",
+  "selectClinicalScenario": "اختر السيناريو السريري",
+  "chooseRelevantPresentation": "اختر العرض السريري المناسب",
+  "stepOf": "الخطوة {current} من {total}",
+  "@stepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "backToTopics": "العودة للمواضيع",
+  "modalityUltrasound": "الموجات فوق الصوتية",
+  "modalityMRI": "الرنين المغناطيسي",
+  "modalityCTScan": "الأشعة المقطعية",
+  "modalityNuclearMedicine": "الطب النووي",
+  "modalityPETImaging": "التصوير المقطعي البوزيتروني",
+  "modalityAngiography": "تصوير الأوعية",
+  "modalityMammography": "تصوير الثدي",
+  "modalityArthrography": "تصوير المفاصل",
+  "modalityXRay": "الأشعة السينية",
+  "yourSelection": "اختيارك",
+  "notIndicated": "غير موصى به",
+  "indicated": "موصى به",
+  "recommendedOptions": "الخيار(ات) الموصى بها",
+  "primaryRecommendation": "التوصية الرئيسية",
+  "alternativeOption": "خيار بديل",
+  "trueImagingIndicated": "صحيح - التصوير موصى به",
+  "falseImagingNotIndicated": "خطأ - التصوير غير موصى به",
+  "mayBeAppropriateTitle": "قد يكون مناسباً",
+  "noCurrentGuidelines": "لا توجد إرشادات حالية",
+  "aiClinicalAssessment": "التقييم السريري بالذكاء الاصطناعي",
+  "scenarioNotCoveredByGuidelines": "هذا السيناريو غير مغطى بالإرشادات الحالية.",
+  "aiWouldAssess": "سيقوم الذكاء الاصطناعي بتقييم:",
+  "aiAssessItem1": "السؤال عن شدة الألم ومدته",
+  "aiAssessItem2": "تقييم الحالة السريرية العاجلة",
+  "aiAssessItem3": "تقديم رأي حول العلاج التحفظي مقابل التصوير",
+  "aiAssessItem4": "شرح المنطق السريري",
+  "finalDecisionDisclaimer": "القرار النهائي يعتمد على الحكم السريري للطبيب",
+  "startNewAssessment": "بدء تقييم جديد",
+  "aiExplanation": "شرح الذكاء الاصطناعي",
+  "aiExplanationPlaceholder": "سيتم إنشاء شرح الذكاء الاصطناعي هنا: \"شرح التصوير المناسب لهذا السيناريو السريري\"",
+  "notRecommendedForScenario": "{modality} ليس التصوير الموصى به لهذا السيناريو.",
+  "@notRecommendedForScenario": {
+    "placeholders": {
+      "modality": {
+        "type": "String"
+      }
+    }
+  },
+  "yourChoiceIsIndicated": "دراسة التصوير التي اخترتها هي الخيار الموصى به لهذا السيناريو السريري.",
+  "yourChoiceMayBeAppropriate": "قد تكون دراسة التصوير التي اخترتها مناسبة، لكن قد تكون هناك خيارات أفضل.",
+  "yourChoiceNotIndicated": "دراسة التصوير التي اخترتها غير موصى بها لهذا السيناريو السريري.",
+  "comingSoon": "قريباً",
+  "topicsCount": "{count} مواضيع",
+  "@topicsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "selectPanelSubtitle": "اختر التخصص السريري المتعلق بحالة مريضك."
 }

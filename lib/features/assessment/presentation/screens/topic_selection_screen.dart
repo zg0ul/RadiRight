@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -22,6 +23,7 @@ class TopicSelectionScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final topicsAsync = ref.watch(topicsProvider(panelId));
     final locale = ref.watch(localeNotifierProvider).languageCode;
     final searchController = useTextEditingController();
@@ -32,38 +34,109 @@ class TopicSelectionScreen extends HookConsumerWidget {
     final animatedTopicIds = useState<Set<String>>({});
 
     return AppScaffold(
-      title: l10n.selectTopic,
+      title: 'RadiRight',
       scrollController: scrollController,
-      child: Column(
-        children: [
-          AppSearchBar(
-            controller: searchController,
-            hintText: l10n.searchTopics,
-            onChanged: (value) => searchQuery.value = value,
-            onClear: () => searchQuery.value = '',
-            showClearButton: searchQuery.value.isNotEmpty,
-          ),
-          AppSpacer.verticalMD,
-          Expanded(
-            child: topicsAsync.when(
-              loading: () => const CircularProgressIndicator(),
-              error: (error, stack) => _buildErrorState(context, ref, error, l10n),
-              data: (topics) {
-                final filteredTopics = topics.where((topic) {
-                  if (searchQuery.value.isEmpty) return true;
-                  final query = searchQuery.value.toLowerCase();
-                  return topic.name.toLowerCase().contains(query) || topic.nameAr.contains(query);
-                }).toList();
-
-                if (filteredTopics.isEmpty) {
-                  return _buildEmptyState(context, l10n);
-                }
-
-                return _buildTopicList(context, filteredTopics, locale, animatedTopicIds, scrollController);
-              },
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Step indicator
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: LinearProgressIndicator(
+                      value: 0.75, // Step 3 of 4
+                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        theme.colorScheme.primary,
+                      ),
+                      borderRadius: BorderRadius.circular(AppConstants.radiusSM),
+                    ),
+                  ),
+                  AppSpacer.horizontalSM,
+                  Text(
+                    l10n.stepOf(3, 4),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            AppSpacer.verticalLG,
+            // Title and subtitle
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.selectClinicalScenario,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  AppSpacer.verticalXS,
+                  Text(
+                    l10n.chooseRelevantPresentation,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            AppSpacer.verticalMD,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
+              child: AppSearchBar(
+                controller: searchController,
+                hintText: l10n.searchTopics,
+                onChanged: (value) => searchQuery.value = value,
+                onClear: () => searchQuery.value = '',
+                showClearButton: searchQuery.value.isNotEmpty,
+              ),
+            ),
+            AppSpacer.verticalMD,
+            Expanded(
+              child: topicsAsync.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (error, stack) => _buildErrorState(context, ref, error, l10n),
+                data: (topics) {
+                  final filteredTopics = topics.where((topic) {
+                    if (searchQuery.value.isEmpty) return true;
+                    final query = searchQuery.value.toLowerCase();
+                    return topic.name.toLowerCase().contains(query) || topic.nameAr.contains(query);
+                  }).toList();
+
+                  if (filteredTopics.isEmpty) {
+                    return _buildEmptyState(context, l10n);
+                  }
+
+                  return _buildTopicList(context, filteredTopics, locale, animatedTopicIds, scrollController);
+                },
+              ),
+            ),
+            // Back button
+            Padding(
+              padding: EdgeInsets.all(AppConstants.spacingMD),
+              child: TextButton(
+                onPressed: () {
+                  ref.read(currentAssessmentProvider.notifier).clearPanel();
+                  context.pop();
+                },
+                child: Text(
+                  l10n.back,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

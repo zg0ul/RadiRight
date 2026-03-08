@@ -6,7 +6,7 @@ part of 'decision_engine.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$decisionEngineHash() => r'bf8ead8b40d23690d9a8b88b21e4e8c23a890774';
+String _$decisionEngineHash() => r'1f298a92e88dbd7f800a7724202b0fd944a2f133';
 
 /// See also [DecisionEngine].
 @ProviderFor(DecisionEngine)

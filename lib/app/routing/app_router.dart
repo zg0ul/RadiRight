@@ -7,10 +7,12 @@ import '../../core/screens/splash_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
+import '../../features/assessment/presentation/screens/modality_selection_screen.dart';
 import '../../features/assessment/presentation/screens/panel_selection_screen.dart';
 import '../../features/assessment/presentation/screens/topic_selection_screen.dart';
 import '../../features/assessment/presentation/screens/question_screen.dart';
 import '../../features/assessment/presentation/screens/result_screen.dart';
+import '../../features/assessment/presentation/screens/no_guidelines_screen.dart';
 import '../../features/history/presentation/screens/history_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/subscription/presentation/screens/trial_expired_screen.dart';
@@ -78,6 +80,11 @@ GoRouter appRouter(Ref ref) {
       GoRoute(path: AppRoutes.register, name: 'register', builder: (context, state) => const RegisterScreen()),
       GoRoute(path: AppRoutes.home, name: 'home', builder: (context, state) => const HomeScreen()),
       GoRoute(
+        path: AppRoutes.modalitySelection,
+        name: 'modalitySelection',
+        builder: (context, state) => const ModalitySelectionScreen(),
+      ),
+      GoRoute(
         path: AppRoutes.panelSelection,
         name: 'panelSelection',
         builder: (context, state) => const PanelSelectionScreen(),
@@ -99,6 +106,11 @@ GoRouter appRouter(Ref ref) {
         },
       ),
       GoRoute(path: AppRoutes.result, name: 'result', builder: (context, state) => const ResultScreen()),
+      GoRoute(
+        path: AppRoutes.noGuidelines,
+        name: 'noGuidelines',
+        builder: (context, state) => const NoGuidelinesScreen(),
+      ),
       GoRoute(path: AppRoutes.history, name: 'history', builder: (context, state) => const HistoryScreen()),
       GoRoute(path: AppRoutes.settings, name: 'settings', builder: (context, state) => const SettingsScreen()),
       GoRoute(

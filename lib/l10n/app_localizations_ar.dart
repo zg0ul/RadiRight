@@ -84,7 +84,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectPanel => 'اختر اللوحة';
 
   @override
-  String get selectPanelSubtitle => 'Choose the clinical specialty relevant to your patient\'s case.';
+  String get selectPanelSubtitle => 'اختر التخصص السريري المتعلق بحالة مريضك.';
 
   @override
   String get selectTopic => 'اختر الموضوع';
@@ -514,5 +514,144 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String radiationLevel(String level) {
     return 'الإشعاع: $level';
+  }
+
+  @override
+  String get selectImagingModality => 'اختر نوع التصوير';
+
+  @override
+  String get chooseImagingType => 'اختر نوع التصوير الذي توصي به';
+
+  @override
+  String get selectClinicalArea => 'اختر المنطقة السريرية';
+
+  @override
+  String get chooseBodySystem => 'اختر نظام الجسم للتقييم';
+
+  @override
+  String get selectClinicalScenario => 'اختر السيناريو السريري';
+
+  @override
+  String get chooseRelevantPresentation => 'اختر العرض السريري المناسب';
+
+  @override
+  String stepOf(int current, int total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String get backToTopics => 'العودة للمواضيع';
+
+  @override
+  String get modalityUltrasound => 'الموجات فوق الصوتية';
+
+  @override
+  String get modalityMRI => 'الرنين المغناطيسي';
+
+  @override
+  String get modalityCTScan => 'الأشعة المقطعية';
+
+  @override
+  String get modalityNuclearMedicine => 'الطب النووي';
+
+  @override
+  String get modalityPETImaging => 'التصوير المقطعي البوزيتروني';
+
+  @override
+  String get modalityAngiography => 'تصوير الأوعية';
+
+  @override
+  String get modalityMammography => 'تصوير الثدي';
+
+  @override
+  String get modalityArthrography => 'تصوير المفاصل';
+
+  @override
+  String get modalityXRay => 'الأشعة السينية';
+
+  @override
+  String get yourSelection => 'اختيارك';
+
+  @override
+  String get notIndicated => 'غير موصى به';
+
+  @override
+  String get indicated => 'موصى به';
+
+  @override
+  String get recommendedOptions => 'الخيار(ات) الموصى بها';
+
+  @override
+  String get primaryRecommendation => 'التوصية الرئيسية';
+
+  @override
+  String get alternativeOption => 'خيار بديل';
+
+  @override
+  String get trueImagingIndicated => 'صحيح - التصوير موصى به';
+
+  @override
+  String get falseImagingNotIndicated => 'خطأ - التصوير غير موصى به';
+
+  @override
+  String get mayBeAppropriateTitle => 'قد يكون مناسباً';
+
+  @override
+  String get noCurrentGuidelines => 'لا توجد إرشادات حالية';
+
+  @override
+  String get aiClinicalAssessment => 'التقييم السريري بالذكاء الاصطناعي';
+
+  @override
+  String get scenarioNotCoveredByGuidelines => 'هذا السيناريو غير مغطى بالإرشادات الحالية.';
+
+  @override
+  String get aiWouldAssess => 'سيقوم الذكاء الاصطناعي بتقييم:';
+
+  @override
+  String get aiAssessItem1 => 'السؤال عن شدة الألم ومدته';
+
+  @override
+  String get aiAssessItem2 => 'تقييم الحالة السريرية العاجلة';
+
+  @override
+  String get aiAssessItem3 => 'تقديم رأي حول العلاج التحفظي مقابل التصوير';
+
+  @override
+  String get aiAssessItem4 => 'شرح المنطق السريري';
+
+  @override
+  String get finalDecisionDisclaimer => 'القرار النهائي يعتمد على الحكم السريري للطبيب';
+
+  @override
+  String get startNewAssessment => 'بدء تقييم جديد';
+
+  @override
+  String get aiExplanation => 'شرح الذكاء الاصطناعي';
+
+  @override
+  String get aiExplanationPlaceholder =>
+      'سيتم إنشاء شرح الذكاء الاصطناعي هنا: \"شرح التصوير المناسب لهذا السيناريو السريري\"';
+
+  @override
+  String notRecommendedForScenario(String modality) {
+    return '$modality ليس التصوير الموصى به لهذا السيناريو.';
+  }
+
+  @override
+  String get yourChoiceIsIndicated => 'دراسة التصوير التي اخترتها هي الخيار الموصى به لهذا السيناريو السريري.';
+
+  @override
+  String get yourChoiceMayBeAppropriate => 'قد تكون دراسة التصوير التي اخترتها مناسبة، لكن قد تكون هناك خيارات أفضل.';
+
+  @override
+  String get yourChoiceNotIndicated => 'دراسة التصوير التي اخترتها غير موصى بها لهذا السيناريو السريري.';
+
+  @override
+  String get comingSoon => 'قريباً';
+
+  @override
+  String topicsCount(int count) {
+    return '$count مواضيع';
   }
 }

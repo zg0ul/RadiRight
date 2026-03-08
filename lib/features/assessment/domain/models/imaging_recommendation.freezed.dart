@@ -21,12 +21,14 @@ mixin _$ImagingRecommendation {
   String get modalityAr => throw _privateConstructorUsedError;
   String get procedure => throw _privateConstructorUsedError;
   String get procedureAr => throw _privateConstructorUsedError;
-  AppropriatenessLevel get appropriateness =>
-      throw _privateConstructorUsedError;
-  RadiationLevel get radiation => throw _privateConstructorUsedError;
   String? get comments => throw _privateConstructorUsedError;
   String? get commentsAr => throw _privateConstructorUsedError;
-  int? get score => throw _privateConstructorUsedError;
+
+  /// Priority level for the recommendation.
+  /// 1 = primary/best choice (Option 1)
+  /// 2 = acceptable alternative (Option 2)
+  /// Higher numbers = lower priority
+  int get priority => throw _privateConstructorUsedError;
 
   /// Create a copy of ImagingRecommendation
   /// with the given fields replaced by the non-null parameter values.
@@ -47,11 +49,9 @@ abstract class $ImagingRecommendationCopyWith<$Res> {
     String modalityAr,
     String procedure,
     String procedureAr,
-    AppropriatenessLevel appropriateness,
-    RadiationLevel radiation,
     String? comments,
     String? commentsAr,
-    int? score,
+    int priority,
   });
 }
 
@@ -77,11 +77,9 @@ class _$ImagingRecommendationCopyWithImpl<
     Object? modalityAr = null,
     Object? procedure = null,
     Object? procedureAr = null,
-    Object? appropriateness = null,
-    Object? radiation = null,
     Object? comments = freezed,
     Object? commentsAr = freezed,
-    Object? score = freezed,
+    Object? priority = null,
   }) {
     return _then(
       _value.copyWith(
@@ -101,14 +99,6 @@ class _$ImagingRecommendationCopyWithImpl<
                 ? _value.procedureAr
                 : procedureAr // ignore: cast_nullable_to_non_nullable
                       as String,
-            appropriateness: null == appropriateness
-                ? _value.appropriateness
-                : appropriateness // ignore: cast_nullable_to_non_nullable
-                      as AppropriatenessLevel,
-            radiation: null == radiation
-                ? _value.radiation
-                : radiation // ignore: cast_nullable_to_non_nullable
-                      as RadiationLevel,
             comments: freezed == comments
                 ? _value.comments
                 : comments // ignore: cast_nullable_to_non_nullable
@@ -117,10 +107,10 @@ class _$ImagingRecommendationCopyWithImpl<
                 ? _value.commentsAr
                 : commentsAr // ignore: cast_nullable_to_non_nullable
                       as String?,
-            score: freezed == score
-                ? _value.score
-                : score // ignore: cast_nullable_to_non_nullable
-                      as int?,
+            priority: null == priority
+                ? _value.priority
+                : priority // ignore: cast_nullable_to_non_nullable
+                      as int,
           )
           as $Val,
     );
@@ -141,11 +131,9 @@ abstract class _$$ImagingRecommendationImplCopyWith<$Res>
     String modalityAr,
     String procedure,
     String procedureAr,
-    AppropriatenessLevel appropriateness,
-    RadiationLevel radiation,
     String? comments,
     String? commentsAr,
-    int? score,
+    int priority,
   });
 }
 
@@ -168,11 +156,9 @@ class __$$ImagingRecommendationImplCopyWithImpl<$Res>
     Object? modalityAr = null,
     Object? procedure = null,
     Object? procedureAr = null,
-    Object? appropriateness = null,
-    Object? radiation = null,
     Object? comments = freezed,
     Object? commentsAr = freezed,
-    Object? score = freezed,
+    Object? priority = null,
   }) {
     return _then(
       _$ImagingRecommendationImpl(
@@ -192,14 +178,6 @@ class __$$ImagingRecommendationImplCopyWithImpl<$Res>
             ? _value.procedureAr
             : procedureAr // ignore: cast_nullable_to_non_nullable
                   as String,
-        appropriateness: null == appropriateness
-            ? _value.appropriateness
-            : appropriateness // ignore: cast_nullable_to_non_nullable
-                  as AppropriatenessLevel,
-        radiation: null == radiation
-            ? _value.radiation
-            : radiation // ignore: cast_nullable_to_non_nullable
-                  as RadiationLevel,
         comments: freezed == comments
             ? _value.comments
             : comments // ignore: cast_nullable_to_non_nullable
@@ -208,10 +186,10 @@ class __$$ImagingRecommendationImplCopyWithImpl<$Res>
             ? _value.commentsAr
             : commentsAr // ignore: cast_nullable_to_non_nullable
                   as String?,
-        score: freezed == score
-            ? _value.score
-            : score // ignore: cast_nullable_to_non_nullable
-                  as int?,
+        priority: null == priority
+            ? _value.priority
+            : priority // ignore: cast_nullable_to_non_nullable
+                  as int,
       ),
     );
   }
@@ -225,11 +203,9 @@ class _$ImagingRecommendationImpl extends _ImagingRecommendation {
     required this.modalityAr,
     required this.procedure,
     required this.procedureAr,
-    required this.appropriateness,
-    required this.radiation,
     this.comments,
     this.commentsAr,
-    this.score,
+    this.priority = 1,
   }) : super._();
 
   @override
@@ -241,19 +217,21 @@ class _$ImagingRecommendationImpl extends _ImagingRecommendation {
   @override
   final String procedureAr;
   @override
-  final AppropriatenessLevel appropriateness;
-  @override
-  final RadiationLevel radiation;
-  @override
   final String? comments;
   @override
   final String? commentsAr;
+
+  /// Priority level for the recommendation.
+  /// 1 = primary/best choice (Option 1)
+  /// 2 = acceptable alternative (Option 2)
+  /// Higher numbers = lower priority
   @override
-  final int? score;
+  @JsonKey()
+  final int priority;
 
   @override
   String toString() {
-    return 'ImagingRecommendation(modality: $modality, modalityAr: $modalityAr, procedure: $procedure, procedureAr: $procedureAr, appropriateness: $appropriateness, radiation: $radiation, comments: $comments, commentsAr: $commentsAr, score: $score)';
+    return 'ImagingRecommendation(modality: $modality, modalityAr: $modalityAr, procedure: $procedure, procedureAr: $procedureAr, comments: $comments, commentsAr: $commentsAr, priority: $priority)';
   }
 
   @override
@@ -269,15 +247,12 @@ class _$ImagingRecommendationImpl extends _ImagingRecommendation {
                 other.procedure == procedure) &&
             (identical(other.procedureAr, procedureAr) ||
                 other.procedureAr == procedureAr) &&
-            (identical(other.appropriateness, appropriateness) ||
-                other.appropriateness == appropriateness) &&
-            (identical(other.radiation, radiation) ||
-                other.radiation == radiation) &&
             (identical(other.comments, comments) ||
                 other.comments == comments) &&
             (identical(other.commentsAr, commentsAr) ||
                 other.commentsAr == commentsAr) &&
-            (identical(other.score, score) || other.score == score));
+            (identical(other.priority, priority) ||
+                other.priority == priority));
   }
 
   @override
@@ -287,11 +262,9 @@ class _$ImagingRecommendationImpl extends _ImagingRecommendation {
     modalityAr,
     procedure,
     procedureAr,
-    appropriateness,
-    radiation,
     comments,
     commentsAr,
-    score,
+    priority,
   );
 
   /// Create a copy of ImagingRecommendation
@@ -313,11 +286,9 @@ abstract class _ImagingRecommendation extends ImagingRecommendation {
     required final String modalityAr,
     required final String procedure,
     required final String procedureAr,
-    required final AppropriatenessLevel appropriateness,
-    required final RadiationLevel radiation,
     final String? comments,
     final String? commentsAr,
-    final int? score,
+    final int priority,
   }) = _$ImagingRecommendationImpl;
   const _ImagingRecommendation._() : super._();
 
@@ -330,15 +301,16 @@ abstract class _ImagingRecommendation extends ImagingRecommendation {
   @override
   String get procedureAr;
   @override
-  AppropriatenessLevel get appropriateness;
-  @override
-  RadiationLevel get radiation;
-  @override
   String? get comments;
   @override
   String? get commentsAr;
+
+  /// Priority level for the recommendation.
+  /// 1 = primary/best choice (Option 1)
+  /// 2 = acceptable alternative (Option 2)
+  /// Higher numbers = lower priority
   @override
-  int? get score;
+  int get priority;
 
   /// Create a copy of ImagingRecommendation
   /// with the given fields replaced by the non-null parameter values.

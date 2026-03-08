@@ -36,6 +36,8 @@ mixin _$DecisionNode {
       String? summaryAr,
     )
     result,
+    required TResult Function(String id, String? summary, String? summaryAr)
+    noGuidelines,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
@@ -55,6 +57,8 @@ mixin _$DecisionNode {
       String? summaryAr,
     )?
     result,
+    TResult? Function(String id, String? summary, String? summaryAr)?
+    noGuidelines,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
@@ -74,22 +78,27 @@ mixin _$DecisionNode {
       String? summaryAr,
     )?
     result,
+    TResult Function(String id, String? summary, String? summaryAr)?
+    noGuidelines,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(QuestionNode value) question,
     required TResult Function(ResultNode value) result,
+    required TResult Function(NoGuidelinesNode value) noGuidelines,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(QuestionNode value)? question,
     TResult? Function(ResultNode value)? result,
+    TResult? Function(NoGuidelinesNode value)? noGuidelines,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionNode value)? question,
     TResult Function(ResultNode value)? result,
+    TResult Function(NoGuidelinesNode value)? noGuidelines,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 
@@ -298,6 +307,8 @@ class _$QuestionNodeImpl extends QuestionNode {
       String? summaryAr,
     )
     result,
+    required TResult Function(String id, String? summary, String? summaryAr)
+    noGuidelines,
   }) {
     return question(id, questionText, questionTextAr, options, hint, hintAr);
   }
@@ -321,6 +332,8 @@ class _$QuestionNodeImpl extends QuestionNode {
       String? summaryAr,
     )?
     result,
+    TResult? Function(String id, String? summary, String? summaryAr)?
+    noGuidelines,
   }) {
     return question?.call(
       id,
@@ -351,6 +364,8 @@ class _$QuestionNodeImpl extends QuestionNode {
       String? summaryAr,
     )?
     result,
+    TResult Function(String id, String? summary, String? summaryAr)?
+    noGuidelines,
     required TResult orElse(),
   }) {
     if (question != null) {
@@ -364,6 +379,7 @@ class _$QuestionNodeImpl extends QuestionNode {
   TResult map<TResult extends Object?>({
     required TResult Function(QuestionNode value) question,
     required TResult Function(ResultNode value) result,
+    required TResult Function(NoGuidelinesNode value) noGuidelines,
   }) {
     return question(this);
   }
@@ -373,6 +389,7 @@ class _$QuestionNodeImpl extends QuestionNode {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(QuestionNode value)? question,
     TResult? Function(ResultNode value)? result,
+    TResult? Function(NoGuidelinesNode value)? noGuidelines,
   }) {
     return question?.call(this);
   }
@@ -382,6 +399,7 @@ class _$QuestionNodeImpl extends QuestionNode {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionNode value)? question,
     TResult Function(ResultNode value)? result,
+    TResult Function(NoGuidelinesNode value)? noGuidelines,
     required TResult orElse(),
   }) {
     if (question != null) {
@@ -559,6 +577,8 @@ class _$ResultNodeImpl extends ResultNode {
       String? summaryAr,
     )
     result,
+    required TResult Function(String id, String? summary, String? summaryAr)
+    noGuidelines,
   }) {
     return result(id, recommendations, summary, summaryAr);
   }
@@ -582,6 +602,8 @@ class _$ResultNodeImpl extends ResultNode {
       String? summaryAr,
     )?
     result,
+    TResult? Function(String id, String? summary, String? summaryAr)?
+    noGuidelines,
   }) {
     return result?.call(id, recommendations, summary, summaryAr);
   }
@@ -605,6 +627,8 @@ class _$ResultNodeImpl extends ResultNode {
       String? summaryAr,
     )?
     result,
+    TResult Function(String id, String? summary, String? summaryAr)?
+    noGuidelines,
     required TResult orElse(),
   }) {
     if (result != null) {
@@ -618,6 +642,7 @@ class _$ResultNodeImpl extends ResultNode {
   TResult map<TResult extends Object?>({
     required TResult Function(QuestionNode value) question,
     required TResult Function(ResultNode value) result,
+    required TResult Function(NoGuidelinesNode value) noGuidelines,
   }) {
     return result(this);
   }
@@ -627,6 +652,7 @@ class _$ResultNodeImpl extends ResultNode {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(QuestionNode value)? question,
     TResult? Function(ResultNode value)? result,
+    TResult? Function(NoGuidelinesNode value)? noGuidelines,
   }) {
     return result?.call(this);
   }
@@ -636,6 +662,7 @@ class _$ResultNodeImpl extends ResultNode {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionNode value)? question,
     TResult Function(ResultNode value)? result,
+    TResult Function(NoGuidelinesNode value)? noGuidelines,
     required TResult orElse(),
   }) {
     if (result != null) {
@@ -665,5 +692,232 @@ abstract class ResultNode extends DecisionNode {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ResultNodeImplCopyWith<_$ResultNodeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NoGuidelinesNodeImplCopyWith<$Res>
+    implements $DecisionNodeCopyWith<$Res> {
+  factory _$$NoGuidelinesNodeImplCopyWith(
+    _$NoGuidelinesNodeImpl value,
+    $Res Function(_$NoGuidelinesNodeImpl) then,
+  ) = __$$NoGuidelinesNodeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id, String? summary, String? summaryAr});
+}
+
+/// @nodoc
+class __$$NoGuidelinesNodeImplCopyWithImpl<$Res>
+    extends _$DecisionNodeCopyWithImpl<$Res, _$NoGuidelinesNodeImpl>
+    implements _$$NoGuidelinesNodeImplCopyWith<$Res> {
+  __$$NoGuidelinesNodeImplCopyWithImpl(
+    _$NoGuidelinesNodeImpl _value,
+    $Res Function(_$NoGuidelinesNodeImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of DecisionNode
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? summary = freezed,
+    Object? summaryAr = freezed,
+  }) {
+    return _then(
+      _$NoGuidelinesNodeImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        summary: freezed == summary
+            ? _value.summary
+            : summary // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        summaryAr: freezed == summaryAr
+            ? _value.summaryAr
+            : summaryAr // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$NoGuidelinesNodeImpl extends NoGuidelinesNode {
+  const _$NoGuidelinesNodeImpl({required this.id, this.summary, this.summaryAr})
+    : super._();
+
+  @override
+  final String id;
+  @override
+  final String? summary;
+  @override
+  final String? summaryAr;
+
+  @override
+  String toString() {
+    return 'DecisionNode.noGuidelines(id: $id, summary: $summary, summaryAr: $summaryAr)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NoGuidelinesNodeImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.summary, summary) || other.summary == summary) &&
+            (identical(other.summaryAr, summaryAr) ||
+                other.summaryAr == summaryAr));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, summary, summaryAr);
+
+  /// Create a copy of DecisionNode
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NoGuidelinesNodeImplCopyWith<_$NoGuidelinesNodeImpl> get copyWith =>
+      __$$NoGuidelinesNodeImplCopyWithImpl<_$NoGuidelinesNodeImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      String id,
+      String questionText,
+      String questionTextAr,
+      List<AnswerOption> options,
+      String? hint,
+      String? hintAr,
+    )
+    question,
+    required TResult Function(
+      String id,
+      List<ImagingRecommendation> recommendations,
+      String? summary,
+      String? summaryAr,
+    )
+    result,
+    required TResult Function(String id, String? summary, String? summaryAr)
+    noGuidelines,
+  }) {
+    return noGuidelines(id, summary, summaryAr);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      String id,
+      String questionText,
+      String questionTextAr,
+      List<AnswerOption> options,
+      String? hint,
+      String? hintAr,
+    )?
+    question,
+    TResult? Function(
+      String id,
+      List<ImagingRecommendation> recommendations,
+      String? summary,
+      String? summaryAr,
+    )?
+    result,
+    TResult? Function(String id, String? summary, String? summaryAr)?
+    noGuidelines,
+  }) {
+    return noGuidelines?.call(id, summary, summaryAr);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      String id,
+      String questionText,
+      String questionTextAr,
+      List<AnswerOption> options,
+      String? hint,
+      String? hintAr,
+    )?
+    question,
+    TResult Function(
+      String id,
+      List<ImagingRecommendation> recommendations,
+      String? summary,
+      String? summaryAr,
+    )?
+    result,
+    TResult Function(String id, String? summary, String? summaryAr)?
+    noGuidelines,
+    required TResult orElse(),
+  }) {
+    if (noGuidelines != null) {
+      return noGuidelines(id, summary, summaryAr);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuestionNode value) question,
+    required TResult Function(ResultNode value) result,
+    required TResult Function(NoGuidelinesNode value) noGuidelines,
+  }) {
+    return noGuidelines(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuestionNode value)? question,
+    TResult? Function(ResultNode value)? result,
+    TResult? Function(NoGuidelinesNode value)? noGuidelines,
+  }) {
+    return noGuidelines?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuestionNode value)? question,
+    TResult Function(ResultNode value)? result,
+    TResult Function(NoGuidelinesNode value)? noGuidelines,
+    required TResult orElse(),
+  }) {
+    if (noGuidelines != null) {
+      return noGuidelines(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NoGuidelinesNode extends DecisionNode {
+  const factory NoGuidelinesNode({
+    required final String id,
+    final String? summary,
+    final String? summaryAr,
+  }) = _$NoGuidelinesNodeImpl;
+  const NoGuidelinesNode._() : super._();
+
+  @override
+  String get id;
+  String? get summary;
+  String? get summaryAr;
+
+  /// Create a copy of DecisionNode
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NoGuidelinesNodeImplCopyWith<_$NoGuidelinesNodeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

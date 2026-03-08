@@ -110,7 +110,7 @@ class HomeScreen extends ConsumerWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => context.push(AppRoutes.panelSelection),
+        onPressed: () => context.push(AppRoutes.modalitySelection),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: AppConstants.spacingMD),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),

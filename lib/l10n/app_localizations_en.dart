@@ -516,4 +516,145 @@ class AppLocalizationsEn extends AppLocalizations {
   String radiationLevel(String level) {
     return 'Radiation: $level';
   }
+
+  @override
+  String get selectImagingModality => 'Select Imaging Modality';
+
+  @override
+  String get chooseImagingType => 'Choose the imaging type you would recommend';
+
+  @override
+  String get selectClinicalArea => 'Select Clinical Area';
+
+  @override
+  String get chooseBodySystem => 'Choose the body system to evaluate';
+
+  @override
+  String get selectClinicalScenario => 'Select Clinical Scenario';
+
+  @override
+  String get chooseRelevantPresentation => 'Choose the relevant clinical presentation';
+
+  @override
+  String stepOf(int current, int total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get backToTopics => 'Back to Topics';
+
+  @override
+  String get modalityUltrasound => 'Ultrasound';
+
+  @override
+  String get modalityMRI => 'MRI';
+
+  @override
+  String get modalityCTScan => 'CT Scan';
+
+  @override
+  String get modalityNuclearMedicine => 'Nuclear Medicine';
+
+  @override
+  String get modalityPETImaging => 'PET Imaging';
+
+  @override
+  String get modalityAngiography => 'Angiography';
+
+  @override
+  String get modalityMammography => 'Mammography';
+
+  @override
+  String get modalityArthrography => 'Arthrography';
+
+  @override
+  String get modalityXRay => 'X-ray';
+
+  @override
+  String get yourSelection => 'Your Selection';
+
+  @override
+  String get notIndicated => 'Not Indicated';
+
+  @override
+  String get indicated => 'Indicated';
+
+  @override
+  String get recommendedOptions => 'Recommended Option(s)';
+
+  @override
+  String get primaryRecommendation => 'Primary Recommendation';
+
+  @override
+  String get alternativeOption => 'Alternative Option';
+
+  @override
+  String get trueImagingIndicated => 'TRUE - Imaging Indicated';
+
+  @override
+  String get falseImagingNotIndicated => 'FALSE - Imaging NOT Indicated';
+
+  @override
+  String get mayBeAppropriateTitle => 'May Be Appropriate';
+
+  @override
+  String get noCurrentGuidelines => 'No Current Guidelines Available';
+
+  @override
+  String get aiClinicalAssessment => 'AI Clinical Assessment';
+
+  @override
+  String get scenarioNotCoveredByGuidelines => 'This specific scenario is not covered by current guidelines.';
+
+  @override
+  String get aiWouldAssess => 'The AI would assess:';
+
+  @override
+  String get aiAssessItem1 => 'Ask about pain severity and duration';
+
+  @override
+  String get aiAssessItem2 => 'Assess clinical urgency';
+
+  @override
+  String get aiAssessItem3 => 'Provide opinion on conservative management vs imaging';
+
+  @override
+  String get aiAssessItem4 => 'Explain clinical reasoning';
+
+  @override
+  String get finalDecisionDisclaimer => 'Final decision depends on physician\'s clinical judgment';
+
+  @override
+  String get startNewAssessment => 'Start New Assessment';
+
+  @override
+  String get aiExplanation => 'AI Explanation';
+
+  @override
+  String get aiExplanationPlaceholder =>
+      'AI explanation will be generated here: \"Explain the appropriate imaging for this clinical scenario\"';
+
+  @override
+  String notRecommendedForScenario(String modality) {
+    return '$modality is not the recommended imaging for this scenario.';
+  }
+
+  @override
+  String get yourChoiceIsIndicated =>
+      'Your selected imaging study is the recommended choice for this clinical scenario.';
+
+  @override
+  String get yourChoiceMayBeAppropriate =>
+      'Your selected imaging study may be appropriate, but other options might be preferred.';
+
+  @override
+  String get yourChoiceNotIndicated => 'Your selected imaging study is not recommended for this clinical scenario.';
+
+  @override
+  String get comingSoon => 'Coming Soon';
+
+  @override
+  String topicsCount(int count) {
+    return '$count Topics';
+  }
 }

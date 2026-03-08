@@ -17,16 +17,8 @@ abstract class AssessmentResult with _$AssessmentResult {
     String? summary,
   }) = _AssessmentResult;
 
-  factory AssessmentResult.fromJson(Map<String, dynamic> json) => _$AssessmentResultFromJson(json);
-
-  List<ImagingRecommendation> get usuallyAppropriate =>
-      recommendations.where((r) => r.appropriateness.name == 'usuallyAppropriate').toList();
-
-  List<ImagingRecommendation> get mayBeAppropriate =>
-      recommendations.where((r) => r.appropriateness.name == 'mayBeAppropriate').toList();
-
-  List<ImagingRecommendation> get usuallyNotAppropriate =>
-      recommendations.where((r) => r.appropriateness.name == 'usuallyNotAppropriate').toList();
+  factory AssessmentResult.fromJson(Map<String, dynamic> json) =>
+      _$AssessmentResultFromJson(json);
 }
 
 @freezed

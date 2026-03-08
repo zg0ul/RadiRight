@@ -201,5 +201,73 @@
         "type": "String"
       }
     }
+  },
+  "selectImagingModality": "Select Imaging Modality",
+  "chooseImagingType": "Choose the imaging type you would recommend",
+  "selectClinicalArea": "Select Clinical Area",
+  "chooseBodySystem": "Choose the body system to evaluate",
+  "selectClinicalScenario": "Select Clinical Scenario",
+  "chooseRelevantPresentation": "Choose the relevant clinical presentation",
+  "stepOf": "Step {current} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "backToTopics": "Back to Topics",
+  "modalityUltrasound": "Ultrasound",
+  "modalityMRI": "MRI",
+  "modalityCTScan": "CT Scan",
+  "modalityNuclearMedicine": "Nuclear Medicine",
+  "modalityPETImaging": "PET Imaging",
+  "modalityAngiography": "Angiography",
+  "modalityMammography": "Mammography",
+  "modalityArthrography": "Arthrography",
+  "modalityXRay": "X-ray",
+  "yourSelection": "Your Selection",
+  "notIndicated": "Not Indicated",
+  "indicated": "Indicated",
+  "recommendedOptions": "Recommended Option(s)",
+  "primaryRecommendation": "Primary Recommendation",
+  "alternativeOption": "Alternative Option",
+  "trueImagingIndicated": "TRUE - Imaging Indicated",
+  "falseImagingNotIndicated": "FALSE - Imaging NOT Indicated",
+  "mayBeAppropriateTitle": "May Be Appropriate",
+  "noCurrentGuidelines": "No Current Guidelines Available",
+  "aiClinicalAssessment": "AI Clinical Assessment",
+  "scenarioNotCoveredByGuidelines": "This specific scenario is not covered by current guidelines.",
+  "aiWouldAssess": "The AI would assess:",
+  "aiAssessItem1": "Ask about pain severity and duration",
+  "aiAssessItem2": "Assess clinical urgency",
+  "aiAssessItem3": "Provide opinion on conservative management vs imaging",
+  "aiAssessItem4": "Explain clinical reasoning",
+  "finalDecisionDisclaimer": "Final decision depends on physician's clinical judgment",
+  "startNewAssessment": "Start New Assessment",
+  "aiExplanation": "AI Explanation",
+  "aiExplanationPlaceholder": "AI explanation will be generated here: \"Explain the appropriate imaging for this clinical scenario\"",
+  "notRecommendedForScenario": "{modality} is not the recommended imaging for this scenario.",
+  "@notRecommendedForScenario": {
+    "placeholders": {
+      "modality": {
+        "type": "String"
+      }
+    }
+  },
+  "yourChoiceIsIndicated": "Your selected imaging study is the recommended choice for this clinical scenario.",
+  "yourChoiceMayBeAppropriate": "Your selected imaging study may be appropriate, but other options might be preferred.",
+  "yourChoiceNotIndicated": "Your selected imaging study is not recommended for this clinical scenario.",
+  "comingSoon": "Coming Soon",
+  "topicsCount": "{count} Topics",
+  "@topicsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

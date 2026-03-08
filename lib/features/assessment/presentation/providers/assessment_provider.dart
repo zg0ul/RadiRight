@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:radi_right/features/assessment/domain/enums/imaging_modality.dart';
 import 'package:radi_right/features/assessment/domain/models/decision_node.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/repositories/assessment_repository.dart';
@@ -34,6 +35,28 @@ class CurrentAssessment extends _$CurrentAssessment {
   @override
   AssessmentState build() {
     return const AssessmentState();
+  }
+
+  /// Selects the imaging modality the doctor wants to evaluate.
+  /// This should be called in Step 1 of the new flow.
+  void selectModality(ImagingModality modality) {
+    state = state.copyWith(selectedModality: modality);
+  }
+
+  /// Selects the clinical area (panel).
+  /// This should be called in Step 2 of the new flow.
+  void selectPanel(String panelId, String panelName) {
+    state = state.copyWith(selectedPanelId: panelId, selectedPanelName: panelName);
+  }
+
+  /// Clears the modality selection (for back navigation)
+  void clearModality() {
+    state = state.copyWith(clearModality: true);
+  }
+
+  /// Clears the panel selection (for back navigation)
+  void clearPanel() {
+    state = state.copyWith(clearPanel: true);
   }
 
   Future<void> startAssessment(String topicId) async {
@@ -72,12 +95,13 @@ class CurrentAssessment extends _$CurrentAssessment {
       return;
     }
 
-    // Initialize the decision engine
+    // Initialize the decision engine with the selected modality
     ref.read(decisionEngineProvider.notifier).initialize(
           topicId: topicId,
           topicName: topic.name,
           rootNode: rootNode,
           allNodes: nodes,
+          selectedModality: state.selectedModality,
         );
 
     state = state.copyWith(
@@ -102,12 +126,24 @@ class AssessmentState {
   final String? topicName;
   final bool isActive;
 
+  /// The imaging modality selected by the doctor at the start of the assessment
+  final ImagingModality? selectedModality;
+
+  /// The panel ID selected by the doctor
+  final String? selectedPanelId;
+
+  /// The panel name for display purposes
+  final String? selectedPanelName;
+
   const AssessmentState({
     this.isLoading = false,
     this.error,
     this.topicId,
     this.topicName,
     this.isActive = false,
+    this.selectedModality,
+    this.selectedPanelId,
+    this.selectedPanelName,
   });
 
   AssessmentState copyWith({
@@ -116,6 +152,11 @@ class AssessmentState {
     String? topicId,
     String? topicName,
     bool? isActive,
+    ImagingModality? selectedModality,
+    String? selectedPanelId,
+    String? selectedPanelName,
+    bool clearModality = false,
+    bool clearPanel = false,
   }) {
     return AssessmentState(
       isLoading: isLoading ?? this.isLoading,
@@ -123,6 +164,18 @@ class AssessmentState {
       topicId: topicId ?? this.topicId,
       topicName: topicName ?? this.topicName,
       isActive: isActive ?? this.isActive,
+      selectedModality:
+          clearModality ? null : (selectedModality ?? this.selectedModality),
+      selectedPanelId:
+          clearPanel ? null : (selectedPanelId ?? this.selectedPanelId),
+      selectedPanelName:
+          clearPanel ? null : (selectedPanelName ?? this.selectedPanelName),
     );
   }
+
+  /// Whether a modality has been selected
+  bool get hasSelectedModality => selectedModality != null;
+
+  /// Whether a panel has been selected
+  bool get hasSelectedPanel => selectedPanelId != null;
 }

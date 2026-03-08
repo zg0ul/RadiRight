@@ -82,15 +82,43 @@ class QuestionScreen extends HookConsumerWidget {
 
     final currentQuestionKey = currentNode.id;
 
+    final theme = Theme.of(context);
+
     return AppScaffold(
       showBackButton: false,
       leading: IconButton(
-        icon: HugeIcon(icon: AppIcons.close, size: AppConstants.iconMD, color: Theme.of(context).colorScheme.onSurface),
+        icon: HugeIcon(icon: AppIcons.close, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
         onPressed: () => showExitDialog(context, ref, l10n),
       ),
       child: SafeArea(
         child: Column(
           children: [
+            // Step indicator
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: LinearProgressIndicator(
+                      value: 1.0, // Step 4 of 4
+                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        theme.colorScheme.primary,
+                      ),
+                      borderRadius: BorderRadius.circular(AppConstants.radiusSM),
+                    ),
+                  ),
+                  AppSpacer.horizontalSM,
+                  Text(
+                    l10n.stepOf(4, 4),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            AppSpacer.verticalMD,
             QuestionProgressSection(engineState: engineState, l10n: l10n),
             AppSpacer.verticalLG,
             Expanded(

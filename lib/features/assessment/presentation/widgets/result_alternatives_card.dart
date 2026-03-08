@@ -20,19 +20,6 @@ class ResultAlternativesCard extends StatelessWidget {
   final List<ImagingRecommendation> alternatives;
   final AppThemeExtension appTheme;
 
-  Color _getAppropriatenessColor(String appropriateness) {
-    switch (appropriateness) {
-      case 'usuallyAppropriate':
-        return appTheme.usuallyAppropriate;
-      case 'mayBeAppropriate':
-        return appTheme.mayBeAppropriate;
-      case 'usuallyNotAppropriate':
-        return appTheme.usuallyNotAppropriate;
-      default:
-        return Colors.grey;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -49,7 +36,6 @@ class ResultAlternativesCard extends StatelessWidget {
             ),
             AppSpacer.verticalMD,
             ...alternatives.map((rec) {
-              final color = _getAppropriatenessColor(rec.appropriateness.name);
               return Padding(
                 padding: EdgeInsets.only(bottom: AppConstants.spacingSM),
                 child: Container(
@@ -76,21 +62,23 @@ class ResultAlternativesCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      if (rec.score != null)
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: AppConstants.spacingSM,
-                            vertical: AppConstants.spacingXS,
-                          ),
-                          decoration: BoxDecoration(
-                            color: color.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(AppConstants.radiusSM),
-                          ),
-                          child: Text(
-                            '${rec.score}/9',
-                            style: theme.textTheme.labelLarge?.copyWith(color: color, fontWeight: FontWeight.bold),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppConstants.spacingSM,
+                          vertical: AppConstants.spacingXS,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(AppConstants.radiusSM),
+                        ),
+                        child: Text(
+                          rec.priority == 2 ? '2nd choice' : '1st choice',
+                          style: theme.textTheme.labelLarge?.copyWith(
+                            color: theme.colorScheme.primary,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
+                      ),
                     ],
                   ),
                 ),
