@@ -482,11 +482,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hapticFeedbackDescription => 'Enable tactile feedback for interactions';
 
   @override
-  String get homeTagline => 'Evidence-Based Imaging Guidance';
+  String get homeTagline => 'Evidence-Based MSK Imaging Guidance';
 
   @override
-  String get homeDescriptionCard =>
-      'Navigate clinical imaging decisions with confidence using ACR Appropriateness Criteria guidelines.';
+  String homeDescriptionCard(int guidelinesCount) {
+    return 'RadiRight guides healthcare professionals to choose the most appropriate imaging based on clinical scenarios and our evidence-based recommendations synthesized from over $guidelinesCount international guidelines.';
+  }
+
+  @override
+  String get homeForMedicalProfessionals => 'For Medical Professionals';
+
+  @override
+  String get homeBuiltOnEvidence => 'Built on Evidence';
+
+  @override
+  String homePoweredByGuidelines(int count) {
+    return 'Powered by $count+ International Guidelines';
+  }
+
+  @override
+  String get homeGuidelinesDescription =>
+      'Our recommendations are carefully synthesized from the world\'s most trusted radiology and medical imaging authorities, ensuring you get reliable, up-to-date guidance.';
+
+  @override
+  String get homeEvidenceBasedRecommendations => 'Evidence-Based Recommendations';
+
+  @override
+  String get homeEvidenceBasedRecommendationsDesc =>
+      'Every imaging recommendation in RadiRight is derived from a thorough review of guidelines published by organizations like the ACR Appropriateness Criteria, iRefer (Royal College of Radiologists), CAR, WHO, and more. When guidelines agree, we present the consensus. When they differ, we highlight the options and context.';
+
+  @override
+  String get homeAiClinicalReasoning => 'AI-Powered Clinical Reasoning';
+
+  @override
+  String get homeAiClinicalReasoningDesc =>
+      'RadiRight integrates AI to provide contextual explanations for every recommendation — explaining why a modality is appropriate, when alternatives should be considered, and what the clinical evidence says. When no guideline exists, AI steps in with evidence-based reasoning to guide your decision.';
+
+  @override
+  String get homeHowAiEnhances => 'How AI Enhances Your Assessment';
+
+  @override
+  String get homeAiClinicalExplanations => 'Clinical Explanations';
+
+  @override
+  String get homeAiClinicalExplanationsDesc =>
+      'Understand the reasoning behind each recommendation with plain-language explanations grounded in radiology literature.';
+
+  @override
+  String get homeAiGapCoverage => 'Gap Coverage';
+
+  @override
+  String get homeAiGapCoverageDesc =>
+      'When guidelines don\'t cover a specific scenario, AI provides evidence-based opinions while clearly noting the absence of formal guidance.';
+
+  @override
+  String get homeAiEducationalFeedback => 'Educational Feedback';
+
+  @override
+  String get homeAiEducationalFeedbackDesc =>
+      'Learn from every assessment — whether your choice was correct, a 2nd choice, or not indicated, AI explains what to consider next time.';
+
+  @override
+  String get homeAiDisclaimer =>
+      'AI explanations are designed to support — never replace — clinical judgment. All outputs include appropriate disclaimers.';
 
   @override
   String get homeFeatureEvidenceBased => 'Evidence\nBased';

@@ -482,10 +482,69 @@ class AppLocalizationsAr extends AppLocalizations {
   String get hapticFeedbackDescription => 'تفعيل ردود الفعل اللمسية للتفاعلات';
 
   @override
-  String get homeTagline => 'إرشادات التصوير المبنية على الأدلة';
+  String get homeTagline => 'إرشادات تصوير العضلات والهيكل العظمي المبنية على الأدلة';
 
   @override
-  String get homeDescriptionCard => 'اتخذ قرارات التصوير السريري بثقة باستخدام معايير ملاءمة ACR.';
+  String homeDescriptionCard(int guidelinesCount) {
+    return 'يوجّه RadiRight المتخصصين في الرعاية الصحية لاختيار التصوير الأنسب بناءً على السيناريوهات السريرية وتوصياتنا المبنية على الأدلة والمُجمّعة من أكثر من $guidelinesCount إرشادات دولية.';
+  }
+
+  @override
+  String get homeForMedicalProfessionals => 'للمتخصصين في الرعاية الصحية';
+
+  @override
+  String get homeBuiltOnEvidence => 'مبني على الأدلة';
+
+  @override
+  String homePoweredByGuidelines(int count) {
+    return 'مدعوم بأكثر من $count+ إرشادات دولية';
+  }
+
+  @override
+  String get homeGuidelinesDescription =>
+      'تم تجميع توصياتنا بعناية من أكثر هيئات الأشعة والتصوير الطبي موثوقية في العالم، لضمان حصولك على إرشادات موثوقة ومحدّثة.';
+
+  @override
+  String get homeEvidenceBasedRecommendations => 'توصيات مبنية على الأدلة';
+
+  @override
+  String get homeEvidenceBasedRecommendationsDesc =>
+      'كل توصية تصوير في RadiRight مستمدة من مراجعة شاملة للإرشادات المنشورة من منظمات مثل معايير ملاءمة ACR، وiRefer (الكلية الملكية لأخصائيي الأشعة)، وCAR، وWHO، وغيرها. عندما تتفق الإرشادات، نقدم الإجماع. وعندما تختلف، نوضح الخيارات والسياق.';
+
+  @override
+  String get homeAiClinicalReasoning => 'استدلال سريري مدعوم بالذكاء الاصطناعي';
+
+  @override
+  String get homeAiClinicalReasoningDesc =>
+      'يدمج RadiRight الذكاء الاصطناعي لتقديم تفسيرات سياقية لكل توصية — موضحاً لماذا تكون طريقة التصوير مناسبة، ومتى يجب النظر في البدائل، وماذا تقول الأدلة السريرية. عند عدم وجود إرشادات، يتدخل الذكاء الاصطناعي باستدلال مبني على الأدلة لتوجيه قرارك.';
+
+  @override
+  String get homeHowAiEnhances => 'كيف يعزز الذكاء الاصطناعي تقييمك';
+
+  @override
+  String get homeAiClinicalExplanations => 'التفسيرات السريرية';
+
+  @override
+  String get homeAiClinicalExplanationsDesc =>
+      'افهم المنطق وراء كل توصية من خلال تفسيرات بلغة واضحة مستندة إلى أدبيات الأشعة.';
+
+  @override
+  String get homeAiGapCoverage => 'تغطية الفجوات';
+
+  @override
+  String get homeAiGapCoverageDesc =>
+      'عندما لا تغطي الإرشادات سيناريو معين، يقدم الذكاء الاصطناعي آراء مبنية على الأدلة مع الإشارة بوضوح إلى عدم وجود إرشادات رسمية.';
+
+  @override
+  String get homeAiEducationalFeedback => 'ملاحظات تعليمية';
+
+  @override
+  String get homeAiEducationalFeedbackDesc =>
+      'تعلّم من كل تقييم — سواء كان اختيارك صحيحاً، أو خياراً ثانياً، أو غير موصى به، يشرح الذكاء الاصطناعي ما يجب مراعاته في المرة القادمة.';
+
+  @override
+  String get homeAiDisclaimer =>
+      'تفسيرات الذكاء الاصطناعي مصممة للدعم — وليس لاستبدال — الحكم السريري. جميع المخرجات تتضمن إخلاءات مسؤولية مناسبة.';
 
   @override
   String get homeFeatureEvidenceBased => 'مبني على\nالأدلة';

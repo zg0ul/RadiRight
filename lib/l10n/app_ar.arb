@@ -137,8 +137,38 @@
   },
   "hapticFeedback": "ردود الفعل اللمسية",
   "hapticFeedbackDescription": "تفعيل ردود الفعل اللمسية للتفاعلات",
-  "homeTagline": "إرشادات التصوير المبنية على الأدلة",
-  "homeDescriptionCard": "اتخذ قرارات التصوير السريري بثقة باستخدام معايير ملاءمة ACR.",
+  "homeTagline": "إرشادات تصوير العضلات والهيكل العظمي المبنية على الأدلة",
+  "homeDescriptionCard": "يوجّه RadiRight المتخصصين في الرعاية الصحية لاختيار التصوير الأنسب بناءً على السيناريوهات السريرية وتوصياتنا المبنية على الأدلة والمُجمّعة من أكثر من {guidelinesCount} إرشادات دولية.",
+  "@homeDescriptionCard": {
+    "placeholders": {
+      "guidelinesCount": {
+        "type": "int"
+      }
+    }
+  },
+  "homeForMedicalProfessionals": "للمتخصصين في الرعاية الصحية",
+  "homeBuiltOnEvidence": "مبني على الأدلة",
+  "homePoweredByGuidelines": "مدعوم بأكثر من {count}+ إرشادات دولية",
+  "@homePoweredByGuidelines": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGuidelinesDescription": "تم تجميع توصياتنا بعناية من أكثر هيئات الأشعة والتصوير الطبي موثوقية في العالم، لضمان حصولك على إرشادات موثوقة ومحدّثة.",
+  "homeEvidenceBasedRecommendations": "توصيات مبنية على الأدلة",
+  "homeEvidenceBasedRecommendationsDesc": "كل توصية تصوير في RadiRight مستمدة من مراجعة شاملة للإرشادات المنشورة من منظمات مثل معايير ملاءمة ACR، وiRefer (الكلية الملكية لأخصائيي الأشعة)، وCAR، وWHO، وغيرها. عندما تتفق الإرشادات، نقدم الإجماع. وعندما تختلف، نوضح الخيارات والسياق.",
+  "homeAiClinicalReasoning": "استدلال سريري مدعوم بالذكاء الاصطناعي",
+  "homeAiClinicalReasoningDesc": "يدمج RadiRight الذكاء الاصطناعي لتقديم تفسيرات سياقية لكل توصية — موضحاً لماذا تكون طريقة التصوير مناسبة، ومتى يجب النظر في البدائل، وماذا تقول الأدلة السريرية. عند عدم وجود إرشادات، يتدخل الذكاء الاصطناعي باستدلال مبني على الأدلة لتوجيه قرارك.",
+  "homeHowAiEnhances": "كيف يعزز الذكاء الاصطناعي تقييمك",
+  "homeAiClinicalExplanations": "التفسيرات السريرية",
+  "homeAiClinicalExplanationsDesc": "افهم المنطق وراء كل توصية من خلال تفسيرات بلغة واضحة مستندة إلى أدبيات الأشعة.",
+  "homeAiGapCoverage": "تغطية الفجوات",
+  "homeAiGapCoverageDesc": "عندما لا تغطي الإرشادات سيناريو معين، يقدم الذكاء الاصطناعي آراء مبنية على الأدلة مع الإشارة بوضوح إلى عدم وجود إرشادات رسمية.",
+  "homeAiEducationalFeedback": "ملاحظات تعليمية",
+  "homeAiEducationalFeedbackDesc": "تعلّم من كل تقييم — سواء كان اختيارك صحيحاً، أو خياراً ثانياً، أو غير موصى به، يشرح الذكاء الاصطناعي ما يجب مراعاته في المرة القادمة.",
+  "homeAiDisclaimer": "تفسيرات الذكاء الاصطناعي مصممة للدعم — وليس لاستبدال — الحكم السريري. جميع المخرجات تتضمن إخلاءات مسؤولية مناسبة.",
   "homeFeatureEvidenceBased": "مبني على\nالأدلة",
   "homeFeatureAcrCriteria": "معايير\nACR",
   "homeFeatureQuickResults": "نتائج\nسريعة",

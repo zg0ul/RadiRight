@@ -1025,14 +1025,110 @@ abstract class AppLocalizations {
   /// No description provided for @homeTagline.
   ///
   /// In en, this message translates to:
-  /// **'Evidence-Based Imaging Guidance'**
+  /// **'Evidence-Based MSK Imaging Guidance'**
   String get homeTagline;
 
   /// No description provided for @homeDescriptionCard.
   ///
   /// In en, this message translates to:
-  /// **'Navigate clinical imaging decisions with confidence using ACR Appropriateness Criteria guidelines.'**
-  String get homeDescriptionCard;
+  /// **'RadiRight guides healthcare professionals to choose the most appropriate imaging based on clinical scenarios and our evidence-based recommendations synthesized from over {guidelinesCount} international guidelines.'**
+  String homeDescriptionCard(int guidelinesCount);
+
+  /// No description provided for @homeForMedicalProfessionals.
+  ///
+  /// In en, this message translates to:
+  /// **'For Medical Professionals'**
+  String get homeForMedicalProfessionals;
+
+  /// No description provided for @homeBuiltOnEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Built on Evidence'**
+  String get homeBuiltOnEvidence;
+
+  /// No description provided for @homePoweredByGuidelines.
+  ///
+  /// In en, this message translates to:
+  /// **'Powered by {count}+ International Guidelines'**
+  String homePoweredByGuidelines(int count);
+
+  /// No description provided for @homeGuidelinesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Our recommendations are carefully synthesized from the world\'s most trusted radiology and medical imaging authorities, ensuring you get reliable, up-to-date guidance.'**
+  String get homeGuidelinesDescription;
+
+  /// No description provided for @homeEvidenceBasedRecommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence-Based Recommendations'**
+  String get homeEvidenceBasedRecommendations;
+
+  /// No description provided for @homeEvidenceBasedRecommendationsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Every imaging recommendation in RadiRight is derived from a thorough review of guidelines published by organizations like the ACR Appropriateness Criteria, iRefer (Royal College of Radiologists), CAR, WHO, and more. When guidelines agree, we present the consensus. When they differ, we highlight the options and context.'**
+  String get homeEvidenceBasedRecommendationsDesc;
+
+  /// No description provided for @homeAiClinicalReasoning.
+  ///
+  /// In en, this message translates to:
+  /// **'AI-Powered Clinical Reasoning'**
+  String get homeAiClinicalReasoning;
+
+  /// No description provided for @homeAiClinicalReasoningDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'RadiRight integrates AI to provide contextual explanations for every recommendation — explaining why a modality is appropriate, when alternatives should be considered, and what the clinical evidence says. When no guideline exists, AI steps in with evidence-based reasoning to guide your decision.'**
+  String get homeAiClinicalReasoningDesc;
+
+  /// No description provided for @homeHowAiEnhances.
+  ///
+  /// In en, this message translates to:
+  /// **'How AI Enhances Your Assessment'**
+  String get homeHowAiEnhances;
+
+  /// No description provided for @homeAiClinicalExplanations.
+  ///
+  /// In en, this message translates to:
+  /// **'Clinical Explanations'**
+  String get homeAiClinicalExplanations;
+
+  /// No description provided for @homeAiClinicalExplanationsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Understand the reasoning behind each recommendation with plain-language explanations grounded in radiology literature.'**
+  String get homeAiClinicalExplanationsDesc;
+
+  /// No description provided for @homeAiGapCoverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Gap Coverage'**
+  String get homeAiGapCoverage;
+
+  /// No description provided for @homeAiGapCoverageDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'When guidelines don\'t cover a specific scenario, AI provides evidence-based opinions while clearly noting the absence of formal guidance.'**
+  String get homeAiGapCoverageDesc;
+
+  /// No description provided for @homeAiEducationalFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Educational Feedback'**
+  String get homeAiEducationalFeedback;
+
+  /// No description provided for @homeAiEducationalFeedbackDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn from every assessment — whether your choice was correct, a 2nd choice, or not indicated, AI explains what to consider next time.'**
+  String get homeAiEducationalFeedbackDesc;
+
+  /// No description provided for @homeAiDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'AI explanations are designed to support — never replace — clinical judgment. All outputs include appropriate disclaimers.'**
+  String get homeAiDisclaimer;
 
   /// No description provided for @homeFeatureEvidenceBased.
   ///

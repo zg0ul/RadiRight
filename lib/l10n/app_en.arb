@@ -184,8 +184,38 @@
   },
   "hapticFeedback": "Haptic Feedback",
   "hapticFeedbackDescription": "Enable tactile feedback for interactions",
-  "homeTagline": "Evidence-Based Imaging Guidance",
-  "homeDescriptionCard": "Navigate clinical imaging decisions with confidence using ACR Appropriateness Criteria guidelines.",
+  "homeTagline": "Evidence-Based MSK Imaging Guidance",
+  "homeDescriptionCard": "RadiRight guides healthcare professionals to choose the most appropriate imaging based on clinical scenarios and our evidence-based recommendations synthesized from over {guidelinesCount} international guidelines.",
+  "@homeDescriptionCard": {
+    "placeholders": {
+      "guidelinesCount": {
+        "type": "int"
+      }
+    }
+  },
+  "homeForMedicalProfessionals": "For Medical Professionals",
+  "homeBuiltOnEvidence": "Built on Evidence",
+  "homePoweredByGuidelines": "Powered by {count}+ International Guidelines",
+  "@homePoweredByGuidelines": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGuidelinesDescription": "Our recommendations are carefully synthesized from the world's most trusted radiology and medical imaging authorities, ensuring you get reliable, up-to-date guidance.",
+  "homeEvidenceBasedRecommendations": "Evidence-Based Recommendations",
+  "homeEvidenceBasedRecommendationsDesc": "Every imaging recommendation in RadiRight is derived from a thorough review of guidelines published by organizations like the ACR Appropriateness Criteria, iRefer (Royal College of Radiologists), CAR, WHO, and more. When guidelines agree, we present the consensus. When they differ, we highlight the options and context.",
+  "homeAiClinicalReasoning": "AI-Powered Clinical Reasoning",
+  "homeAiClinicalReasoningDesc": "RadiRight integrates AI to provide contextual explanations for every recommendation — explaining why a modality is appropriate, when alternatives should be considered, and what the clinical evidence says. When no guideline exists, AI steps in with evidence-based reasoning to guide your decision.",
+  "homeHowAiEnhances": "How AI Enhances Your Assessment",
+  "homeAiClinicalExplanations": "Clinical Explanations",
+  "homeAiClinicalExplanationsDesc": "Understand the reasoning behind each recommendation with plain-language explanations grounded in radiology literature.",
+  "homeAiGapCoverage": "Gap Coverage",
+  "homeAiGapCoverageDesc": "When guidelines don't cover a specific scenario, AI provides evidence-based opinions while clearly noting the absence of formal guidance.",
+  "homeAiEducationalFeedback": "Educational Feedback",
+  "homeAiEducationalFeedbackDesc": "Learn from every assessment — whether your choice was correct, a 2nd choice, or not indicated, AI explains what to consider next time.",
+  "homeAiDisclaimer": "AI explanations are designed to support — never replace — clinical judgment. All outputs include appropriate disclaimers.",
   "homeFeatureEvidenceBased": "Evidence\nBased",
   "homeFeatureAcrCriteria": "ACR\nCriteria",
   "homeFeatureQuickResults": "Quick\nResults",
