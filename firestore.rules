@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Helpers ---
+    // True when the request has a signed-in user.
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // True when the user is signed in and their UID equals the userId in the path.
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // --- Users collection: one document per user (e.g. users/xyz789) ---
+    // Users can only read and write their own profile. Delete is denied to avoid accidental removal.
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if false;
+    }
+
+    // --- Subscriptions collection: one doc per user (e.g. subscriptions/xyz789) ---
+    // Owner can read. Create only for self and only with trial tier (MVP trial signup).
+    // Update/delete denied so only backend/admin can change subscriptions.
+    match /subscriptions/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId)
+        && request.resource.data.tier == 'trial'
+        && request.resource.data.isTrialUsed == true;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // --- Assessment History: many docs in one collection, each has a userId field ---
+    // Read/create/delete only when the doc's userId matches the signed-in user (own history only).
+    // Update denied so history entries stay immutable after creation.
+    match /assessmentHistory/{historyId} {
+      allow read: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid;
+      allow delete: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+      allow update: if false;
+    }
+
+    // --- Catch-all: deny any path not matched above (secure default) ---
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
