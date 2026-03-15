@@ -152,32 +152,15 @@ class AppColorPalette {
   // ============================================
   // GRADIENT DEFINITIONS
   // ============================================
-  static const List<Color> primaryGradientLight = [
-    Color(0xFF006A6A),
-    Color(0xFF008A8A),
-  ];
+  static const List<Color> primaryGradientLight = [Color(0xFF006A6A), Color(0xFF008A8A)];
 
-  static const List<Color> primaryGradientDark = [
-    Color(0xFF004F4F),
-    Color(0xFF006A6A),
-  ];
+  static const List<Color> primaryGradientDark = [Color(0xFF004F4F), Color(0xFF006A6A)];
 
-  static const List<Color> successGradient = [
-    Color(0xFF16A34A),
-    Color(0xFF22C55E),
-  ];
+  static const List<Color> successGradient = [Color(0xFF16A34A), Color(0xFF22C55E)];
 
-  static const List<Color> backgroundGradientLight = [
-    Color(0xFFF3F4F6),
-    Color(0xFFF8F9FA),
-    Color(0xFFFFFFFF),
-  ];
+  static const List<Color> backgroundGradientLight = [Color(0xFFF3F4F6), Color(0xFFF8F9FA), Color(0xFFFFFFFF)];
 
-  static const List<Color> backgroundGradientDark = [
-    Color(0xFF0E1515),
-    Color(0xFF171D1D),
-    Color(0xFF1B2121),
-  ];
+  static const List<Color> backgroundGradientDark = [Color(0xFF0E1515), Color(0xFF171D1D), Color(0xFF1B2121)];
 
   // ============================================
   // GLASSMORPHISM COLORS

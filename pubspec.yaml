@@ -63,6 +63,9 @@ dev_dependencies:
   # Linting
   flutter_lints: ^5.0.0
 
+  # App icons (light + dark with surface background)
+  flutter_launcher_icons: ^0.14.4
+
 flutter:
   uses-material-design: true
   generate: true
@@ -70,4 +73,17 @@ flutter:
   assets:
     - assets/data/
     - assets/data/decision_trees/
-    - assets/radi_right_logo.svg
+    - assets/logos/
+
+# App icons: light logo on surfaceLight (#F8F9FA), dark logo on surfaceDark (#0E1515).
+# Run: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon_light.png"
+  # iOS 18+ dark appearance: use transparent asset (Apple recommendation)
+  image_path_ios_dark_transparent: "assets/icon/icon_dark.png"
+  remove_alpha_ios: false
+  adaptive_icon_background: "#F8F9FA"
+  adaptive_icon_foreground: "assets/icon/icon_light.png"
+  adaptive_icon_foreground_inset: 16

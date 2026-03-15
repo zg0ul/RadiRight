@@ -18,6 +18,7 @@ class SplashScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authNotifierProvider);
     final subscriptionState = ref.watch(subscriptionNotifierProvider);
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     useEffect(() {
       Future.delayed(const Duration(seconds: 2), () {
@@ -57,11 +58,10 @@ class SplashScreen extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              'assets/radi_right_logo.svg',
+              isDarkMode ? 'assets/logos/radi_right_dark.svg' : 'assets/logos/radi_right_light.svg',
               width: 200.w,
               height: 200.w,
               fit: BoxFit.contain,
-              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
             ),
             AppSpacer.verticalSM,
             Text(

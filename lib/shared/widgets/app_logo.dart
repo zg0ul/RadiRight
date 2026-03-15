@@ -8,27 +8,13 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      width: 150.w,
-      height: 150.w,
-      decoration: BoxDecoration(
-        color: theme.colorScheme.primary,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: theme.colorScheme.primary.withValues(alpha: 0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Center(
-        child: SvgPicture.asset(
-          'assets/radi_right_logo.svg',
-          width: 120.w,
-          height: 120.w,
-          colorFilter: ColorFilter.mode(theme.colorScheme.onPrimary, BlendMode.srcIn),
-        ),
+    final isDarkMode = theme.brightness == Brightness.dark;
+    return Center(
+      child: SvgPicture.asset(
+        isDarkMode ? 'assets/logos/radi_right_dark.svg' : 'assets/logos/radi_right_light.svg',
+        width: 120.w,
+        height: 120.w,
+        // colorFilter: ColorFilter.mode(theme.colorScheme.onPrimary, BlendMode.srcIn),
       ),
     );
   }
