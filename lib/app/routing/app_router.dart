@@ -14,6 +14,7 @@ import '../../features/assessment/presentation/screens/question_screen.dart';
 import '../../features/assessment/presentation/screens/result_screen.dart';
 import '../../features/assessment/presentation/screens/no_guidelines_screen.dart';
 import '../../features/history/presentation/screens/history_screen.dart';
+import '../../features/history/presentation/screens/history_detail_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/subscription/presentation/screens/trial_expired_screen.dart';
 import '../../features/subscription/presentation/screens/contact_info_screen.dart';
@@ -112,6 +113,14 @@ GoRouter appRouter(Ref ref) {
         builder: (context, state) => const NoGuidelinesScreen(),
       ),
       GoRoute(path: AppRoutes.history, name: 'history', builder: (context, state) => const HistoryScreen()),
+      GoRoute(
+        path: AppRoutes.historyDetail,
+        name: 'historyDetail',
+        builder: (context, state) {
+          final historyId = state.pathParameters['historyId']!;
+          return HistoryDetailScreen(historyId: historyId);
+        },
+      ),
       GoRoute(path: AppRoutes.settings, name: 'settings', builder: (context, state) => const SettingsScreen()),
       GoRoute(
         path: AppRoutes.trialExpired,

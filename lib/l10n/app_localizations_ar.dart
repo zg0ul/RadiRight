@@ -326,6 +326,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get clearHistoryConfirmation => 'هل أنت متأكد من مسح كل السجل؟';
 
   @override
+  String get historyDetailTitle => 'تفاصيل التقييم';
+
+  @override
+  String get yourAnswers => 'إجاباتك';
+
+  @override
   String get exitProgressWarning => 'هل أنت متأكد من الخروج؟ سيتم فقدان تقدمك.';
 
   @override
@@ -482,7 +488,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get hapticFeedbackDescription => 'تفعيل ردود الفعل اللمسية للتفاعلات';
 
   @override
-  String get homeTagline => 'إرشادات تصوير العضلات والهيكل العظمي المبنية على الأدلة';
+  String get homeTagline => 'أدلة مُجمَّعة من أكثر من 10 إرشادات دولية رئيسية';
 
   @override
   String homeDescriptionCard(int guidelinesCount) {
@@ -713,4 +719,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String topicsCount(int count) {
     return '$count مواضيع';
   }
+
+  @override
+  String get historyDetailAt => 'في';
 }

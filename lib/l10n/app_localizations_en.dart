@@ -326,6 +326,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearHistoryConfirmation => 'Are you sure you want to clear all history?';
 
   @override
+  String get historyDetailTitle => 'Assessment details';
+
+  @override
+  String get yourAnswers => 'Your answers';
+
+  @override
   String get exitProgressWarning => 'Are you sure you want to exit? Your progress will be lost.';
 
   @override
@@ -482,7 +488,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hapticFeedbackDescription => 'Enable tactile feedback for interactions';
 
   @override
-  String get homeTagline => 'Evidence-Based MSK Imaging Guidance';
+  String get homeTagline => 'Evidence synthesized from 10+ major international guidelines';
 
   @override
   String homeDescriptionCard(int guidelinesCount) {
@@ -715,4 +721,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String topicsCount(int count) {
     return '$count Topics';
   }
+
+  @override
+  String get historyDetailAt => 'at';
 }

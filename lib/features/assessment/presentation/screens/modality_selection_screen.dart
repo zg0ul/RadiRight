@@ -27,61 +27,44 @@ class ModalitySelectionScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Step indicator
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: LinearProgressIndicator(
-                      value: 0.25, // Step 1 of 4
-                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        theme.colorScheme.primary,
-                      ),
-                      borderRadius: BorderRadius.circular(AppConstants.radiusSM),
-                    ),
+            Row(
+              children: [
+                Expanded(
+                  child: LinearProgressIndicator(
+                    value: 0.25, // Step 1 of 4
+                    backgroundColor: theme.colorScheme.surfaceContainerHighest,
+                    valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusSM),
                   ),
-                  AppSpacer.horizontalSM,
-                  Text(
-                    l10n.stepOf(1, 4),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                AppSpacer.horizontalSM,
+                Text(
+                  l10n.stepOf(1, 4),
+                  style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                ),
+              ],
             ),
             AppSpacer.verticalLG,
             // Title and subtitle
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.selectImagingModality,
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  AppSpacer.verticalXS,
-                  Text(
-                    l10n.chooseImagingType,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.selectImagingModality,
+                  style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                AppSpacer.verticalXS,
+                Text(
+                  l10n.chooseImagingType,
+                  style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                ),
+              ],
             ),
             AppSpacer.verticalLG,
             // Modality list
             Expanded(
               child: ListView.separated(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppConstants.spacingMD,
-                  vertical: AppConstants.spacingSM,
-                ),
+                padding: EdgeInsets.symmetric(vertical: AppConstants.spacingSM),
                 itemCount: ImagingModality.values.length,
                 separatorBuilder: (context, index) => AppSpacer.verticalSM,
                 itemBuilder: (context, index) {
@@ -91,9 +74,7 @@ class ModalitySelectionScreen extends ConsumerWidget {
                     locale: locale,
                     index: index,
                     onTap: () {
-                      ref
-                          .read(currentAssessmentProvider.notifier)
-                          .selectModality(modality);
+                      ref.read(currentAssessmentProvider.notifier).selectModality(modality);
                       context.push(AppRoutes.panelSelection);
                     },
                   );
@@ -113,12 +94,7 @@ class _ModalityCard extends StatelessWidget {
   final int index;
   final VoidCallback onTap;
 
-  const _ModalityCard({
-    required this.modality,
-    required this.locale,
-    required this.index,
-    required this.onTap,
-  });
+  const _ModalityCard({required this.modality, required this.locale, required this.index, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -138,10 +114,7 @@ class _ModalityCard extends StatelessWidget {
         splashColor: theme.colorScheme.primary.withValues(alpha: 0.1),
         highlightColor: theme.colorScheme.primary.withValues(alpha: 0.05),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.spacingMD,
-            vertical: AppConstants.spacingMD,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingMD),
           child: Row(
             children: [
               // Icon container
@@ -152,28 +125,15 @@ class _ModalityCard extends StatelessWidget {
                   color: theme.colorScheme.surfaceContainerLowest,
                   borderRadius: BorderRadius.circular(AppConstants.radiusSM),
                 ),
-                child: Center(
-                  child: Text(
-                    modality.icon,
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                ),
+                child: Center(child: Text(modality.icon, style: const TextStyle(fontSize: 24))),
               ),
               AppSpacer.horizontalMD,
               // Modality name
               Expanded(
-                child: Text(
-                  name,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                child: Text(name, style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)),
               ),
               // Arrow icon
-              Icon(
-                Icons.chevron_right,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
+              Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
             ],
           ),
         ),

@@ -30,6 +30,12 @@ mixin _$AssessmentHistory {
   List<AnswerRecord> get answers => throw _privateConstructorUsedError;
   AssessmentResult? get result => throw _privateConstructorUsedError;
 
+  /// The imaging modality the doctor selected at the start
+  ImagingModality? get selectedModality => throw _privateConstructorUsedError;
+
+  /// The result of comparing the selection against ACR recommendations
+  ModalityMatchResult? get matchResult => throw _privateConstructorUsedError;
+
   /// Serializes this AssessmentHistory to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -56,6 +62,8 @@ abstract class $AssessmentHistoryCopyWith<$Res> {
     DateTime completedAt,
     List<AnswerRecord> answers,
     AssessmentResult? result,
+    ImagingModality? selectedModality,
+    ModalityMatchResult? matchResult,
   });
 
   $AssessmentResultCopyWith<$Res>? get result;
@@ -84,6 +92,8 @@ class _$AssessmentHistoryCopyWithImpl<$Res, $Val extends AssessmentHistory>
     Object? completedAt = null,
     Object? answers = null,
     Object? result = freezed,
+    Object? selectedModality = freezed,
+    Object? matchResult = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -119,6 +129,14 @@ class _$AssessmentHistoryCopyWithImpl<$Res, $Val extends AssessmentHistory>
                 ? _value.result
                 : result // ignore: cast_nullable_to_non_nullable
                       as AssessmentResult?,
+            selectedModality: freezed == selectedModality
+                ? _value.selectedModality
+                : selectedModality // ignore: cast_nullable_to_non_nullable
+                      as ImagingModality?,
+            matchResult: freezed == matchResult
+                ? _value.matchResult
+                : matchResult // ignore: cast_nullable_to_non_nullable
+                      as ModalityMatchResult?,
           )
           as $Val,
     );
@@ -157,6 +175,8 @@ abstract class _$$AssessmentHistoryImplCopyWith<$Res>
     DateTime completedAt,
     List<AnswerRecord> answers,
     AssessmentResult? result,
+    ImagingModality? selectedModality,
+    ModalityMatchResult? matchResult,
   });
 
   @override
@@ -185,6 +205,8 @@ class __$$AssessmentHistoryImplCopyWithImpl<$Res>
     Object? completedAt = null,
     Object? answers = null,
     Object? result = freezed,
+    Object? selectedModality = freezed,
+    Object? matchResult = freezed,
   }) {
     return _then(
       _$AssessmentHistoryImpl(
@@ -220,6 +242,14 @@ class __$$AssessmentHistoryImplCopyWithImpl<$Res>
             ? _value.result
             : result // ignore: cast_nullable_to_non_nullable
                   as AssessmentResult?,
+        selectedModality: freezed == selectedModality
+            ? _value.selectedModality
+            : selectedModality // ignore: cast_nullable_to_non_nullable
+                  as ImagingModality?,
+        matchResult: freezed == matchResult
+            ? _value.matchResult
+            : matchResult // ignore: cast_nullable_to_non_nullable
+                  as ModalityMatchResult?,
       ),
     );
   }
@@ -237,6 +267,8 @@ class _$AssessmentHistoryImpl extends _AssessmentHistory {
     required this.completedAt,
     required final List<AnswerRecord> answers,
     this.result,
+    this.selectedModality,
+    this.matchResult,
   }) : _answers = answers,
        super._();
 
@@ -266,9 +298,17 @@ class _$AssessmentHistoryImpl extends _AssessmentHistory {
   @override
   final AssessmentResult? result;
 
+  /// The imaging modality the doctor selected at the start
+  @override
+  final ImagingModality? selectedModality;
+
+  /// The result of comparing the selection against ACR recommendations
+  @override
+  final ModalityMatchResult? matchResult;
+
   @override
   String toString() {
-    return 'AssessmentHistory(id: $id, odId: $odId, topicId: $topicId, topicName: $topicName, startedAt: $startedAt, completedAt: $completedAt, answers: $answers, result: $result)';
+    return 'AssessmentHistory(id: $id, odId: $odId, topicId: $topicId, topicName: $topicName, startedAt: $startedAt, completedAt: $completedAt, answers: $answers, result: $result, selectedModality: $selectedModality, matchResult: $matchResult)';
   }
 
   @override
@@ -286,7 +326,11 @@ class _$AssessmentHistoryImpl extends _AssessmentHistory {
             (identical(other.completedAt, completedAt) ||
                 other.completedAt == completedAt) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
-            (identical(other.result, result) || other.result == result));
+            (identical(other.result, result) || other.result == result) &&
+            (identical(other.selectedModality, selectedModality) ||
+                other.selectedModality == selectedModality) &&
+            (identical(other.matchResult, matchResult) ||
+                other.matchResult == matchResult));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -301,6 +345,8 @@ class _$AssessmentHistoryImpl extends _AssessmentHistory {
     completedAt,
     const DeepCollectionEquality().hash(_answers),
     result,
+    selectedModality,
+    matchResult,
   );
 
   /// Create a copy of AssessmentHistory
@@ -330,6 +376,8 @@ abstract class _AssessmentHistory extends AssessmentHistory {
     required final DateTime completedAt,
     required final List<AnswerRecord> answers,
     final AssessmentResult? result,
+    final ImagingModality? selectedModality,
+    final ModalityMatchResult? matchResult,
   }) = _$AssessmentHistoryImpl;
   const _AssessmentHistory._() : super._();
 
@@ -352,6 +400,14 @@ abstract class _AssessmentHistory extends AssessmentHistory {
   List<AnswerRecord> get answers;
   @override
   AssessmentResult? get result;
+
+  /// The imaging modality the doctor selected at the start
+  @override
+  ImagingModality? get selectedModality;
+
+  /// The result of comparing the selection against ACR recommendations
+  @override
+  ModalityMatchResult? get matchResult;
 
   /// Create a copy of AssessmentHistory
   /// with the given fields replaced by the non-null parameter values.

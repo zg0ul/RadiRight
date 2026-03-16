@@ -126,6 +126,8 @@
   "noHistory": "No assessment history",
   "clearHistory": "Clear History",
   "clearHistoryConfirmation": "Are you sure you want to clear all history?",
+  "historyDetailTitle": "Assessment details",
+  "yourAnswers": "Your answers",
   "exitProgressWarning": "Are you sure you want to exit? Your progress will be lost.",
   "assessmentCompleted": "Assessment completed",
   "viewDetails": "View Details",
@@ -184,7 +186,7 @@
   },
   "hapticFeedback": "Haptic Feedback",
   "hapticFeedbackDescription": "Enable tactile feedback for interactions",
-  "homeTagline": "Evidence-Based MSK Imaging Guidance",
+  "homeTagline": "Evidence synthesized from 10+ major international guidelines",
   "homeDescriptionCard": "RadiRight guides healthcare professionals to choose the most appropriate imaging based on clinical scenarios and our evidence-based recommendations synthesized from over {guidelinesCount} international guidelines.",
   "@homeDescriptionCard": {
     "placeholders": {
@@ -299,5 +301,6 @@
         "type": "int"
       }
     }
-  }
+  },
+  "historyDetailAt": "at"
 }

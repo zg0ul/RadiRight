@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../assessment/domain/models/assessment_result.dart';
-import '../../domain/models/assessment_history.dart';
+import 'package:radi_right/features/assessment/domain/enums/imaging_modality.dart';
+import 'package:radi_right/features/assessment/domain/enums/modality_match_result.dart';
+import 'package:radi_right/features/assessment/domain/models/assessment_result.dart';
+import 'package:radi_right/features/assessment/domain/models/imaging_recommendation.dart';
+import 'package:radi_right/features/history/domain/models/assessment_history.dart';
 
 part 'firebase_history_datasource.g.dart';
 
@@ -52,6 +55,8 @@ class FirebaseHistoryDatasource {
     required String userId,
     required AssessmentResult result,
     required DateTime startedAt,
+    ImagingModality? selectedModality,
+    ModalityMatchResult? matchResult,
   }) async {
     final data = {
       'userId': userId,
@@ -70,6 +75,8 @@ class FirebaseHistoryDatasource {
       'recommendations': result.recommendations
           .map((r) => r.toJson())
           .toList(),
+      'selectedModality': selectedModality?.name,
+      'matchResult': matchResult?.name,
       'createdAt': FieldValue.serverTimestamp(),
     };
 
@@ -100,14 +107,54 @@ class FirebaseHistoryDatasource {
             ))
         .toList();
 
+    final completedAt = (data['completedAt'] as Timestamp).toDate();
+    final recsList = data['recommendations'] as List<dynamic>? ?? [];
+    final recommendations = recsList
+        .map((r) => ImagingRecommendation.fromJson(Map<String, dynamic>.from(r as Map)))
+        .toList();
+
+    AssessmentResult? result;
+    if (recommendations.isNotEmpty) {
+      result = AssessmentResult(
+        topicId: data['topicId'] as String,
+        topicName: data['topicName'] as String,
+        recommendations: recommendations,
+        answerHistory: answers,
+        completedAt: completedAt,
+      );
+    }
+
+    // Parse selectedModality
+    ImagingModality? selectedModality;
+    final modalityStr = data['selectedModality'] as String?;
+    if (modalityStr != null) {
+      selectedModality = ImagingModality.values.firstWhere(
+        (m) => m.name == modalityStr,
+        orElse: () => ImagingModality.xRay,
+      );
+    }
+
+    // Parse matchResult
+    ModalityMatchResult? matchResult;
+    final matchResultStr = data['matchResult'] as String?;
+    if (matchResultStr != null) {
+      matchResult = ModalityMatchResult.values.firstWhere(
+        (m) => m.name == matchResultStr,
+        orElse: () => ModalityMatchResult.notIndicated,
+      );
+    }
+
     return AssessmentHistory(
       id: data['id'] as String,
       odId: data['userId'] as String,
       topicId: data['topicId'] as String,
       topicName: data['topicName'] as String,
       startedAt: (data['startedAt'] as Timestamp).toDate(),
-      completedAt: (data['completedAt'] as Timestamp).toDate(),
+      completedAt: completedAt,
       answers: answers,
+      result: result,
+      selectedModality: selectedModality,
+      matchResult: matchResult,
     );
   }
 }

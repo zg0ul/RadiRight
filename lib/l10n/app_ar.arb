@@ -75,6 +75,8 @@
   "noHistory": "لا يوجد سجل تقييمات",
   "clearHistory": "مسح السجل",
   "clearHistoryConfirmation": "هل أنت متأكد من مسح كل السجل؟",
+  "historyDetailTitle": "تفاصيل التقييم",
+  "yourAnswers": "إجاباتك",
   "exitProgressWarning": "هل أنت متأكد من الخروج؟ سيتم فقدان تقدمك.",
   "assessmentCompleted": "اكتمل التقييم",
   "viewDetails": "عرض التفاصيل",
@@ -137,7 +139,7 @@
   },
   "hapticFeedback": "ردود الفعل اللمسية",
   "hapticFeedbackDescription": "تفعيل ردود الفعل اللمسية للتفاعلات",
-  "homeTagline": "إرشادات تصوير العضلات والهيكل العظمي المبنية على الأدلة",
+  "homeTagline": "أدلة مُجمَّعة من أكثر من 10 إرشادات دولية رئيسية",
   "homeDescriptionCard": "يوجّه RadiRight المتخصصين في الرعاية الصحية لاختيار التصوير الأنسب بناءً على السيناريوهات السريرية وتوصياتنا المبنية على الأدلة والمُجمّعة من أكثر من {guidelinesCount} إرشادات دولية.",
   "@homeDescriptionCard": {
     "placeholders": {
@@ -253,5 +255,6 @@
       }
     }
   },
-  "selectPanelSubtitle": "اختر التخصص السريري المتعلق بحالة مريضك."
+  "selectPanelSubtitle": "اختر التخصص السريري المتعلق بحالة مريضك.",
+  "historyDetailAt": "في"
 }

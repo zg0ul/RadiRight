@@ -10,19 +10,19 @@ import 'package:radi_right/core/constants/app_icons.dart';
 import 'package:radi_right/core/providers/locale_provider.dart';
 import 'package:radi_right/core/utils/app_spacer.dart';
 import 'package:radi_right/features/assessment/domain/enums/modality_match_result.dart';
-import 'package:radi_right/features/assessment/domain/models/assessment_result.dart';
 import 'package:radi_right/features/assessment/domain/models/decision_node.dart';
 import 'package:radi_right/features/assessment/domain/services/decision_engine.dart';
 import 'package:radi_right/features/assessment/presentation/providers/assessment_provider.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_ai_explanation_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_alternatives_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_animated_section.dart';
-import 'package:radi_right/features/assessment/presentation/widgets/result_clinical_scenario_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_disclaimer_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_match_header.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_recommendation_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_summary_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_your_selection_card.dart';
+import 'package:radi_right/features/history/presentation/providers/history_provider.dart';
+import 'package:radi_right/features/history/presentation/widgets/history_answers_card.dart';
 import 'package:radi_right/app/theme/app_theme_extension.dart';
 
 class ResultScreen extends ConsumerWidget {
@@ -39,34 +39,29 @@ class ResultScreen extends ConsumerWidget {
       return _buildErrorState(context, l10n, ref);
     }
 
+    // Persist assessment to history once when result is shown (or about to redirect)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(historyNotifierProvider.notifier).saveCurrentAssessmentIfNeeded();
+    });
+
     // Get the comparison result
     final comparisonResult = engineState.comparisonResult;
 
     // Handle no guidelines case - redirect to dedicated screen
-    if (comparisonResult != null &&
-        comparisonResult.matchResult == ModalityMatchResult.noGuidelines) {
+    if (comparisonResult != null && comparisonResult.matchResult == ModalityMatchResult.noGuidelines) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (context.mounted) {
           context.go(AppRoutes.noGuidelines);
         }
       });
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    final resultNode = engineState.currentNode is ResultNode
-        ? engineState.currentNode as ResultNode
-        : null;
-    final summary = resultNode != null
-        ? (locale == 'ar' ? resultNode.summaryAr : resultNode.summary)
-        : null;
-
-    final scenarioText = _buildClinicalScenario(engineState.answerHistory);
+    final resultNode = engineState.currentNode is ResultNode ? engineState.currentNode as ResultNode : null;
+    final summary = resultNode != null ? (locale == 'ar' ? resultNode.summaryAr : resultNode.summary) : null;
 
     // Determine match result for header color
-    final matchResult =
-        comparisonResult?.matchResult ?? ModalityMatchResult.indicated;
+    final matchResult = comparisonResult?.matchResult ?? ModalityMatchResult.indicated;
 
     return Scaffold(
       body: Column(
@@ -93,25 +88,14 @@ class ResultScreen extends ConsumerWidget {
                           ),
                         AppSpacer.verticalMD,
 
-                        // Clinical scenario
-                        if (scenarioText != null && scenarioText.isNotEmpty)
-                          ResultAnimatedSection(
-                            index: 1,
-                            child: ResultClinicalScenarioCard(
-                                l10n: l10n, scenarioText: scenarioText),
-                          ),
-                        AppSpacer.verticalMD,
-
                         // Primary recommendation (Option 1)
-                        if (comparisonResult != null &&
-                            comparisonResult.primaryRecommendations.isNotEmpty)
+                        if (comparisonResult != null && comparisonResult.primaryRecommendations.isNotEmpty)
                           ResultAnimatedSection(
                             index: 2,
                             child: ResultRecommendationCard(
                               l10n: l10n,
                               locale: locale,
-                              recommendation:
-                                  comparisonResult.primaryRecommendations.first,
+                              recommendation: comparisonResult.primaryRecommendations.first,
                               appTheme: appTheme,
                             ),
                           ),
@@ -126,16 +110,14 @@ class ResultScreen extends ConsumerWidget {
                         ],
 
                         // Alternative recommendations (Option 2)
-                        if (comparisonResult != null &&
-                            comparisonResult.alternativeRecommendations.isNotEmpty) ...[
+                        if (comparisonResult != null && comparisonResult.alternativeRecommendations.isNotEmpty) ...[
                           AppSpacer.verticalMD,
                           ResultAnimatedSection(
                             index: 4,
                             child: ResultAlternativesCard(
                               l10n: l10n,
                               locale: locale,
-                              alternatives:
-                                  comparisonResult.alternativeRecommendations,
+                              alternatives: comparisonResult.alternativeRecommendations,
                               appTheme: appTheme,
                             ),
                           ),
@@ -146,15 +128,25 @@ class ResultScreen extends ConsumerWidget {
                         ResultAnimatedSection(
                           index: 5,
                           child: ResultAiExplanationCard(
-                            explanation: comparisonResult
-                                ?.getLocalizedAiExplanation(locale),
+                            explanation: comparisonResult?.getLocalizedAiExplanation(locale),
                           ),
                         ),
 
+                        // Your Answers
+                        if (engineState.answerHistory.isNotEmpty) ...[
+                          AppSpacer.verticalMD,
+                          ResultAnimatedSection(
+                            index: 6,
+                            child: HistoryAnswersCard(
+                              l10n: l10n,
+                              answers: engineState.answerHistory,
+                            ),
+                          ),
+                        ],
+
                         // Disclaimer
                         AppSpacer.verticalMD,
-                        ResultAnimatedSection(
-                            index: 6, child: ResultDisclaimerCard(l10n: l10n)),
+                        ResultAnimatedSection(index: 7, child: ResultDisclaimerCard(l10n: l10n)),
                       ],
                     ),
                   ),
@@ -168,16 +160,13 @@ class ResultScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildActionButtons(
-      BuildContext context, AppLocalizations l10n, WidgetRef ref) {
+  Widget _buildActionButtons(BuildContext context, AppLocalizations l10n, WidgetRef ref) {
     final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.all(AppConstants.spacingMD),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        border: Border(
-            top: BorderSide(
-                color: theme.colorScheme.outline.withValues(alpha: 0.2))),
+        border: Border(top: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2))),
       ),
       child: SizedBox(
         width: double.infinity,
@@ -193,17 +182,13 @@ class ResultScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildErrorState(
-      BuildContext context, AppLocalizations l10n, WidgetRef ref) {
+  Widget _buildErrorState(BuildContext context, AppLocalizations l10n, WidgetRef ref) {
     final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: HugeIcon(
-              icon: AppIcons.close,
-              size: AppConstants.iconMD,
-              color: theme.colorScheme.onSurface),
+          icon: HugeIcon(icon: AppIcons.close, size: AppConstants.iconMD, color: theme.colorScheme.onSurface),
           onPressed: () {
             ref.read(currentAssessmentProvider.notifier).reset();
             context.go(AppRoutes.home);
@@ -217,10 +202,7 @@ class ResultScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              HugeIcon(
-                  icon: AppIcons.error,
-                  size: AppConstants.iconXXL,
-                  color: theme.colorScheme.error),
+              HugeIcon(icon: AppIcons.error, size: AppConstants.iconXXL, color: theme.colorScheme.error),
               AppSpacer.verticalMD,
               Text(l10n.somethingWentWrong, style: theme.textTheme.titleMedium),
               AppSpacer.verticalLG,
@@ -229,10 +211,7 @@ class ResultScreen extends ConsumerWidget {
                   context.go(AppRoutes.home);
                   ref.read(currentAssessmentProvider.notifier).reset();
                 },
-                icon: HugeIcon(
-                    icon: AppIcons.home,
-                    size: AppConstants.iconSM,
-                    color: theme.colorScheme.onPrimary),
+                icon: HugeIcon(icon: AppIcons.home, size: AppConstants.iconSM, color: theme.colorScheme.onPrimary),
                 label: Text(l10n.home),
               ),
             ],
@@ -240,13 +219,5 @@ class ResultScreen extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  String? _buildClinicalScenario(List<AnswerRecord> answerHistory) {
-    if (answerHistory.isEmpty) return null;
-    final parts = answerHistory
-        .map((a) => '${a.questionText}: ${a.selectedOptionText}')
-        .toList();
-    return parts.join('\n');
   }
 }

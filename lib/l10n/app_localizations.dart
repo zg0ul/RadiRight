@@ -716,6 +716,18 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to clear all history?'**
   String get clearHistoryConfirmation;
 
+  /// No description provided for @historyDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment details'**
+  String get historyDetailTitle;
+
+  /// No description provided for @yourAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers'**
+  String get yourAnswers;
+
   /// No description provided for @exitProgressWarning.
   ///
   /// In en, this message translates to:
@@ -1025,7 +1037,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeTagline.
   ///
   /// In en, this message translates to:
-  /// **'Evidence-Based MSK Imaging Guidance'**
+  /// **'Evidence synthesized from 10+ major international guidelines'**
   String get homeTagline;
 
   /// No description provided for @homeDescriptionCard.
@@ -1447,6 +1459,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} Topics'**
   String topicsCount(int count);
+
+  /// No description provided for @historyDetailAt.
+  ///
+  /// In en, this message translates to:
+  /// **'at'**
+  String get historyDetailAt;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

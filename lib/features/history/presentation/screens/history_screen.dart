@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:radi_right/app/routing/routes.dart';
+import 'package:radi_right/core/utils/app_logger.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
-import '../providers/history_provider.dart';
+import 'package:radi_right/features/history/presentation/providers/history_provider.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({super.key});
@@ -25,11 +28,7 @@ class HistoryScreen extends ConsumerWidget {
               PopupMenuItem(
                 value: 'clear',
                 child: Row(
-                  children: [
-                    const Icon(Icons.delete_outline),
-                    const SizedBox(width: 8),
-                    Text(l10n.clearHistory),
-                  ],
+                  children: [const Icon(Icons.delete_outline), const SizedBox(width: 8), Text(l10n.clearHistory)],
                 ),
               ),
             ],
@@ -38,42 +37,34 @@ class HistoryScreen extends ConsumerWidget {
       ),
       body: historyAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.error_outline,
-                size: 64,
-                color: Theme.of(context).colorScheme.error,
-              ),
-              const SizedBox(height: 16),
-              Text(error.toString()),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => ref.invalidate(historyNotifierProvider),
-                child: Text(l10n.retry),
-              ),
-            ],
-          ),
-        ),
+        error: (error, stack) {
+          Logger.error(error.toString());
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.error_outline, size: 64, color: Theme.of(context).colorScheme.error),
+                const SizedBox(height: 16),
+                Text(error.toString()),
+                const SizedBox(height: 16),
+                ElevatedButton(onPressed: () => ref.invalidate(historyNotifierProvider), child: Text(l10n.retry)),
+              ],
+            ),
+          );
+        },
         data: (history) {
           if (history.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.history,
-                    size: 64,
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
+                  Icon(Icons.history, size: 64, color: Theme.of(context).colorScheme.outline),
                   const SizedBox(height: 16),
                   Text(
                     l10n.noHistory,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.outline),
                   ),
                 ],
               ),
@@ -92,27 +83,17 @@ class HistoryScreen extends ConsumerWidget {
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.only(right: 16),
                   color: Theme.of(context).colorScheme.error,
-                  child: Icon(
-                    Icons.delete,
-                    color: Theme.of(context).colorScheme.onError,
-                  ),
+                  child: Icon(Icons.delete, color: Theme.of(context).colorScheme.onError),
                 ),
                 confirmDismiss: (direction) async {
                   return await showDialog<bool>(
                     context: context,
                     builder: (context) => AlertDialog(
                       title: const Text('Delete'),
-                      content: const Text(
-                          'Are you sure you want to delete this history item?'),
+                      content: const Text('Are you sure you want to delete this history item?'),
                       actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: Text(l10n.cancel),
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: Text(l10n.confirm),
-                        ),
+                        TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(l10n.cancel)),
+                        TextButton(onPressed: () => Navigator.of(context).pop(true), child: Text(l10n.confirm)),
                       ],
                     ),
                   );
@@ -123,13 +104,9 @@ class HistoryScreen extends ConsumerWidget {
                 child: Card(
                   margin: const EdgeInsets.only(bottom: 8),
                   child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     leading: CircleAvatar(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.primaryContainer,
+                      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                       child: Icon(
                         Icons.medical_services_outlined,
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -137,21 +114,14 @@ class HistoryScreen extends ConsumerWidget {
                     ),
                     title: Text(
                       item.topicName,
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500),
                     ),
                     subtitle: Text(
                       '${item.formattedDate} ${item.formattedTime}',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
-                    trailing: Icon(
-                      Icons.chevron_right,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    onTap: () {
-                      // TODO: Navigate to history detail
-                    },
+                    trailing: Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.primary),
+                    onTap: () => context.push(AppRoutes.historyDetailPath(item.id)),
                   ),
                 ),
               );
@@ -162,18 +132,14 @@ class HistoryScreen extends ConsumerWidget {
     );
   }
 
-  void _showClearConfirmation(
-      BuildContext context, WidgetRef ref, AppLocalizations l10n) {
+  void _showClearConfirmation(BuildContext context, WidgetRef ref, AppLocalizations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.clearHistory),
         content: Text(l10n.clearHistoryConfirmation),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.cancel),
-          ),
+          TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();

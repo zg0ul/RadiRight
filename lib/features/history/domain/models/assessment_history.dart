@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../../assessment/domain/models/assessment_result.dart';
+import 'package:radi_right/features/assessment/domain/enums/imaging_modality.dart';
+import 'package:radi_right/features/assessment/domain/enums/modality_match_result.dart';
+import 'package:radi_right/features/assessment/domain/models/assessment_result.dart';
 
 part 'assessment_history.freezed.dart';
 part 'assessment_history.g.dart';
@@ -17,6 +19,10 @@ class AssessmentHistory with _$AssessmentHistory {
     required DateTime completedAt,
     required List<AnswerRecord> answers,
     AssessmentResult? result,
+    /// The imaging modality the doctor selected at the start
+    ImagingModality? selectedModality,
+    /// The result of comparing the selection against ACR recommendations
+    ModalityMatchResult? matchResult,
   }) = _AssessmentHistory;
 
   factory AssessmentHistory.fromJson(Map<String, dynamic> json) =>

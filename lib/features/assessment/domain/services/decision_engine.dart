@@ -24,6 +24,12 @@ class DecisionEngineState {
   /// The imaging modality the doctor selected at the start of the assessment
   final ImagingModality? selectedModality;
 
+  /// When the assessment was started (set on initialize).
+  final DateTime? startedAt;
+
+  /// True after this run has been persisted to assessment history (avoids duplicate saves).
+  final bool savedToHistory;
+
   const DecisionEngineState({
     required this.topicId,
     required this.topicName,
@@ -35,6 +41,8 @@ class DecisionEngineState {
     this.redFlags = const [],
     this.modalityScores = const {},
     this.selectedModality,
+    this.startedAt,
+    this.savedToHistory = false,
   });
 
   DecisionEngineState copyWith({
@@ -48,6 +56,8 @@ class DecisionEngineState {
     List<RedFlagInfo>? redFlags,
     Map<String, int>? modalityScores,
     ImagingModality? selectedModality,
+    DateTime? startedAt,
+    bool? savedToHistory,
   }) {
     return DecisionEngineState(
       topicId: topicId ?? this.topicId,
@@ -60,6 +70,8 @@ class DecisionEngineState {
       redFlags: redFlags ?? this.redFlags,
       modalityScores: modalityScores ?? this.modalityScores,
       selectedModality: selectedModality ?? this.selectedModality,
+      startedAt: startedAt ?? this.startedAt,
+      savedToHistory: savedToHistory ?? this.savedToHistory,
     );
   }
 
@@ -122,7 +134,14 @@ class DecisionEngine extends _$DecisionEngine {
       currentNode: rootNode,
       assessmentContext: <String, dynamic>{},
       selectedModality: selectedModality,
+      startedAt: DateTime.now(),
     );
+  }
+
+  void markSavedToHistory() {
+    if (state != null) {
+      state = state!.copyWith(savedToHistory: true);
+    }
   }
 
   /// Sets the imaging modality selected by the doctor.
