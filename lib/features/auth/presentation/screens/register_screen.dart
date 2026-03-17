@@ -24,6 +24,7 @@ class RegisterScreen extends ConsumerWidget {
       showBackButton: false,
       child: SafeArea(
         child: SingleChildScrollView(
+          padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
           child: Column(
             children: [
               const AppLogo(),

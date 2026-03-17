@@ -23,6 +23,7 @@ class LoginScreen extends ConsumerWidget {
       showBackButton: false,
       child: SafeArea(
         child: SingleChildScrollView(
+          padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
