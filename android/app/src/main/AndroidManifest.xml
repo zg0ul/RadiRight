@@ -5,7 +5,7 @@
         android:largeScreens="false"
         android:xlargeScreens="false" />
     <application
-        android:label="radi_right"
+        android:label="RadiRight"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
