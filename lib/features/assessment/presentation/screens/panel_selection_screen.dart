@@ -6,14 +6,14 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:radi_right/core/widgets/app_scaffold.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
 
-import '../../../../app/routing/routes.dart';
-import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_icons.dart';
-import '../../../../core/providers/locale_provider.dart';
-import '../../../../core/utils/animation_extensions.dart';
-import '../../../../core/utils/app_spacer.dart';
-import '../../domain/models/panel.dart';
-import '../providers/assessment_provider.dart';
+import 'package:radi_right/app/routing/routes.dart';
+import 'package:radi_right/core/constants/app_constants.dart';
+import 'package:radi_right/core/constants/app_icons.dart';
+import 'package:radi_right/core/providers/locale_provider.dart';
+import 'package:radi_right/core/utils/animation_extensions.dart';
+import 'package:radi_right/core/utils/app_spacer.dart';
+import 'package:radi_right/features/assessment/domain/models/panel.dart';
+import 'package:radi_right/features/assessment/presentation/providers/assessment_provider.dart';
 
 class PanelSelectionScreen extends HookConsumerWidget {
   const PanelSelectionScreen({super.key});
@@ -41,18 +41,14 @@ class PanelSelectionScreen extends HookConsumerWidget {
                     child: LinearProgressIndicator(
                       value: 0.5, // Step 2 of 4
                       backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        theme.colorScheme.primary,
-                      ),
+                      valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
                       borderRadius: BorderRadius.circular(AppConstants.radiusSM),
                     ),
                   ),
                   AppSpacer.horizontalSM,
                   Text(
                     l10n.stepOf(2, 4),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
+                    style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   ),
                 ],
               ),
@@ -66,16 +62,12 @@ class PanelSelectionScreen extends HookConsumerWidget {
                 children: [
                   Text(
                     l10n.selectClinicalArea,
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   AppSpacer.verticalXS,
                   Text(
                     l10n.chooseBodySystem,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
+                    style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   ),
                 ],
               ),
@@ -83,7 +75,7 @@ class PanelSelectionScreen extends HookConsumerWidget {
             AppSpacer.verticalMD,
             Expanded(
               child: panelsAsync.when(
-                loading: () => Center(child: const CircularProgressIndicator()),
+                loading: () => const Center(child: CircularProgressIndicator()),
                 error: (error, stack) => _buildErrorState(context, ref, error, l10n),
                 data: (panels) {
                   final filteredPanels = panels.where((panel) {
@@ -108,12 +100,7 @@ class PanelSelectionScreen extends HookConsumerWidget {
                   ref.read(currentAssessmentProvider.notifier).clearModality();
                   context.pop();
                 },
-                child: Text(
-                  l10n.back,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    color: theme.colorScheme.primary,
-                  ),
-                ),
+                child: Text(l10n.back, style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.primary)),
               ),
             ),
           ],
@@ -199,7 +186,7 @@ class _PanelCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final hasTopics = panel.topicCount > 0;
+    final isAvailable = panel.isEnabled && panel.topicCount > 0;
     final name = locale == 'ar' ? panel.nameAr : panel.name;
     final description = (locale == 'ar' ? panel.descriptionAr : panel.description) ?? '';
     final icon = panel.getIcon();
@@ -219,7 +206,7 @@ class _PanelCard extends ConsumerWidget {
         borderRadius: BorderRadius.circular(AppConstants.radiusMD),
       ),
       child: InkWell(
-        onTap: hasTopics
+        onTap: isAvailable
             ? () {
                 // Store selected panel in provider
                 ref.read(currentAssessmentProvider.notifier).selectPanel(panel.id, name);
@@ -243,14 +230,16 @@ class _PanelCard extends ConsumerWidget {
                   width: AppConstants.iconXXL,
                   height: AppConstants.iconXXL,
                   decoration: BoxDecoration(
-                    color: hasTopics ? theme.colorScheme.primaryContainer : theme.colorScheme.surfaceContainerLowest,
+                    color: isAvailable ? theme.colorScheme.primaryContainer : theme.colorScheme.surfaceContainerLowest,
                     borderRadius: BorderRadius.circular(AppConstants.radiusMD),
                   ),
                   child: Center(
                     child: HugeIcon(
                       icon: icon,
                       size: AppConstants.iconLG,
-                      color: hasTopics ? theme.colorScheme.primary : theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                      color: isAvailable
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     ),
                   ),
                 ),
@@ -259,7 +248,9 @@ class _PanelCard extends ConsumerWidget {
                   name,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: hasTopics ? theme.colorScheme.onSurface : theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                    color: isAvailable
+                        ? theme.colorScheme.onSurface
+                        : theme.colorScheme.onSurface.withValues(alpha: 0.4),
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
@@ -269,7 +260,7 @@ class _PanelCard extends ConsumerWidget {
                 Text(
                   description,
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: hasTopics
+                    color: isAvailable
                         ? theme.colorScheme.onSurfaceVariant
                         : theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
                   ),
@@ -281,28 +272,29 @@ class _PanelCard extends ConsumerWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingSM, vertical: AppConstants.spacingXS),
                   decoration: BoxDecoration(
-                    color: hasTopics ? theme.colorScheme.primaryContainer : theme.colorScheme.surfaceContainerLowest,
+                    color: isAvailable ? theme.colorScheme.primaryContainer : theme.colorScheme.surfaceContainerLowest,
                     borderRadius: BorderRadius.circular(AppConstants.radiusFull),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      !hasTopics
-                          ? Row(
-                              children: [
-                                HugeIcon(
-                                  icon: AppIcons.locked,
-                                  size: AppConstants.iconXS,
-                                  color: theme.colorScheme.onSurfaceVariant,
-                                ),
-                                AppSpacer.horizontalXS,
-                              ],
-                            )
-                          : const SizedBox.shrink(),
+                      if (!isAvailable)
+                        Row(
+                          children: [
+                            HugeIcon(
+                              icon: AppIcons.locked,
+                              size: AppConstants.iconXS,
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                            AppSpacer.horizontalXS,
+                          ],
+                        )
+                      else
+                        const SizedBox.shrink(),
                       Text(
-                        hasTopics ? '${panel.topicCount} Topics' : 'Soon',
+                        isAvailable ? '${panel.topicCount} Topics' : 'Soon',
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: hasTopics ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
+                          color: isAvailable ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

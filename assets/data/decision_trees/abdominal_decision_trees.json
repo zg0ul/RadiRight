@@ -3,10 +3,10 @@
     "id": "abdominal",
     "name": "Abdominal/GI/GU",
     "nameAr": "البطن والجهاز الهضمي والبولي",
-    "description": "ACR Appropriateness Criteria for abdominal, gastrointestinal, and genitourinary imaging",
+    "description": "abdominal, gastrointestinal, and genitourinary imaging",
     "descriptionAr": "[Arabic: ACR Appropriateness Criteria for abdominal, gastrointestinal, and genitourinary imaging]",
     "iconName": "abdomen",
-    "isEnabled": true
+    "isEnabled": false
   },
   "topics": [
     {
@@ -18,7 +18,7 @@
       "descriptionAr": "[Arabic: Staging and disease monitoring for colon and appendiceal cancers]",
       "iconName": "colon",
       "rootNodeId": "q1",
-      "isEnabled": true,
+      "isEnabled": false,
       "nodes": {
         "q1": {
           "id": "q1",
