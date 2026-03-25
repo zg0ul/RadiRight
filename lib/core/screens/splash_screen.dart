@@ -6,10 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:radi_right/core/utils/app_spacer.dart';
 import 'package:radi_right/core/widgets/app_scaffold.dart';
-import 'package:radi_right/l10n/app_localizations.dart';
-import '../../app/routing/routes.dart';
-import '../../features/auth/presentation/providers/auth_provider.dart';
-import '../../features/subscription/presentation/providers/subscription_provider.dart';
+import 'package:radi_right/app/routing/routes.dart';
+import 'package:radi_right/features/auth/presentation/providers/auth_provider.dart';
+import 'package:radi_right/features/subscription/presentation/providers/subscription_provider.dart';
 
 class SplashScreen extends HookConsumerWidget {
   const SplashScreen({super.key});
@@ -62,13 +61,6 @@ class SplashScreen extends HookConsumerWidget {
               width: 200.w,
               height: 200.w,
               fit: BoxFit.contain,
-            ),
-            AppSpacer.verticalSM,
-            Text(
-              AppLocalizations.of(context)!.acrAppropriatenessCriteria,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
             ),
             AppSpacer.verticalLG,
             const CircularProgressIndicator(),
