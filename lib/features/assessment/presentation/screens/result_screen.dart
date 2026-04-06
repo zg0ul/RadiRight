@@ -16,7 +16,6 @@ import 'package:radi_right/features/assessment/presentation/providers/assessment
 import 'package:radi_right/features/assessment/presentation/widgets/result_ai_explanation_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_alternatives_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_animated_section.dart';
-import 'package:radi_right/features/assessment/presentation/widgets/result_disclaimer_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_match_header.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_recommendation_card.dart';
 import 'package:radi_right/features/assessment/presentation/widgets/result_summary_card.dart';
@@ -137,16 +136,10 @@ class ResultScreen extends ConsumerWidget {
                           AppSpacer.verticalMD,
                           ResultAnimatedSection(
                             index: 6,
-                            child: HistoryAnswersCard(
-                              l10n: l10n,
-                              answers: engineState.answerHistory,
-                            ),
+                            child: HistoryAnswersCard(l10n: l10n, answers: engineState.answerHistory),
                           ),
                         ],
-
-                        // Disclaimer
                         AppSpacer.verticalMD,
-                        ResultAnimatedSection(index: 7, child: ResultDisclaimerCard(l10n: l10n)),
                       ],
                     ),
                   ),
