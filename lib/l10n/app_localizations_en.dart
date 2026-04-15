@@ -75,6 +75,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
+  String get legal => 'Legal';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get termsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get bySigningUpYouAgree => 'By signing up, you agree to our';
+
+  @override
+  String get conjunctionAnd => 'and';
+
+  @override
+  String get couldNotOpenLink => 'Could not open link';
+
+  @override
   String get profile => 'Profile';
 
   @override

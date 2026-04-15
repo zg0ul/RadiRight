@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:radi_right/core/utils/external_links.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
-import '../../../../app/routing/routes.dart';
-import '../../../../app/theme/theme_provider.dart';
-import '../../../../core/providers/locale_provider.dart';
-import '../../../auth/presentation/providers/auth_provider.dart';
-import '../../../subscription/presentation/providers/subscription_provider.dart';
+import 'package:radi_right/app/routing/routes.dart';
+import 'package:radi_right/app/theme/theme_provider.dart';
+import 'package:radi_right/core/providers/locale_provider.dart';
+import 'package:radi_right/features/auth/presentation/providers/auth_provider.dart';
+import 'package:radi_right/features/subscription/presentation/providers/subscription_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -23,9 +24,7 @@ class SettingsScreen extends ConsumerWidget {
     final subscription = subscriptionState.valueOrNull;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.settings),
-      ),
+      appBar: AppBar(title: Text(l10n.settings)),
       body: ListView(
         children: [
           // Profile Section
@@ -33,10 +32,7 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             leading: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              child: Icon(
-                Icons.person,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
+              child: Icon(Icons.person, color: Theme.of(context).colorScheme.onPrimaryContainer),
             ),
             title: Text(user?.name ?? user?.email ?? ''),
             subtitle: Text(user?.email ?? ''),
@@ -47,12 +43,8 @@ class SettingsScreen extends ConsumerWidget {
           _buildSectionHeader(context, l10n.subscription),
           ListTile(
             leading: Icon(
-              subscription?.isActive == true
-                  ? Icons.check_circle
-                  : Icons.warning,
-              color: subscription?.isActive == true
-                  ? Colors.green
-                  : Theme.of(context).colorScheme.error,
+              subscription?.isActive == true ? Icons.check_circle : Icons.warning,
+              color: subscription?.isActive == true ? Colors.green : Theme.of(context).colorScheme.error,
             ),
             title: Text(l10n.subscriptionStatus),
             subtitle: Text(
@@ -60,10 +52,7 @@ class SettingsScreen extends ConsumerWidget {
                   ? '${subscription!.tier.displayName} - ${l10n.daysRemaining(subscription.daysRemaining)}'
                   : l10n.subscriptionExpired,
             ),
-            trailing: TextButton(
-              onPressed: () => context.push(AppRoutes.contactInfo),
-              child: Text(l10n.contactUs),
-            ),
+            trailing: TextButton(onPressed: () => context.push(AppRoutes.contactInfo), child: Text(l10n.contactUs)),
           ),
           const Divider(),
 
@@ -125,16 +114,24 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const Divider(),
 
+          // Legal
+          _buildSectionHeader(context, l10n.legal),
+          ListTile(
+            leading: const Icon(Icons.privacy_tip_outlined),
+            title: Text(l10n.privacyPolicy),
+            onTap: () => openExternalLink(context, ExternalLinks.privacyPolicy),
+          ),
+          ListTile(
+            leading: const Icon(Icons.description_outlined),
+            title: Text(l10n.termsAndConditions),
+            onTap: () => openExternalLink(context, ExternalLinks.termsAndConditions),
+          ),
+          const Divider(),
+
           // Logout
           ListTile(
-            leading: Icon(
-              Icons.logout,
-              color: Theme.of(context).colorScheme.error,
-            ),
-            title: Text(
-              l10n.logout,
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
+            leading: Icon(Icons.logout, color: Theme.of(context).colorScheme.error),
+            title: Text(l10n.logout, style: TextStyle(color: Theme.of(context).colorScheme.error)),
             onTap: () => _showLogoutConfirmation(context, ref, l10n),
           ),
           const SizedBox(height: 32),
@@ -148,26 +145,21 @@ class SettingsScreen extends ConsumerWidget {
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.bold,
-            ),
+        style: Theme.of(
+          context,
+        ).textTheme.titleSmall?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
       ),
     );
   }
 
-  void _showLogoutConfirmation(
-      BuildContext context, WidgetRef ref, AppLocalizations l10n) {
+  void _showLogoutConfirmation(BuildContext context, WidgetRef ref, AppLocalizations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.logout),
         content: Text(l10n.logoutConfirmation),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.cancel),
-          ),
+          TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
           TextButton(
             onPressed: () async {
               Navigator.of(context).pop();

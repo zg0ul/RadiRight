@@ -25,6 +25,12 @@
   "home": "الرئيسية",
   "history": "السجل",
   "settings": "الإعدادات",
+  "legal": "قانوني",
+  "privacyPolicy": "سياسة الخصوصية",
+  "termsAndConditions": "الشروط والأحكام",
+  "bySigningUpYouAgree": "بإنشاء حساب، فإنك توافق على",
+  "conjunctionAnd": "و",
+  "couldNotOpenLink": "تعذر فتح الرابط",
   "profile": "الملف الشخصي",
 
   "startAssessment": "بدء التقييم",

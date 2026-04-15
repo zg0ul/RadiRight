@@ -19,6 +19,7 @@ dependencies:
   flutter_svg: ^2.0.16
   flutter_animate: ^4.5.0
   hugeicons: ^1.1.5
+  url_launcher: ^6.3.2
 
   # State Management
   flutter_hooks: ^0.21.0

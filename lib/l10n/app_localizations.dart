@@ -224,6 +224,42 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settings;
 
+  /// No description provided for @legal.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal'**
+  String get legal;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsAndConditions;
+
+  /// No description provided for @bySigningUpYouAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'By signing up, you agree to our'**
+  String get bySigningUpYouAgree;
+
+  /// No description provided for @conjunctionAnd.
+  ///
+  /// In en, this message translates to:
+  /// **'and'**
+  String get conjunctionAnd;
+
+  /// No description provided for @couldNotOpenLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open link'**
+  String get couldNotOpenLink;
+
   /// No description provided for @profile.
   ///
   /// In en, this message translates to:

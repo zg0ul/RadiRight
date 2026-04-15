@@ -75,6 +75,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings => 'الإعدادات';
 
   @override
+  String get legal => 'قانوني';
+
+  @override
+  String get privacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get termsAndConditions => 'الشروط والأحكام';
+
+  @override
+  String get bySigningUpYouAgree => 'بإنشاء حساب، فإنك توافق على';
+
+  @override
+  String get conjunctionAnd => 'و';
+
+  @override
+  String get couldNotOpenLink => 'تعذر فتح الرابط';
+
+  @override
   String get profile => 'الملف الشخصي';
 
   @override

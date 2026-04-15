@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:radi_right/core/constants/app_icons.dart';
+import 'package:radi_right/core/utils/external_links.dart';
 import 'package:radi_right/core/utils/app_spacer.dart';
 import 'package:radi_right/core/widgets/app_scaffold.dart';
 import 'package:radi_right/l10n/app_localizations.dart';
@@ -185,6 +186,33 @@ class RegisterScreen extends ConsumerWidget {
                 children: [
                   Text(l10n.alreadyHaveAccount),
                   TextButton(onPressed: () => context.go(AppRoutes.login), child: Text(l10n.signIn)),
+                ],
+              ),
+              AppSpacer.verticalSM,
+              Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 4,
+                runSpacing: 2,
+                children: [
+                  Text(
+                    l10n.bySigningUpYouAgree,
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  TextButton(
+                    onPressed: () => openExternalLink(context, ExternalLinks.privacyPolicy),
+                    child: Text(l10n.privacyPolicy),
+                  ),
+                  Text(
+                    l10n.conjunctionAnd,
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  TextButton(
+                    onPressed: () => openExternalLink(context, ExternalLinks.termsAndConditions),
+                    child: Text(l10n.termsAndConditions),
+                  ),
                 ],
               ),
             ],
