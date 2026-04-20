@@ -226,7 +226,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'These recommendations are based on ACR Appropriateness Criteria® and should be used in conjunction with clinical judgment, considering individual patient factors, institutional protocols, and the specific clinical context.';
 
   @override
+  String get searchPanels => 'Search panels...';
+
+  @override
   String get searchTopics => 'Search topics...';
+
+  @override
+  String get noPanelsFound => 'No panels found';
 
   @override
   String get question => 'Question';
@@ -714,7 +720,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiExplanationPlaceholder =>
-      'AI explanation will be generated here: \"Explain the appropriate imaging for this clinical scenario\"';
+      'AI explanations are coming soon. You\'ll see a clear, patient-safe summary of why an imaging option is recommended.';
 
   @override
   String notRecommendedForScenario(String modality) {

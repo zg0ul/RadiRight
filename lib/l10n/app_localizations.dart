@@ -524,11 +524,23 @@ abstract class AppLocalizations {
   /// **'These recommendations are based on ACR Appropriateness Criteria® and should be used in conjunction with clinical judgment, considering individual patient factors, institutional protocols, and the specific clinical context.'**
   String get clinicalJudgmentDisclaimer;
 
+  /// No description provided for @searchPanels.
+  ///
+  /// In en, this message translates to:
+  /// **'Search panels...'**
+  String get searchPanels;
+
   /// No description provided for @searchTopics.
   ///
   /// In en, this message translates to:
   /// **'Search topics...'**
   String get searchTopics;
+
+  /// No description provided for @noPanelsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No panels found'**
+  String get noPanelsFound;
 
   /// No description provided for @question.
   ///
@@ -1457,7 +1469,7 @@ abstract class AppLocalizations {
   /// No description provided for @aiExplanationPlaceholder.
   ///
   /// In en, this message translates to:
-  /// **'AI explanation will be generated here: \"Explain the appropriate imaging for this clinical scenario\"'**
+  /// **'AI explanations are coming soon. You\'ll see a clear, patient-safe summary of why an imaging option is recommended.'**
   String get aiExplanationPlaceholder;
 
   /// No description provided for @notRecommendedForScenario.

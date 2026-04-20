@@ -226,7 +226,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'These recommendations are based on ACR Appropriateness Criteria® and should be used in conjunction with clinical judgment, considering individual patient factors, institutional protocols, and the specific clinical context.';
 
   @override
+  String get searchPanels => 'البحث في اللوحات...';
+
+  @override
   String get searchTopics => 'البحث في المواضيع...';
+
+  @override
+  String get noPanelsFound => 'لا توجد لوحات';
 
   @override
   String get question => 'السؤال';
@@ -714,7 +720,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get aiExplanationPlaceholder =>
-      'سيتم إنشاء شرح الذكاء الاصطناعي هنا: \"شرح التصوير المناسب لهذا السيناريو السريري\"';
+      'ميزة شرح الذكاء الاصطناعي قريباً. ستظهر هنا خلاصة واضحة وآمنة تشرح سبب توصية خيار التصوير.';
 
   @override
   String notRecommendedForScenario(String modality) {

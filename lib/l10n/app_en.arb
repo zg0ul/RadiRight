@@ -75,7 +75,9 @@
   "usuallyNotAppropriate": "Usually Not Appropriate",
   "clinicalJudgment": "Clinical Judgment",
   "clinicalJudgmentDisclaimer": "These recommendations are based on ACR Appropriateness Criteria® and should be used in conjunction with clinical judgment, considering individual patient factors, institutional protocols, and the specific clinical context.",
+  "searchPanels": "Search panels...",
   "searchTopics": "Search topics...",
+  "noPanelsFound": "No panels found",
   "question": "Question",
   "questionProgress": "Question {current} of {total}",
   "@questionProgress": {
@@ -287,7 +289,7 @@
   "finalDecisionDisclaimer": "Final decision depends on physician's clinical judgment",
   "startNewAssessment": "Start New Assessment",
   "aiExplanation": "AI Explanation",
-  "aiExplanationPlaceholder": "AI explanation will be generated here: \"Explain the appropriate imaging for this clinical scenario\"",
+  "aiExplanationPlaceholder": "AI explanations are coming soon. You'll see a clear, patient-safe summary of why an imaging option is recommended.",
   "notRecommendedForScenario": "{modality} is not the recommended imaging for this scenario.",
   "@notRecommendedForScenario": {
     "placeholders": {

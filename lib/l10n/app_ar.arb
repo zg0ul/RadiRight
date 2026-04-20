@@ -36,7 +36,9 @@
   "startAssessment": "بدء التقييم",
   "selectPanel": "اختر اللوحة",
   "selectTopic": "اختر الموضوع",
+  "searchPanels": "البحث في اللوحات...",
   "searchTopics": "البحث في المواضيع...",
+  "noPanelsFound": "لا توجد لوحات",
   "question": "السؤال",
   "questionProgress": "السؤال {current} من {total}",
   "back": "رجوع",
@@ -240,7 +242,7 @@
   "finalDecisionDisclaimer": "القرار النهائي يعتمد على الحكم السريري للطبيب",
   "startNewAssessment": "بدء تقييم جديد",
   "aiExplanation": "شرح الذكاء الاصطناعي",
-  "aiExplanationPlaceholder": "سيتم إنشاء شرح الذكاء الاصطناعي هنا: \"شرح التصوير المناسب لهذا السيناريو السريري\"",
+  "aiExplanationPlaceholder": "ميزة شرح الذكاء الاصطناعي قريباً. ستظهر هنا خلاصة واضحة وآمنة تشرح سبب توصية خيار التصوير.",
   "notRecommendedForScenario": "{modality} ليس التصوير الموصى به لهذا السيناريو.",
   "@notRecommendedForScenario": {
     "placeholders": {

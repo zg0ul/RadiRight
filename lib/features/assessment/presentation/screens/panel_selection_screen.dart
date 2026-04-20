@@ -73,6 +73,39 @@ class PanelSelectionScreen extends HookConsumerWidget {
               ),
             ),
             AppSpacer.verticalMD,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD),
+              child: TextField(
+                onChanged: (value) => searchQuery.value = value,
+                textInputAction: TextInputAction.search,
+                decoration: InputDecoration(
+                  hintText: l10n.searchPanels,
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: searchQuery.value.isEmpty
+                      ? null
+                      : IconButton(onPressed: () => searchQuery.value = '', icon: const Icon(Icons.clear)),
+                  filled: true,
+                  fillColor: theme.colorScheme.surfaceContainer,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMD),
+                    borderSide: BorderSide(color: theme.colorScheme.outlineVariant),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMD),
+                    borderSide: BorderSide(color: theme.colorScheme.outlineVariant),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMD),
+                    borderSide: BorderSide(color: theme.colorScheme.primary),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: AppConstants.spacingMD,
+                    vertical: AppConstants.spacingSM,
+                  ),
+                ),
+              ),
+            ),
+            AppSpacer.verticalMD,
             Expanded(
               child: panelsAsync.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
@@ -121,7 +154,7 @@ class PanelSelectionScreen extends HookConsumerWidget {
       itemCount: panels.length,
       itemBuilder: (context, index) {
         final panel = panels[index];
-        return _PanelCard(panel: panel, locale: locale, index: index);
+        return _PanelCard(panel: panel, locale: locale, index: index, l10n: l10n);
       },
     );
   }
@@ -167,7 +200,7 @@ class PanelSelectionScreen extends HookConsumerWidget {
           HugeIcon(icon: AppIcons.search, size: AppConstants.iconXXL, color: theme.colorScheme.onSurfaceVariant),
           AppSpacer.verticalMD,
           Text(
-            l10n.noRecommendations,
+            l10n.noPanelsFound,
             style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant),
           ),
         ],
@@ -180,8 +213,9 @@ class _PanelCard extends ConsumerWidget {
   final Panel panel;
   final String locale;
   final int index;
+  final AppLocalizations l10n;
 
-  const _PanelCard({required this.panel, required this.locale, required this.index});
+  const _PanelCard({required this.panel, required this.locale, required this.index, required this.l10n});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -292,7 +326,7 @@ class _PanelCard extends ConsumerWidget {
                       else
                         const SizedBox.shrink(),
                       Text(
-                        isAvailable ? '${panel.topicCount} Topics' : 'Soon',
+                        isAvailable ? l10n.topicsCount(panel.topicCount) : l10n.comingSoon,
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: isAvailable ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
                           fontWeight: FontWeight.w500,
